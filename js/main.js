@@ -30,7 +30,7 @@ function revealInvitation() {
     window.scrollTo({ top: 0, behavior: 'instant' });
     startCountdown();
     initScrollAnimations();
-  }, 460);
+  }, 580);
 }
 
 // Tapping anywhere on the landing screen triggers the dissolve
