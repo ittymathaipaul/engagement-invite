@@ -28,7 +28,7 @@ function revealInvitation() {
   // 2. Flap swings fully open
   setTimeout(() => {
     envFlap.style.transition = 'transform 0.85s cubic-bezier(0.4, 0, 0.2, 1)';
-    envFlap.style.transform  = 'perspective(1400px) rotateX(-180deg)';
+    envFlap.style.transform  = 'perspective(900px) rotateX(-180deg)';
 
     // 3. Envelope fades out → invitation reveals
     setTimeout(() => {
