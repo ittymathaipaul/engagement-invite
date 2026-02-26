@@ -9,52 +9,34 @@ const TARGET_DATE = new Date('2026-04-11T11:30:00+05:30');
 /* ════════════════════════════════════════════
    LANDING → INVITATION REVEAL
 ════════════════════════════════════════════ */
+let _isRevealing = false;
+
 function revealInvitation() {
+  if (_isRevealing) return;
+  _isRevealing = true;
+
+  const creamCover = document.getElementById('creamCover');
   const landing    = document.getElementById('landing');
   const invitation = document.getElementById('invitation');
-  const envFlap    = document.getElementById('envFlap');
-  const sealWrap   = document.getElementById('sealWrap');
-  const tapBtn     = document.getElementById('tapBtn');
-  const envCard    = document.querySelector('.envelope__card');
 
-  // Prevent double-trigger
-  tapBtn.disabled = true;
-  sealWrap.style.pointerEvents = 'none';
+  // Dissolve: the entire cream screen (cover + seal) fades to nothing
+  creamCover.classList.add('dissolve');
 
-  // 1. Seal lifts and fades (breaking the wax)
-  sealWrap.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
-  sealWrap.style.transform  = 'translate(-50%, -60%) scale(1.12)';
-  sealWrap.style.opacity    = '0';
-
-  // 2. Flap swings fully open
+  // After the CSS transition completes, swap to the invitation
   setTimeout(() => {
-    envFlap.style.transition = 'transform 0.85s cubic-bezier(0.4, 0, 0.2, 1)';
-    envFlap.style.transform  = 'perspective(900px) rotateX(-180deg)';
-
-    // 3. Envelope card fades out, then landing hides → invitation reveals
-    setTimeout(() => {
-      envCard.style.transition = 'opacity 0.7s ease';
-      envCard.style.opacity    = '0';
-      landing.style.transition = 'opacity 0.7s ease';
-      landing.style.opacity    = '0';
-
-      setTimeout(() => {
-        landing.style.display = 'none';
-        invitation.classList.remove('hidden');
-        invitation.removeAttribute('aria-hidden');
-        window.scrollTo({ top: 0, behavior: 'instant' });
-        startCountdown();
-        initScrollAnimations();
-      }, 680);
-    }, 720);
-  }, 300);
+    landing.style.display = 'none';
+    invitation.classList.remove('hidden');
+    invitation.removeAttribute('aria-hidden');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    startCountdown();
+    initScrollAnimations();
+  }, 460);
 }
 
-document.getElementById('tapBtn').addEventListener('click', revealInvitation);
-document.getElementById('sealWrap').addEventListener('click', revealInvitation);
+// Tapping anywhere on the landing screen triggers the dissolve
+document.getElementById('landing').addEventListener('click', revealInvitation);
 
-// Also allow keyboard activation
-document.getElementById('sealWrap').setAttribute('tabindex', '0');
+// Keyboard activation via the seal element
 document.getElementById('sealWrap').addEventListener('keydown', e => {
   if (e.key === 'Enter' || e.key === ' ') revealInvitation();
 });
