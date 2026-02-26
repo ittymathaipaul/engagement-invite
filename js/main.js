@@ -15,6 +15,7 @@ function revealInvitation() {
   const envFlap    = document.getElementById('envFlap');
   const sealWrap   = document.getElementById('sealWrap');
   const tapBtn     = document.getElementById('tapBtn');
+  const envCard    = document.querySelector('.envelope__card');
 
   // Prevent double-trigger
   tapBtn.disabled = true;
@@ -30,8 +31,10 @@ function revealInvitation() {
     envFlap.style.transition = 'transform 0.85s cubic-bezier(0.4, 0, 0.2, 1)';
     envFlap.style.transform  = 'perspective(900px) rotateX(-180deg)';
 
-    // 3. Envelope fades out → invitation reveals
+    // 3. Envelope card fades out, then landing hides → invitation reveals
     setTimeout(() => {
+      envCard.style.transition = 'opacity 0.7s ease';
+      envCard.style.opacity    = '0';
       landing.style.transition = 'opacity 0.7s ease';
       landing.style.opacity    = '0';
 
