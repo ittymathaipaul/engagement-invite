@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#faf5ef" />
   <title>Ittymathew &amp; Rosemary — Engagement</title>
-  <link rel="stylesheet" href="css/styles.css?v=3" />
+  <link rel="stylesheet" href="css/styles.css?v=4" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -20,104 +20,15 @@
     <!-- Full-screen cream cover — entire surface is a tap target -->
     <div class="cream-cover" id="creamCover">
 
-      <!-- Red wax seal — dead center -->
+      <!-- Wax seal — dead center, using PNG asset -->
       <div class="wax-center" id="sealWrap" tabindex="0" role="button" aria-label="Open invitation">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" class="seal-svg" aria-hidden="true">
-          <defs>
-            <!-- Wax body: radial gradient lit from upper-left for 3D raised look -->
-            <radialGradient id="waxBody" cx="36%" cy="31%" r="66%">
-              <stop offset="0%"   stop-color="#e84040"/>
-              <stop offset="28%"  stop-color="#c52020"/>
-              <stop offset="62%"  stop-color="#920f0f"/>
-              <stop offset="100%" stop-color="#5c0808"/>
-            </radialGradient>
-            <!-- Glare: soft specular white highlight, upper-left -->
-            <radialGradient id="waxGlare" cx="34%" cy="29%" r="54%">
-              <stop offset="0%"   stop-color="rgba(255,255,255,0.60)"/>
-              <stop offset="50%"  stop-color="rgba(255,255,255,0.12)"/>
-              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-            </radialGradient>
-            <!-- Inner embossed disc: subtly lighter -->
-            <radialGradient id="waxInner" cx="38%" cy="34%" r="60%">
-              <stop offset="0%"   stop-color="#d53232"/>
-              <stop offset="100%" stop-color="#8b0c0c"/>
-            </radialGradient>
-            <!-- Drop shadow: two layers for depth/raise -->
-            <filter id="waxShadow" x="-22%" y="-15%" width="145%" height="150%">
-              <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#5c0808" flood-opacity="0.42"/>
-              <feDropShadow dx="0" dy="3"  stdDeviation="4"  flood-color="#7a1010" flood-opacity="0.28"/>
-            </filter>
-          </defs>
-
-          <!-- Wax drip blobs — organic edge texture like real stamped wax -->
-          <ellipse cx="168" cy="67"  rx="9"  ry="13" fill="#7a0e0e" opacity="0.55" transform="rotate(40,168,67)"/>
-          <ellipse cx="164" cy="158" rx="7"  ry="11" fill="#7a0e0e" opacity="0.50" transform="rotate(-28,164,158)"/>
-          <ellipse cx="52"  cy="154" rx="6"  ry="10" fill="#7a0e0e" opacity="0.48" transform="rotate(20,52,154)"/>
-          <ellipse cx="48"  cy="65"  rx="8"  ry="11" fill="#7a0e0e" opacity="0.52" transform="rotate(-38,48,65)"/>
-          <ellipse cx="110" cy="38"  rx="7"  ry="8"  fill="#7a0e0e" opacity="0.40"/>
-          <ellipse cx="109" cy="184" rx="6"  ry="8"  fill="#7a0e0e" opacity="0.36"/>
-
-          <!-- Main wax seal body: naturally irregular organic edges -->
-          <path fill="url(#waxBody)" filter="url(#waxShadow)"
-            d="
-              M 110,42
-              C 122,40 136,45 147,54
-              C 158,63 164,75 167,89
-              C 170,103 168,118 162,130
-              C 156,142 147,151 135,157
-              C 123,163 109,166 96,163
-              C 83,160 71,153 62,142
-              C 53,131 48,118 47,104
-              C 46,90 50,76 57,65
-              C 64,54 75,46 87,43
-              C 96,40 110,42 110,42 Z
-            "
-          />
-
-          <!-- Glare overlay: glossy sheen, upper-left — makes it look raised on glass -->
-          <path fill="url(#waxGlare)"
-            d="
-              M 110,42
-              C 122,40 136,45 147,54
-              C 158,63 164,75 167,89
-              C 170,103 168,118 162,130
-              C 156,142 147,151 135,157
-              C 123,163 109,166 96,163
-              C 83,160 71,153 62,142
-              C 53,131 48,118 47,104
-              C 46,90 50,76 57,65
-              C 64,54 75,46 87,43
-              C 96,40 110,42 110,42 Z
-            "
-          />
-
-          <!-- Inner decorative rings (faint embossed border) -->
-          <circle cx="107" cy="104" r="50" fill="none" stroke="rgba(255,190,185,0.22)" stroke-width="1.5"/>
-          <circle cx="107" cy="104" r="43" fill="none" stroke="rgba(255,175,170,0.16)" stroke-width="0.8"/>
-
-          <!-- Center disc: subtly different hue for embossed effect -->
-          <circle cx="107" cy="104" r="37" fill="url(#waxInner)" opacity="0.50"/>
-
-          <!-- Embossed monogram -->
-          <text
-            x="107" y="100"
-            font-family="Georgia, 'Times New Roman', serif"
-            font-size="21"
-            font-weight="bold"
-            font-style="italic"
-            fill="rgba(255,215,205,0.72)"
-            text-anchor="middle"
-            letter-spacing="2"
-          >I &amp; R</text>
-
-          <!-- Decorative flourish below text -->
-          <path d="M88,109 Q107,121 126,109" fill="none" stroke="rgba(255,205,195,0.50)" stroke-width="1.2"/>
-
-          <!-- Small heart -->
-          <path d="M107,117 C107,117 101,112 101,109 C101,107 103,105 107,108 C111,105 113,107 113,109 C113,112 107,117 107,117 Z"
-            fill="rgba(255,215,205,0.65)"/>
-        </svg>
-      </div><!-- /.wax-center -->
+        <img
+          src="assets/images/wax-seal.png"
+          alt="Wax seal"
+          class="seal-img"
+          draggable="false"
+        />
+      </div>
 
       <!-- Subtle tap hint — minimal text only -->
       <p class="cover__hint" aria-hidden="true">tap anywhere to open</p>
