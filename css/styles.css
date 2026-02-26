@@ -676,7 +676,7 @@ button { cursor: pointer; font-family: inherit; }
 .screen--programme {
   background: linear-gradient(170deg, #fce8e4 0%, #fdf6ee 100%);
   padding: 4rem 1.5rem;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
 
@@ -692,8 +692,7 @@ button { cursor: pointer; font-family: inherit; }
 
 /* Timeline */
 .timeline {
-  width: 100%;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   gap: 0;
   position: relative;
