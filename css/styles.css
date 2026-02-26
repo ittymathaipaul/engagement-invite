@@ -33,6 +33,9 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Section-by-section scroll snapping */
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
 }
 
 body {
@@ -60,15 +63,18 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
    SCREENS — shared layout
 ════════════════════════════════════════════ */
 .screen {
-  min-height: 100dvh;
-  min-height: 100vh;
+  height: 100dvh;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;           /* content-heavy sections scroll internally */
+  scroll-snap-align: start;   /* each section is a snap point */
+  scroll-snap-stop: always;   /* never skip a section on fast swipe */
 }
 
 /* ════════════════════════════════════════════
@@ -98,6 +104,15 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 /* Dissolve state — triggered on tap */
 .cream-cover.dissolve {
   opacity: 0;
+  pointer-events: none;
+}
+
+/* Envelope fold crease lines — corner-to-center, like a real letter */
+.cover__folds {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
