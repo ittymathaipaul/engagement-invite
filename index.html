@@ -13,11 +13,24 @@
 <body>
 
   <!-- ═══════════════════════════════════════════
-       SECTION 1 — Landing / Wax Seal
+       SECTION 1 — Landing / Envelope
   ═══════════════════════════════════════════ -->
   <section id="landing" class="screen screen--landing" aria-label="Landing">
-    <div class="landing__content" id="landingContent">
-      <div class="seal-wrap" id="sealWrap">
+    <div class="envelope" id="envelope">
+
+      <!-- Envelope fold lines (diagonal crease marks) -->
+      <svg class="envelope__folds" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="0"   y1="0"   x2="50" y2="50" stroke="rgba(180,130,50,0.14)" stroke-width="0.5"/>
+        <line x1="100" y1="0"   x2="50" y2="50" stroke="rgba(180,130,50,0.14)" stroke-width="0.5"/>
+        <line x1="0"   y1="100" x2="50" y2="50" stroke="rgba(180,130,50,0.14)" stroke-width="0.5"/>
+        <line x1="100" y1="100" x2="50" y2="50" stroke="rgba(180,130,50,0.14)" stroke-width="0.5"/>
+      </svg>
+
+      <!-- Top flap — triangle, slightly open -->
+      <div class="envelope__flap" id="envFlap" aria-hidden="true"></div>
+
+      <!-- Wax seal sitting at the flap tip (screen centre) -->
+      <div class="seal-wrap" id="sealWrap" tabindex="0" role="button" aria-label="Open invitation">
         <picture>
           <source srcset="assets/images/wax-seal.png" type="image/png" />
           <img
@@ -30,19 +43,23 @@
         <div class="seal-glow"></div>
       </div>
 
-      <p class="landing__tagline">This invitation is exclusively for you</p>
+      <!-- Content in lower half of envelope -->
+      <div class="landing__content" id="landingContent">
+        <p class="landing__tagline">This invitation is exclusively for you</p>
+        <button class="tap-hint" id="tapBtn" aria-label="Open invitation">
+          <span class="tap-hint__text">Tap to open</span>
+          <span class="tap-hint__icon" aria-hidden="true">↓</span>
+        </button>
+      </div>
 
-      <button class="tap-hint" id="tapBtn" aria-label="Open invitation">
-        <span class="tap-hint__text">Tap to open</span>
-        <span class="tap-hint__icon" aria-hidden="true">↓</span>
-      </button>
+      <!-- Floating petals -->
+      <div class="petal petal--1" aria-hidden="true"></div>
+      <div class="petal petal--2" aria-hidden="true"></div>
+      <div class="petal petal--3" aria-hidden="true"></div>
+      <div class="petal petal--4" aria-hidden="true"></div>
+      <div class="petal petal--5" aria-hidden="true"></div>
+
     </div>
-
-    <div class="petal petal--1" aria-hidden="true"></div>
-    <div class="petal petal--2" aria-hidden="true"></div>
-    <div class="petal petal--3" aria-hidden="true"></div>
-    <div class="petal petal--4" aria-hidden="true"></div>
-    <div class="petal petal--5" aria-hidden="true"></div>
   </section>
 
   <!-- ═══════════════════════════════════════════
@@ -56,25 +73,20 @@
         <p class="announce__pre">We joyfully announce our</p>
         <h1 class="announce__headline">Engagement</h1>
 
-        <!-- Continuous line-art rings SVG -->
+        <!-- Decorative heart art -->
         <div class="rings-art" aria-hidden="true">
-          <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg" class="rings-svg">
-            <g fill="none" stroke="#c8a04a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <!-- Left ring -->
-              <circle cx="58" cy="45" r="30"/>
-              <circle cx="58" cy="45" r="24"/>
-              <!-- Right ring -->
-              <circle cx="102" cy="45" r="30"/>
-              <circle cx="102" cy="45" r="24"/>
-              <!-- Interlink -->
-              <path d="M72,32 Q80,45 72,58" />
-              <path d="M88,32 Q80,45 88,58"/>
-              <!-- Small diamond on left -->
-              <polygon points="58,18 63,24 58,30 53,24" fill="#c8a04a" stroke="none" opacity="0.8"/>
-              <!-- Small diamond on right -->
-              <polygon points="102,18 107,24 102,30 97,24" fill="#c8a04a" stroke="none" opacity="0.8"/>
-              <!-- Heart at join -->
-              <path d="M80,42 C80,42 76,38 76,35 C76,33 78,31 80,33.5 C82,31 84,33 84,35 C84,38 80,42 80,42Z" fill="#c8a04a" stroke="none"/>
+          <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" class="rings-svg">
+            <g fill="none" stroke="#c8a04a" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Outer heart -->
+              <path d="M60,90 C30,72 8,55 8,34 C8,18 20,10 35,17 C46,22 57,32 60,22 C63,32 74,22 85,17 C100,10 112,18 112,34 C112,55 90,72 60,90Z"
+                    stroke-width="2.2" fill="rgba(200,160,74,0.10)"/>
+              <!-- Inner heart (decorative echo) -->
+              <path d="M60,75 C38,60 24,48 24,34 C24,22 32,16 44,21 C52,25 58,33 60,27 C62,33 68,25 76,21 C88,16 96,22 96,34 C96,48 82,60 60,75Z"
+                    stroke-width="1.2" opacity="0.45"/>
+              <!-- Diamond at left bump -->
+              <polygon points="35,12 39,17 35,22 31,17" fill="#c8a04a" stroke="none" opacity="0.9"/>
+              <!-- Diamond at right bump -->
+              <polygon points="85,12 89,17 85,22 81,17" fill="#c8a04a" stroke="none" opacity="0.9"/>
             </g>
           </svg>
         </div>
@@ -302,7 +314,7 @@
         <div class="closing__couple">
           <span class="closing__bride">Rosemary</span>
           <svg viewBox="0 0 30 14" class="closing__heart-svg" aria-hidden="true">
-            <path d="M15,12 C15,12 4,6 4,3 C4,1 6,0 8,1.5 C10,-0.5 12,0 13,2 C14,0 16,-0.5 18,1.5 C20,0 22,1 22,3 C22,6 15,12 15,12Z" fill="#c8a04a"/>
+            <path d="M15,12.5 C8,8.5 3,6 3,3.5 C3,1 5.5,0 8,1.5 C10,3 12,3 15,1 C18,3 20,3 22,1.5 C24.5,0 27,1 27,3.5 C27,6 22,8.5 15,12.5Z" fill="#c8a04a"/>
           </svg>
           <span>Ittymathew</span>
         </div>

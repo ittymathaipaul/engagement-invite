@@ -72,52 +72,86 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 }
 
 /* ════════════════════════════════════════════
-   SECTION 1 — LANDING
+   SECTION 1 — LANDING / ENVELOPE
 ════════════════════════════════════════════ */
 .screen--landing {
   background: linear-gradient(160deg, #fdf6ee 0%, #fce8e4 50%, #f8ddd8 100%);
+  padding: 0;
 }
 
-/* Floating petals */
-.petal {
-  position: absolute;
-  border-radius: 50% 10% 50% 10%;
-  opacity: 0;
-  pointer-events: none;
-  animation: petalFall linear infinite;
-}
-.petal--1 { width: 10px; height: 16px; background: #f4b8b0; left: 12%;  animation-duration: 8s;  animation-delay: 0s;   top: -20px; }
-.petal--2 { width: 8px;  height: 12px; background: #e8a090; left: 30%;  animation-duration: 10s; animation-delay: 2s;   top: -20px; }
-.petal--3 { width: 12px; height: 18px; background: #f4c8c0; left: 55%;  animation-duration: 7s;  animation-delay: 4s;   top: -20px; }
-.petal--4 { width: 7px;  height: 11px; background: #f4b8b0; left: 72%;  animation-duration: 9s;  animation-delay: 1s;   top: -20px; }
-.petal--5 { width: 9px;  height: 14px; background: #e8a090; left: 88%;  animation-duration: 11s; animation-delay: 3.5s; top: -20px; }
-
-@keyframes petalFall {
-  0%   { transform: translateY(-20px) rotate(0deg);   opacity: 0; }
-  10%  { opacity: 0.7; }
-  90%  { opacity: 0.5; }
-  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-}
-
-.landing__content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.6rem;
-  padding: 2rem;
-  z-index: 1;
-}
-
-/* Seal */
-.seal-wrap {
+/* ── Envelope container (full screen) ── */
+.envelope {
   position: relative;
-  width: clamp(160px, 50vw, 220px);
+  width: 100%;
+  height: 100dvh;
+  height: 100vh;
+  background: linear-gradient(170deg, #fdf6ee 0%, #f5ede0 55%, #fdf6ee 100%);
+  overflow: hidden;
+}
+
+/* Subtle gold border frame */
+.envelope::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid rgba(200,149,42,0.18);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Diagonal fold lines SVG */
+.envelope__folds {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Top flap — triangle pointing down, slightly open ── */
+.envelope__flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 52%;
+  background: linear-gradient(185deg, #ede0ce 0%, #e8d8c0 45%, #e0ccb0 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 96%);
+  transform-origin: top center;
+  /* slight opening — flap peeled back a little */
+  transform: perspective(1400px) rotateX(-18deg);
+  z-index: 2;
+  box-shadow: 0 6px 28px rgba(100,60,10,0.14);
+  will-change: transform;
+}
+
+/* Inner shadow at fold crease */
+.envelope__flap::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 28%;
+  background: linear-gradient(to bottom, transparent, rgba(100,60,10,0.06));
+  pointer-events: none;
+}
+
+/* ── Wax seal — pinned at the flap tip (screen centre) ── */
+.seal-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(140px, 42vw, 200px);
   cursor: pointer;
   filter: drop-shadow(0 8px 20px rgba(100, 60, 10, 0.30));
   transition: transform 0.3s ease, filter 0.3s ease;
+  z-index: 4;
 }
 .seal-wrap:hover, .seal-wrap:focus-visible {
-  transform: scale(1.04);
+  transform: translate(-50%, -50%) scale(1.04);
   filter: drop-shadow(0 12px 28px rgba(100, 60, 10, 0.40));
 }
 
@@ -141,6 +175,20 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 @keyframes glowPulse {
   0%, 100% { opacity: 0.5; transform: scale(1); }
   50%       { opacity: 1;   transform: scale(1.08); }
+}
+
+/* ── Landing content (lower half of envelope) ── */
+.landing__content {
+  position: absolute;
+  bottom: 13%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 0 2rem;
+  z-index: 1;
 }
 
 /* Tagline */
@@ -186,6 +234,28 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 @keyframes tapPulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(200,149,42, 0.4); }
   60%       { box-shadow: 0 0 0 10px rgba(200,149,42, 0); }
+}
+
+/* Floating petals */
+.petal {
+  position: absolute;
+  border-radius: 50% 10% 50% 10%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  animation: petalFall linear infinite;
+}
+.petal--1 { width: 10px; height: 16px; background: #f4b8b0; left: 12%;  animation-duration: 8s;  animation-delay: 0s;   top: -20px; }
+.petal--2 { width: 8px;  height: 12px; background: #e8a090; left: 30%;  animation-duration: 10s; animation-delay: 2s;   top: -20px; }
+.petal--3 { width: 12px; height: 18px; background: #f4c8c0; left: 55%;  animation-duration: 7s;  animation-delay: 4s;   top: -20px; }
+.petal--4 { width: 7px;  height: 11px; background: #f4b8b0; left: 72%;  animation-duration: 9s;  animation-delay: 1s;   top: -20px; }
+.petal--5 { width: 9px;  height: 14px; background: #e8a090; left: 88%;  animation-duration: 11s; animation-delay: 3.5s; top: -20px; }
+
+@keyframes petalFall {
+  0%   { transform: translateY(-20px) rotate(0deg);   opacity: 0; }
+  10%  { opacity: 0.7; }
+  90%  { opacity: 0.5; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
 
 /* ════════════════════════════════════════════
@@ -354,6 +424,11 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .announce__shared strong {
   color: var(--ink);
   font-style: normal;
+}
+
+/* Letter spacing override for details section heading */
+.screen--details .section__title {
+  letter-spacing: 0.07em;
 }
 
 /* Scroll hint */
@@ -728,7 +803,6 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   color: var(--gold-pale);
 }
 .closing__bride {
-  font-size: clamp(2.5rem, 9vw, 3.4rem);
   color: #f4b8c0;
 }
 .closing__heart-svg {

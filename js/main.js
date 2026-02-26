@@ -12,19 +12,39 @@ const TARGET_DATE = new Date('2026-04-11T11:30:00+05:30');
 function revealInvitation() {
   const landing    = document.getElementById('landing');
   const invitation = document.getElementById('invitation');
+  const envFlap    = document.getElementById('envFlap');
+  const sealWrap   = document.getElementById('sealWrap');
+  const tapBtn     = document.getElementById('tapBtn');
 
-  landing.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-  landing.style.opacity    = '0';
-  landing.style.transform  = 'scale(1.04)';
+  // Prevent double-trigger
+  tapBtn.disabled = true;
+  sealWrap.style.pointerEvents = 'none';
 
+  // 1. Seal lifts and fades (breaking the wax)
+  sealWrap.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
+  sealWrap.style.transform  = 'translate(-50%, -60%) scale(1.12)';
+  sealWrap.style.opacity    = '0';
+
+  // 2. Flap swings fully open
   setTimeout(() => {
-    landing.style.display = 'none';
-    invitation.classList.remove('hidden');
-    invitation.removeAttribute('aria-hidden');
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    startCountdown();
-    initScrollAnimations();
-  }, 680);
+    envFlap.style.transition = 'transform 0.85s cubic-bezier(0.4, 0, 0.2, 1)';
+    envFlap.style.transform  = 'perspective(1400px) rotateX(-180deg)';
+
+    // 3. Envelope fades out → invitation reveals
+    setTimeout(() => {
+      landing.style.transition = 'opacity 0.7s ease';
+      landing.style.opacity    = '0';
+
+      setTimeout(() => {
+        landing.style.display = 'none';
+        invitation.classList.remove('hidden');
+        invitation.removeAttribute('aria-hidden');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        startCountdown();
+        initScrollAnimations();
+      }, 680);
+    }, 720);
+  }, 300);
 }
 
 document.getElementById('tapBtn').addEventListener('click', revealInvitation);
