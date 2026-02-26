@@ -18,32 +18,67 @@
   <section id="landing" class="screen screen--landing" aria-label="Landing">
     <div class="envelope" id="envelope">
 
-      <!-- Envelope fold lines (diagonal crease marks) -->
-      <svg class="envelope__folds" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-        <line x1="0"   y1="0"   x2="50" y2="50" stroke="rgba(180,130,50,0.14)" stroke-width="0.5"/>
-        <line x1="100" y1="0"   x2="50" y2="50" stroke="rgba(180,130,50,0.14)" stroke-width="0.5"/>
-        <line x1="0"   y1="100" x2="50" y2="50" stroke="rgba(180,130,50,0.14)" stroke-width="0.5"/>
-        <line x1="100" y1="100" x2="50" y2="50" stroke="rgba(180,130,50,0.14)" stroke-width="0.5"/>
-      </svg>
+      <!-- Pink blush envelope card -->
+      <div class="envelope__card">
 
-      <!-- Top flap — triangle, slightly open -->
-      <div class="envelope__flap" id="envFlap" aria-hidden="true"></div>
+        <!-- SVG envelope body (top flap handled by .envelope__flap below) -->
+        <svg class="envelope__svg" viewBox="0 0 350 242" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <filter id="envShadow" x="-6%" y="-6%" width="112%" height="118%">
+              <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#601010" flood-opacity="0.28"/>
+            </filter>
+            <linearGradient id="envBody" x1="0.5" y1="0" x2="0.5" y2="1">
+              <stop offset="0"    stop-color="#FCD3D1"/>
+              <stop offset="0.51" stop-color="#FAD1CF"/>
+              <stop offset="0.73" stop-color="#F4CAC8"/>
+              <stop offset="0.90" stop-color="#EABDBC"/>
+              <stop offset="1"    stop-color="#E0B1B0"/>
+            </linearGradient>
+            <linearGradient id="envBottomFlap" x1="0.5" y1="0" x2="0.5" y2="1">
+              <stop offset="0" stop-color="#EABDBC"/>
+              <stop offset="1" stop-color="#D4A4A4"/>
+            </linearGradient>
+          </defs>
+          <!-- Body with drop shadow -->
+          <g filter="url(#envShadow)">
+            <rect x="6" y="2" width="338" height="238" rx="4" fill="url(#envBody)"/>
+          </g>
+          <!-- Side fold shading (left & right triangles) -->
+          <path d="M6,2 L6,240 L175,155 Z"    fill="rgba(140,60,60,0.07)"/>
+          <path d="M344,2 L344,240 L175,155 Z" fill="rgba(140,60,60,0.07)"/>
+          <!-- Bottom flap (V from bottom, slightly darker) -->
+          <path d="M162,100 C168,95 182,95 188,100 L344,240 L6,240 Z"
+                fill="url(#envBottomFlap)" opacity="0.50"/>
+          <!-- Fold crease lines -->
+          <line x1="6"   y1="2"   x2="175" y2="157" stroke="rgba(160,70,70,0.20)" stroke-width="0.8"/>
+          <line x1="344" y1="2"   x2="175" y2="157" stroke="rgba(160,70,70,0.20)" stroke-width="0.8"/>
+          <line x1="6"   y1="240" x2="175" y2="155" stroke="rgba(160,70,70,0.14)" stroke-width="0.5"/>
+          <line x1="344" y1="240" x2="175" y2="155" stroke="rgba(160,70,70,0.14)" stroke-width="0.5"/>
+          <!-- Border -->
+          <rect x="6" y="2" width="338" height="238" rx="4"
+                fill="none" stroke="rgba(180,90,90,0.25)" stroke-width="1"/>
+        </svg>
 
-      <!-- Wax seal sitting at the flap tip (screen centre) -->
-      <div class="seal-wrap" id="sealWrap" tabindex="0" role="button" aria-label="Open invitation">
-        <picture>
-          <source srcset="assets/images/wax-seal.png" type="image/png" />
-          <img
-            src="assets/images/wax-seal.svg"
-            alt="Wax seal"
-            class="seal-img"
-            draggable="false"
-          />
-        </picture>
-        <div class="seal-glow"></div>
-      </div>
+        <!-- Top flap — pink triangle that rotates open on tap -->
+        <div class="envelope__flap" id="envFlap" aria-hidden="true"></div>
 
-      <!-- Content in lower half of envelope -->
+        <!-- Wax seal pinned at the flap tip (50% x, 65% y of card) -->
+        <div class="seal-wrap" id="sealWrap" tabindex="0" role="button" aria-label="Open invitation">
+          <picture>
+            <source srcset="assets/images/wax-seal.png" type="image/png" />
+            <img
+              src="assets/images/wax-seal.svg"
+              alt="Wax seal"
+              class="seal-img"
+              draggable="false"
+            />
+          </picture>
+          <div class="seal-glow"></div>
+        </div>
+
+      </div><!-- /.envelope__card -->
+
+      <!-- Content below the envelope card -->
       <div class="landing__content" id="landingContent">
         <p class="landing__tagline">This invitation is exclusively for you</p>
         <button class="tap-hint" id="tapBtn" aria-label="Open invitation">

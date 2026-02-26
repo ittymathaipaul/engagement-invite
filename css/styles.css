@@ -75,148 +75,70 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
    SECTION 1 — LANDING / ENVELOPE
 ════════════════════════════════════════════ */
 .screen--landing {
-  /* warm surface colour — shows as edge vignette on very large screens */
   background: linear-gradient(160deg, #2e1c0a 0%, #3a2410 50%, #2e1c0a 100%);
   padding: 0;
 }
 
-/* ── Envelope container (full screen) ── */
+/* ── Envelope container — flex column, full screen ── */
 .envelope {
   position: relative;
   width: 100%;
   height: 100dvh;
   height: 100vh;
-  /* Layered parchment texture */
-  background:
-    /* Fine diagonal grain — simulates paper fibre */
-    repeating-linear-gradient(
-      -32deg,
-      transparent 0px, transparent 3px,
-      rgba(195,155,68,0.024) 3px, rgba(195,155,68,0.024) 4px
-    ),
-    repeating-linear-gradient(
-      58deg,
-      transparent 0px, transparent 5px,
-      rgba(195,155,68,0.013) 5px, rgba(195,155,68,0.013) 6px
-    ),
-    /* Parchment base — slightly warm cream */
-    linear-gradient(170deg, #fef8ec 0%, #f4e8d0 45%, #f9f2e2 80%, #fef8ec 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
   overflow: hidden;
-  /* Lift shadow — envelope raised off the surface */
-  box-shadow:
-    0 22px 70px rgba(20,10,3,0.55),
-    0 8px 24px rgba(20,10,3,0.35);
 }
 
-/* Corner vignettes + edge shadows + gold border */
-.envelope::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    /* Top-left darkening */
-    radial-gradient(ellipse 75% 55% at 0% 0%,   rgba(70,38,8,0.11) 0%, transparent 65%),
-    /* Top-right darkening */
-    radial-gradient(ellipse 75% 55% at 100% 0%,  rgba(70,38,8,0.11) 0%, transparent 65%),
-    /* Bottom corners */
-    radial-gradient(ellipse 55% 40% at 0% 100%,  rgba(70,38,8,0.08) 0%, transparent 55%),
-    radial-gradient(ellipse 55% 40% at 100% 100%,rgba(70,38,8,0.08) 0%, transparent 55%),
-    /* Left/right edge shadow */
-    linear-gradient(to right, rgba(25,12,3,0.10) 0%, transparent 7%, transparent 93%, rgba(25,12,3,0.10) 100%),
-    /* Top edge shadow */
-    linear-gradient(to bottom, rgba(25,12,3,0.07) 0%, transparent 5%);
-  border: 1.5px solid rgba(200,149,42,0.20);
-  pointer-events: none;
-  z-index: 9;
+/* ── Envelope card — holds SVG + flap + seal ── */
+.envelope__card {
+  position: relative;
+  width: min(88vw, 420px);
+  flex-shrink: 0;
 }
 
-/* Horizontal fold crease at the flap tip */
-.envelope::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 49.9%;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(180,128,45,0.32) 12%,
-    rgba(180,128,45,0.50) 50%,
-    rgba(180,128,45,0.32) 88%,
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 3;
-}
-
-/* Diagonal fold lines SVG */
-.envelope__folds {
-  position: absolute;
-  inset: 0;
+.envelope__svg {
   width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
+  height: auto;
+  display: block;
 }
 
-/* ── Top flap — triangle pointing down, slightly open ── */
+/* ── Top flap — pink triangle, slightly open, rotates on tap ── */
 .envelope__flap {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 52%;
-  /* Slightly darker/more aged parchment for the flap — distinguishes it from body */
-  background:
-    repeating-linear-gradient(
-      -32deg,
-      transparent 0px, transparent 3px,
-      rgba(155,110,42,0.032) 3px, rgba(155,110,42,0.032) 4px
-    ),
-    repeating-linear-gradient(
-      58deg,
-      transparent 0px, transparent 5px,
-      rgba(155,110,42,0.018) 5px, rgba(155,110,42,0.018) 6px
-    ),
-    linear-gradient(185deg, #e2d2b0 0%, #d8c498 38%, #cdb882 65%, #d5c898 100%);
-  clip-path: polygon(0 0, 100% 0, 50% 96%);
+  height: 67%;
+  background: linear-gradient(175deg, #FFF0EE 0%, #FFE3E0 35%, #FCD3D1 70%, #F4CAC8 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 97%);
   transform-origin: top center;
-  /* Slightly open — 3D perspective tilt */
   transform: perspective(900px) rotateX(-16deg);
   z-index: 2;
   box-shadow:
-    0 10px 36px rgba(70,38,8,0.24),
-    0 4px 12px rgba(70,38,8,0.16);
+    0 8px 28px rgba(100,30,30,0.18),
+    0 3px 10px rgba(100,30,30,0.12);
   will-change: transform;
 }
 
-/* Flap edge vignette — darker toward the fold crease */
-.envelope__flap::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(40,20,5,0.05) 0%, transparent 30%, rgba(40,20,5,0.10) 100%),
-    linear-gradient(to right,  rgba(40,20,5,0.06) 0%, transparent 12%, transparent 88%, rgba(40,20,5,0.06) 100%);
-  pointer-events: none;
-}
-
-/* ── Wax seal — pinned at the flap tip (screen centre) ── */
+/* ── Wax seal — at the flap tip (~50% x, 65% y of card) ── */
 .seal-wrap {
   position: absolute;
-  top: 50%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(140px, 42vw, 200px);
+  width: clamp(100px, 28vw, 150px);
   cursor: pointer;
-  filter: drop-shadow(0 8px 20px rgba(100, 60, 10, 0.30));
+  filter: drop-shadow(0 6px 16px rgba(100, 30, 30, 0.32));
   transition: transform 0.3s ease, filter 0.3s ease;
   z-index: 4;
 }
 .seal-wrap:hover, .seal-wrap:focus-visible {
   transform: translate(-50%, -50%) scale(1.04);
-  filter: drop-shadow(0 12px 28px rgba(100, 60, 10, 0.40));
+  filter: drop-shadow(0 10px 24px rgba(100, 30, 30, 0.44));
 }
 
 .seal-img {
@@ -232,7 +154,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   position: absolute;
   inset: -12%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(224,184,64,0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(242,167,165,0.35) 0%, transparent 70%);
   animation: glowPulse 3s ease-in-out infinite;
   pointer-events: none;
 }
@@ -241,25 +163,22 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   50%       { opacity: 1;   transform: scale(1.08); }
 }
 
-/* ── Landing content (lower half of envelope) ── */
+/* ── Landing content — below the envelope card ── */
 .landing__content {
-  position: absolute;
-  bottom: 13%;
-  left: 0;
-  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.6rem;
   padding: 0 2rem;
   z-index: 1;
+  position: relative;
 }
 
 /* Tagline */
 .landing__tagline {
   font-family: var(--font-script);
   font-size: clamp(1.4rem, 5vw, 1.9rem);
-  color: var(--muted);
+  color: rgba(245, 215, 190, 0.82);
   text-align: center;
   letter-spacing: 0.02em;
   line-height: 1.3;
@@ -392,7 +311,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   letter-spacing: 0.02em;
 }
 .announce__name--bride {
-  color: var(--rose);
+  color: var(--deep);
 }
 .announce__ampersand {
   font-family: var(--font-script);
@@ -902,7 +821,22 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 /* ════════════════════════════════════════════
    RESPONSIVE TWEAKS
 ════════════════════════════════════════════ */
+
+/* ── Mobile: stack names vertically (one after another) ── */
+@media (max-width: 600px) {
+  .announce__names {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .announce__ampersand {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+  }
+}
+
+/* ── Narrow phones ── */
 @media (max-width: 360px) {
+  .envelope__card { width: 92vw; }
   .announce__families {
     grid-template-columns: 1fr;
     text-align: center;
@@ -914,22 +848,10 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 
 /* ── Envelope: landscape / short screens ── */
 @media (max-height: 620px) {
-  .envelope__flap    { height: 55%; }
-  .seal-wrap         { width: clamp(100px, 30vw, 140px); }
-  .landing__content  { bottom: 6%; gap: 1rem; }
-  .landing__tagline  { font-size: clamp(1.1rem, 4vw, 1.5rem); }
-}
-
-/* ── Narrow phones ── */
-@media (max-width: 360px) {
-  .announce__families {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .family__divider { display: none; }
-  .countdown__timer { gap: 0.3rem; }
-  .timer__block { padding: 0.75rem 0.5rem 0.6rem; min-width: 56px; }
-  .seal-wrap { width: clamp(120px, 38vw, 160px); }
+  .envelope { gap: 1.2rem; }
+  .envelope__flap { height: 60%; }
+  .seal-wrap { width: clamp(80px, 22vw, 120px); }
+  .landing__tagline { font-size: clamp(1.1rem, 4vw, 1.5rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
