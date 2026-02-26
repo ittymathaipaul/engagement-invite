@@ -84,6 +84,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .cream-cover {
   position: absolute;
   inset: 0;
+  background: #faf5ef;   /* repeated here so it wins even if section bg is overridden */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,7 +103,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 /* ── Wax seal — dead center, 3D raised look ── */
 .wax-center {
   position: relative;
-  width: clamp(170px, 44vw, 230px);
+  width: clamp(200px, 55vw, 300px);   /* larger: dominant on both mobile and desktop */
   cursor: pointer;
   /* Layered drop-shadows create the raised/floating 3D illusion */
   filter:
@@ -120,6 +121,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 
 .seal-svg {
   width: 100%;
+  height: auto;
   display: block;
 }
 
