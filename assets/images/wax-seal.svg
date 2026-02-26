@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" width="220" height="220">
+  <defs>
+    <radialGradient id="goldBody" cx="38%" cy="32%" r="65%">
+      <stop offset="0%"  stop-color="#f0d070"/>
+      <stop offset="30%" stop-color="#c8952a"/>
+      <stop offset="65%" stop-color="#9a6910"/>
+      <stop offset="100%" stop-color="#6a4205"/>
+    </radialGradient>
+    <radialGradient id="goldCenter" cx="38%" cy="32%" r="60%">
+      <stop offset="0%"  stop-color="#f5dc80"/>
+      <stop offset="50%" stop-color="#c8952a"/>
+      <stop offset="100%" stop-color="#7a5010"/>
+    </radialGradient>
+    <radialGradient id="goldRim" cx="50%" cy="50%" r="50%">
+      <stop offset="70%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="#e0b840" stop-opacity="0.3"/>
+    </radialGradient>
+    <filter id="softShadow">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#6a4205" flood-opacity="0.45"/>
+    </filter>
+    <filter id="innerGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Outer drip blobs (wax texture) -->
+  <ellipse cx="178" cy="62"  rx="9"  ry="13" fill="#9a6910" opacity="0.55" transform="rotate(40,178,62)"/>
+  <ellipse cx="175" cy="163" rx="7"  ry="11" fill="#9a6910" opacity="0.5"  transform="rotate(-30,175,163)"/>
+  <ellipse cx="44"  cy="165" rx="6"  ry="10" fill="#9a6910" opacity="0.45" transform="rotate(20,44,165)"/>
+  <ellipse cx="40"  cy="58"  rx="8"  ry="11" fill="#9a6910" opacity="0.5"  transform="rotate(-40,40,58)"/>
+
+  <!-- 16-point star seal body -->
+  <path filter="url(#softShadow)"
+    fill="url(#goldBody)"
+    d="
+      M110,14 L120,28 L136,22 L141,37 L158,34 L158,50
+      L175,51 L170,67 L186,72 L177,86 L191,95 L178,106
+      L189,118 L173,125 L181,139 L163,141 L167,157
+      L150,155 L149,172 L133,166 L127,182 L113,173
+      L104,188 L93,175 L80,182 L76,166 L59,170 L60,153
+      L43,153 L49,138 L33,133 L43,121 L29,111 L43,103
+      L32,91  L47,87  L40,72  L57,70  L53,55  L70,56
+      L73,39  L88,45  L95,30 Z
+    "
+  />
+
+  <!-- Subtle rim glow -->
+  <path fill="url(#goldRim)"
+    d="
+      M110,14 L120,28 L136,22 L141,37 L158,34 L158,50
+      L175,51 L170,67 L186,72 L177,86 L191,95 L178,106
+      L189,118 L173,125 L181,139 L163,141 L167,157
+      L150,155 L149,172 L133,166 L127,182 L113,173
+      L104,188 L93,175 L80,182 L76,166 L59,170 L60,153
+      L43,153 L49,138 L33,133 L43,121 L29,111 L43,103
+      L32,91  L47,87  L40,72  L57,70  L53,55  L70,56
+      L73,39  L88,45  L95,30 Z
+    "
+  />
+
+  <!-- Inner decorative circle border -->
+  <circle cx="110" cy="102" r="62" fill="none" stroke="#e0b840" stroke-width="1.8" opacity="0.5"/>
+  <circle cx="110" cy="102" r="56" fill="none" stroke="#e0b840" stroke-width="0.9" opacity="0.35"/>
+
+  <!-- Center disc -->
+  <circle cx="110" cy="102" r="50" fill="url(#goldCenter)"/>
+
+  <!-- Decorative ring of dots -->
+  <g fill="#f0d878" opacity="0.6">
+    <circle cx="110" cy="56"  r="2"/>
+    <circle cx="128" cy="59"  r="1.5"/>
+    <circle cx="143" cy="68"  r="1.5"/>
+    <circle cx="153" cy="82"  r="1.5"/>
+    <circle cx="157" cy="99"  r="2"/>
+    <circle cx="153" cy="116" r="1.5"/>
+    <circle cx="144" cy="130" r="1.5"/>
+    <circle cx="130" cy="140" r="1.5"/>
+    <circle cx="113" cy="144" r="2"/>
+    <circle cx="96"  cy="141" r="1.5"/>
+    <circle cx="81"  cy="133" r="1.5"/>
+    <circle cx="70"  cy="121" r="1.5"/>
+    <circle cx="65"  cy="105" r="2"/>
+    <circle cx="69"  cy="88"  r="1.5"/>
+    <circle cx="78"  cy="74"  r="1.5"/>
+    <circle cx="92"  cy="63"  r="1.5"/>
+  </g>
+
+  <!-- Monogram letters I & R -->
+  <text x="110" y="97"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="28"
+    font-weight="bold"
+    font-style="italic"
+    fill="#f8edd0"
+    text-anchor="middle"
+    letter-spacing="2"
+    opacity="0.95">I &amp; R</text>
+
+  <!-- Decorative underline flourish -->
+  <path d="M84,105 Q110,118 136,105" fill="none" stroke="#f8edd0" stroke-width="1.2" opacity="0.7"/>
+  <path d="M90,109 Q110,120 130,109" fill="none" stroke="#f8edd0" stroke-width="0.6" opacity="0.4"/>
+
+  <!-- Small heart below -->
+  <path d="M110,115 C110,115 104,109.5 104,106.5 C104,104.5 106.2,102.5 110,105.5 C113.8,102.5 116,104.5 116,106.5 C116,109.5 110,115 110,115Z"
+    fill="#f8edd0" opacity="0.85"/>
+
+  <!-- Specular highlight top-left -->
+  <ellipse cx="90" cy="78" rx="20" ry="11" fill="white" opacity="0.10" transform="rotate(-30,90,78)"/>
+</svg>

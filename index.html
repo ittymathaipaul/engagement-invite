@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#f9f0e8" />
+  <title>Ittymathew &amp; Rosemary — Engagement</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 — Landing / Wax Seal
+  ═══════════════════════════════════════════ -->
+  <section id="landing" class="screen screen--landing" aria-label="Landing">
+    <div class="landing__content" id="landingContent">
+      <div class="seal-wrap" id="sealWrap">
+        <picture>
+          <source srcset="assets/images/wax-seal.png" type="image/png" />
+          <img
+            src="assets/images/wax-seal.svg"
+            alt="Wax seal"
+            class="seal-img"
+            draggable="false"
+          />
+        </picture>
+        <div class="seal-glow"></div>
+      </div>
+
+      <p class="landing__tagline">This invitation is exclusively for you</p>
+
+      <button class="tap-hint" id="tapBtn" aria-label="Open invitation">
+        <span class="tap-hint__text">Tap to open</span>
+        <span class="tap-hint__icon" aria-hidden="true">↓</span>
+      </button>
+    </div>
+
+    <div class="petal petal--1" aria-hidden="true"></div>
+    <div class="petal petal--2" aria-hidden="true"></div>
+    <div class="petal petal--3" aria-hidden="true"></div>
+    <div class="petal petal--4" aria-hidden="true"></div>
+    <div class="petal petal--5" aria-hidden="true"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN INVITATION — everything after tap
+  ═══════════════════════════════════════════ -->
+  <main id="invitation" class="invitation hidden" aria-hidden="true">
+
+    <!-- ─── SECTION 2 — Announcement ─── -->
+    <section id="announcement" class="screen screen--announcement" aria-label="Announcement">
+      <div class="announcement__inner">
+        <p class="announce__pre">We joyfully announce our</p>
+        <h1 class="announce__headline">Engagement</h1>
+
+        <!-- Continuous line-art rings SVG -->
+        <div class="rings-art" aria-hidden="true">
+          <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg" class="rings-svg">
+            <g fill="none" stroke="#c8a04a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Left ring -->
+              <circle cx="58" cy="45" r="30"/>
+              <circle cx="58" cy="45" r="24"/>
+              <!-- Right ring -->
+              <circle cx="102" cy="45" r="30"/>
+              <circle cx="102" cy="45" r="24"/>
+              <!-- Interlink -->
+              <path d="M72,32 Q80,45 72,58" />
+              <path d="M88,32 Q80,45 88,58"/>
+              <!-- Small diamond on left -->
+              <polygon points="58,18 63,24 58,30 53,24" fill="#c8a04a" stroke="none" opacity="0.8"/>
+              <!-- Small diamond on right -->
+              <polygon points="102,18 107,24 102,30 97,24" fill="#c8a04a" stroke="none" opacity="0.8"/>
+              <!-- Heart at join -->
+              <path d="M80,42 C80,42 76,38 76,35 C76,33 78,31 80,33.5 C82,31 84,33 84,35 C84,38 80,42 80,42Z" fill="#c8a04a" stroke="none"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="announce__names">
+          <span class="announce__name announce__name--groom">Ittymathew</span>
+          <span class="announce__ampersand">&amp;</span>
+          <span class="announce__name announce__name--bride">Rosemary</span>
+        </div>
+
+        <div class="announce__date-badge">
+          <span class="badge__day">Saturday</span>
+          <span class="badge__date">April 11, 2026</span>
+          <span class="badge__time">11 : 30 AM</span>
+        </div>
+
+        <div class="announce__families">
+          <div class="family family--groom">
+            <p class="family__label">Son of</p>
+            <p class="family__names">Mr. Paul Mathews &amp; Mrs. Neena Paul</p>
+            <p class="family__home">Eluvathingal Parapukara House<br/>Ollukara P.O, Thrissur</p>
+          </div>
+          <div class="family__divider" aria-hidden="true">✦</div>
+          <div class="family family--bride">
+            <p class="family__label">Daughter of</p>
+            <p class="family__names">Mr. Antony P.V &amp; Mrs. Mini Antony</p>
+            <p class="family__home">Pallipadan House<br/>Pudukad P.O, Thrissur</p>
+          </div>
+        </div>
+
+        <p class="announce__shared">
+          Sharing our joy with<br/>
+          <strong>Lidiya, Jobi &amp; Mikhael</strong>
+        </p>
+
+        <div class="scroll-hint" aria-hidden="true">
+          <span class="scroll-hint__line"></span>
+          <span class="scroll-hint__text">Scroll</span>
+          <span class="scroll-hint__line"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 3 — Countdown ─── -->
+    <section id="countdown-section" class="screen screen--countdown" aria-label="Countdown">
+      <div class="countdown__inner">
+        <p class="section__pre">Counting down</p>
+        <h2 class="section__title">Days Until We Say Yes</h2>
+        <p class="section__sub">For the most beautiful day</p>
+
+        <div class="countdown__timer" id="countdownTimer" role="timer" aria-live="polite">
+          <div class="timer__block">
+            <span class="timer__value" id="cd-days">--</span>
+            <span class="timer__label">Days</span>
+          </div>
+          <span class="timer__sep" aria-hidden="true">:</span>
+          <div class="timer__block">
+            <span class="timer__value" id="cd-hours">--</span>
+            <span class="timer__label">Hours</span>
+          </div>
+          <span class="timer__sep" aria-hidden="true">:</span>
+          <div class="timer__block">
+            <span class="timer__value" id="cd-minutes">--</span>
+            <span class="timer__label">Minutes</span>
+          </div>
+          <span class="timer__sep" aria-hidden="true">:</span>
+          <div class="timer__block">
+            <span class="timer__value" id="cd-seconds">--</span>
+            <span class="timer__label">Seconds</span>
+          </div>
+        </div>
+
+        <div class="countdown__note">
+          April 11, 2026 — Engagement Ceremony
+        </div>
+      </div>
+
+      <!-- Floating petals -->
+      <div class="float-petal fp-1" aria-hidden="true"></div>
+      <div class="float-petal fp-2" aria-hidden="true"></div>
+      <div class="float-petal fp-3" aria-hidden="true"></div>
+    </section>
+
+    <!-- ─── SECTION 4 — Engagement Details ─── -->
+    <section id="details" class="screen screen--details" aria-label="Event details">
+      <div class="details__inner">
+        <p class="section__pre">Details of the day</p>
+        <h2 class="section__title">Everything You Need to Know</h2>
+
+        <!-- Engagement -->
+        <div class="event-card" data-event="engagement">
+          <div class="event-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div class="event-card__body">
+            <h3 class="event-card__title">Engagement Ceremony</h3>
+            <p class="event-card__venue">St. Antony's Forane Church</p>
+            <p class="event-card__location">Pudukad, Thrissur</p>
+            <p class="event-card__time">
+              <span class="event-card__time-icon" aria-hidden="true">🕐</span>
+              Saturday, April 11, 2026 — 11:30 AM
+            </p>
+          </div>
+        </div>
+
+        <!-- Reception -->
+        <div class="event-card" data-event="reception">
+          <div class="event-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </div>
+          <div class="event-card__body">
+            <h3 class="event-card__title">Reception</h3>
+            <p class="event-card__venue">Zion Parish Hall</p>
+            <p class="event-card__location">Pudukad, Thrissur</p>
+            <p class="event-card__time">
+              <span class="event-card__time-icon" aria-hidden="true">🕐</span>
+              Saturday, April 11, 2026
+            </p>
+          </div>
+        </div>
+
+        <!-- Wedding -->
+        <div class="event-card" data-event="wedding">
+          <div class="event-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M12 21.7C5.4 15.5 2 11.4 2 8a6 6 0 0 1 10-4.5A6 6 0 0 1 22 8c0 3.4-3.4 7.5-10 13.7z"/>
+            </svg>
+          </div>
+          <div class="event-card__body">
+            <h3 class="event-card__title">Holy Matrimony</h3>
+            <p class="event-card__venue">Marth Mariam Cathedral Church</p>
+            <p class="event-card__location">Thrissur, Kerala</p>
+            <p class="event-card__time">
+              <span class="event-card__time-icon" aria-hidden="true">🕐</span>
+              Sunday, April 19, 2026 — 10:10 AM
+            </p>
+          </div>
+        </div>
+
+        <!-- Map for Engagement venue -->
+        <div class="map-section">
+          <h3 class="map-section__title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="map-section__icon" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5" fill="currentColor" stroke="none"/>
+            </svg>
+            St. Antony's Forane Church, Pudukad
+          </h3>
+
+          <div class="map-embed">
+            <iframe
+              title="St. Antony's Forane Church, Pudukad location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3921.2!2d76.3726!3d10.2905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0800e38e49d4d5%3A0x1c7a4f3ad10ddf3f!2sSt.%20Antony's%20Forane%20Church%2C%20Pudukad!5e0!3m2!1sen!2sin!4v1700000000000"
+              width="100%"
+              height="260"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
+          <div class="map-actions">
+            <a
+              href="https://maps.google.com/?q=St.+Antony's+Forane+Church+Pudukad+Kerala"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--primary"
+              aria-label="Open venue in Google Maps"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn__icon" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15,3 21,3 21,9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              Open in Maps
+            </a>
+            <button
+              class="btn btn--secondary"
+              id="addToCalendar"
+              aria-label="Add engagement to calendar"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn__icon" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+                <line x1="8" y1="14" x2="8" y2="14" stroke-width="3" stroke-linecap="round"/>
+                <line x1="12" y1="14" x2="12" y2="14" stroke-width="3" stroke-linecap="round"/>
+                <line x1="16" y1="14" x2="16" y2="14" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+              Add to Calendar
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 5 — Programme ─── -->
+    <section id="programme" class="screen screen--programme" aria-label="Programme">
+      <div class="programme__inner">
+        <p class="section__pre">♡ Programme of the day</p>
+        <h2 class="section__title">Schedule</h2>
+
+        <ol class="timeline" aria-label="Event schedule">
+          <li class="timeline__item">
+            <div class="timeline__time">09:00 AM</div>
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__content">
+              <h3>Gathering &amp; Welcome</h3>
+              <p>Guests arrive at St. Antony's Forane Church</p>
+            </div>
+          </li>
+          <li class="timeline__item">
+            <div class="timeline__time">11:30 AM</div>
+            <div class="timeline__dot timeline__dot--highlight" aria-hidden="true"></div>
+            <div class="timeline__content">
+              <h3>Engagement Ceremony ✦</h3>
+              <p>Exchange of rings &amp; blessings at the church</p>
+            </div>
+          </li>
+          <li class="timeline__item">
+            <div class="timeline__time">01:00 PM</div>
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__content">
+              <h3>Lunch Reception</h3>
+              <p>Zion Parish Hall, Pudukad</p>
+            </div>
+          </li>
+          <li class="timeline__item">
+            <div class="timeline__time">Apr 19</div>
+            <div class="timeline__dot timeline__dot--wedding" aria-hidden="true"></div>
+            <div class="timeline__content">
+              <h3>Holy Matrimony ♡</h3>
+              <p>10:10 AM — Marth Mariam Cathedral, Thrissur</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 6 — Closing / RSVP ─── -->
+    <section id="closing" class="screen screen--closing" aria-label="Closing message">
+      <div class="closing__inner">
+        <div class="closing__seal-mini" aria-hidden="true">
+          <picture>
+            <source srcset="assets/images/wax-seal.png" type="image/png" />
+            <img src="assets/images/wax-seal.svg" alt="" class="closing__seal-img" />
+          </picture>
+        </div>
+
+        <blockquote class="closing__verse">
+          <p>"And over all these virtues put on love,<br/>which binds them all together in perfect unity."</p>
+          <footer>— Colossians 3:14</footer>
+        </blockquote>
+
+        <p class="closing__message">
+          We are blessed to share this moment with you.<br/>
+          Your presence and prayers mean the world to us.
+        </p>
+
+        <div class="closing__couple">
+          <span>Ittymathew</span>
+          <svg viewBox="0 0 30 14" class="closing__heart-svg" aria-hidden="true">
+            <path d="M15,12 C15,12 4,6 4,3 C4,1 6,0 8,1.5 C10,-0.5 12,0 13,2 C14,0 16,-0.5 18,1.5 C20,0 22,1 22,3 C22,6 15,12 15,12Z" fill="#c8a04a"/>
+          </svg>
+          <span>Rosemary</span>
+        </div>
+
+        <p class="closing__date">April 11, 2026</p>
+
+        <div class="closing__family">
+          <p>With love from</p>
+          <p><strong>Lidiya, Jobi &amp; Mikhael</strong></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
