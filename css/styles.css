@@ -257,6 +257,13 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--deep);
   letter-spacing: 0.04em;
 }
+.announce__name--bride {
+  font-family: var(--font-script);
+  font-size: clamp(2.6rem, 10vw, 3.8rem);
+  font-weight: 400;
+  color: var(--rose);
+  letter-spacing: 0.02em;
+}
 .announce__ampersand {
   font-family: var(--font-script);
   font-size: clamp(1.4rem, 5vw, 2rem);
@@ -690,13 +697,13 @@ button { cursor: pointer; font-family: inherit; }
   flex-direction: column;
   gap: 0;
   position: relative;
-  padding-left: 90px;
+  padding-left: 28px;
 }
 
 .timeline::before {
   content: '';
   position: absolute;
-  left: 75px;
+  left: 6px;
   top: 12px;
   bottom: 12px;
   width: 1.5px;
@@ -711,19 +718,6 @@ button { cursor: pointer; font-family: inherit; }
   padding-bottom: 2rem;
 }
 .timeline__item:last-child { padding-bottom: 0; }
-
-.timeline__time {
-  position: absolute;
-  left: -90px;
-  width: 72px;
-  text-align: right;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--gold);
-  padding-top: 0.1rem;
-  line-height: 1.4;
-}
 
 .timeline__dot {
   width: 14px;
@@ -817,6 +811,10 @@ button { cursor: pointer; font-family: inherit; }
   font-family: var(--font-script);
   font-size: clamp(2rem, 7vw, 2.6rem);
   color: var(--gold-pale);
+}
+.closing__bride {
+  font-size: clamp(2.5rem, 9vw, 3.4rem);
+  color: #f4b8c0;
 }
 .closing__heart-svg {
   width: 30px;
