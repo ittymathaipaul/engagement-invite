@@ -78,6 +78,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   background: #faf5ef;
   padding: 0;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ── Full-screen cream cover — one large tap target ── */
@@ -105,16 +106,27 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   position: relative;
   width: clamp(200px, 55vw, 300px);   /* larger: dominant on both mobile and desktop */
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;  /* kill the blue flash on mobile */
   /* Layered drop-shadows create the raised/floating 3D illusion */
   filter:
     drop-shadow(0 2px 4px rgba(92, 8, 8, 0.20))
     drop-shadow(0 10px 24px rgba(92, 8, 8, 0.34))
     drop-shadow(0 22px 44px rgba(70, 6, 6, 0.18));
   animation: sealFloat 6s ease-in-out infinite;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+/* Golden press glow — replaces the blue tap highlight */
+.wax-center:active {
+  transform: scale(0.97);
+  filter:
+    drop-shadow(0 0px 18px rgba(224, 184, 64, 0.70))
+    drop-shadow(0 0px 40px rgba(200, 149, 42, 0.45))
+    drop-shadow(0 8px 20px rgba(92, 8, 8, 0.30));
 }
 
 .wax-center:focus-visible {
-  outline: 2px solid rgba(200, 80, 80, 0.5);
+  outline: 2px solid rgba(200, 149, 42, 0.55);
   outline-offset: 8px;
   border-radius: 50%;
 }
