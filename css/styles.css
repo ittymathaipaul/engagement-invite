@@ -31,11 +31,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  /* Section-by-section scroll snapping */
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
+  overflow: hidden;
+  height: 100%;
 }
 
 body {
@@ -45,6 +43,7 @@ body {
   background: var(--cream);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  height: 100%;
 }
 
 img, svg { display: block; max-width: 100%; }
@@ -72,9 +71,6 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   justify-content: center;
   position: relative;
   overflow-x: hidden;
-  overflow-y: auto;           /* content-heavy sections scroll internally */
-  scroll-snap-align: start;   /* each section is a snap point */
-  scroll-snap-stop: always;   /* never skip a section on fast swipe */
 }
 
 /* ════════════════════════════════════════════
@@ -200,14 +196,63 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 }
 
 /* ════════════════════════════════════════════
-   MAIN INVITATION — fade-in
+   MAIN INVITATION — section container
 ════════════════════════════════════════════ */
 .invitation {
-  animation: fadeIn 1.5s ease both;
+  position: relative;
+  height: 100dvh;
+  height: 100vh;
+  overflow: hidden;
 }
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+
+/* Each section stacks absolutely; only .is-active is visible */
+.invitation .screen {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.40s ease;
+  z-index: 0;
+}
+.invitation .screen.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+/* ── Side navigation dots ── */
+.section-dots {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 300;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.section-dots.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.section-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(200, 149, 42, 0.25);
+  border: 1.5px solid rgba(200, 149, 42, 0.45);
+  padding: 0;
+  transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+.section-dot.is-active {
+  background: var(--gold);
+  border-color: var(--gold);
+  transform: scale(1.4);
 }
 
 /* ════════════════════════════════════════════
