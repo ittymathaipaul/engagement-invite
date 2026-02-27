@@ -209,11 +209,12 @@ function initSections() {
       mapTY = e.touches[0].clientY;
     }, { passive: true });
     overlay.addEventListener('touchmove', e => {
+      e.preventDefault(); // stop browser hijacking the scroll
       const dy = mapTY - e.touches[0].clientY;
       mapTY = e.touches[0].clientY;
       const screen = overlay.closest('.screen');
       if (screen) screen.scrollTop += dy;
-    }, { passive: true });
+    }, { passive: false });
   });
 
   // Swipe

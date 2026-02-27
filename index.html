@@ -74,11 +74,12 @@
         <!-- ── Envelope body ── -->
         <rect width="100" height="100" fill="url(#ef-body)"/>
 
-        <!-- ── Rough paper texture — covers the full body, flap is painted on top ── -->
+        <!-- ── Rough paper texture — multiply blend makes white areas transparent ── -->
         <image href="assets/images/rough-texture.svg"
                x="0" y="0" width="100" height="100"
                preserveAspectRatio="xMidYMid slice"
-               opacity="0.13"/>
+               opacity="0.35"
+               style="mix-blend-mode:multiply"/>
 
         <!-- ── Formal double-line border frame — embossed look, light then shadow ── -->
         <!-- Outer frame highlight — salmon -->

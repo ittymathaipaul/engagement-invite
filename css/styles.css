@@ -215,6 +215,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   inset: 0;
   height: 100%;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   transform: translateY(100%);           /* default: below viewport */
   transition: transform 0.60s cubic-bezier(0.77, 0, 0.175, 1);
   will-change: transform;
