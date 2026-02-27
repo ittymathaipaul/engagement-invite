@@ -200,6 +200,20 @@ function initSections() {
     dot.addEventListener('click', () => goTo(+dot.dataset.section));
   });
 
+  // Allow scroll-by-touch directly over the map embed area
+  document.querySelectorAll('.map-section').forEach(mapSection => {
+    let mapTY = 0;
+    mapSection.addEventListener('touchstart', e => {
+      mapTY = e.touches[0].clientY;
+    }, { passive: true });
+    mapSection.addEventListener('touchmove', e => {
+      const dy = mapTY - e.touches[0].clientY;
+      mapTY = e.touches[0].clientY;
+      const screen = mapSection.closest('.screen');
+      if (screen) screen.scrollTop += dy;
+    }, { passive: true });
+  });
+
   // Swipe
   const inv = document.getElementById('invitation');
   let tY = 0;
