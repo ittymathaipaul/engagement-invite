@@ -7,6 +7,17 @@
 const TARGET_DATE = new Date('2026-04-11T11:30:00+05:30');
 
 /* ════════════════════════════════════════════
+   LANDING FADE-IN (prevent blank green flash)
+════════════════════════════════════════════ */
+// Landing starts at opacity:0 in CSS. Only show it once ALL resources
+// (including the wax-seal PNG) have fully loaded.
+window.addEventListener('load', () => {
+  requestAnimationFrame(() => {
+    document.getElementById('landing').classList.add('ready');
+  });
+});
+
+/* ════════════════════════════════════════════
    LANDING → INVITATION REVEAL
 ════════════════════════════════════════════ */
 let _isRevealing = false;
@@ -19,13 +30,17 @@ function revealInvitation() {
   const landing    = document.getElementById('landing');
   const invitation = document.getElementById('invitation');
 
-  // 1. Immediately flash the envelope lines golden on tap
+  // 1. Flash the envelope lines golden immediately on tap
   creamCover.classList.add('tapped');
 
-  // 2. A brief moment later, fade the entire landing section (green bg goes with it)
-  setTimeout(() => landing.classList.add('dissolve'), 90);
+  // 2. Fade the entire landing section out (inline style overrides .ready transition)
+  setTimeout(() => {
+    landing.style.transition    = 'opacity 1.25s ease';
+    landing.style.opacity       = '0';
+    landing.style.pointerEvents = 'none';
+  }, 90);
 
-  // 3. After the 1.25s fade-out completes, swap to the invitation
+  // 3. After fade completes, swap to the invitation
   setTimeout(() => {
     landing.style.display = 'none';
     invitation.classList.remove('hidden');

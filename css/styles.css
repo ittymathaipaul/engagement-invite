@@ -81,18 +81,20 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
    SECTION 1 — LANDING / CREAM COVER
 ════════════════════════════════════════════ */
 .screen--landing {
-  background: #96be96;   /* mint-green envelope — fallback if SVG hasn't painted yet */
+  background: #96be96;
   padding: 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: opacity 1.25s ease;
+  opacity: 0;   /* invisible until JS adds .ready — prevents blank green flash */
 }
 
-/* Dissolve: fade the whole landing section so the green background goes with it */
-.screen--landing.dissolve {
-  opacity: 0;
-  pointer-events: none;
+/* Fade in once all resources (including seal PNG) are loaded */
+.screen--landing.ready {
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
+
+/* The dissolve is driven entirely by inline styles in JS (see revealInvitation) */
 
 /* ── Full-screen envelope cover — one large tap target ── */
 .cream-cover {
