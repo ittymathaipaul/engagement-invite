@@ -12,10 +12,10 @@
   --gold-light:   #e0b840;
   --gold-pale:    #f5e6c0;
   --cream:        #fdf6ee;
-  --blush:        #fce8e4;
-  --blush-mid:    #f4c8c0;
-  --rose:         #d4776a;
-  --deep:         #3a2010;
+  --blush:        #F7C6C7;
+  --blush-mid:    #efaab0;
+  --rose:         #D50032;
+  --deep:         #A50034;
   --ink:          #4a3020;
   --muted:        #8a6a55;
   --white:        #ffffff;
@@ -31,9 +31,10 @@
 }
 
 html {
+  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  overflow: hidden;
-  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body {
@@ -43,7 +44,6 @@ body {
   background: var(--cream);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  height: 100%;
 }
 
 img, svg { display: block; max-width: 100%; }
@@ -62,8 +62,8 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
    SCREENS — shared layout
 ════════════════════════════════════════════ */
 .screen {
-  height: 100dvh;
-  height: 100vh;
+  min-height: 100dvh;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -77,7 +77,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
    SECTION 1 — LANDING / CREAM COVER
 ════════════════════════════════════════════ */
 .screen--landing {
-  background: #96be96;
+  background: #A50034;
   padding: 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -96,7 +96,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .cream-cover {
   position: absolute;
   inset: 0;
-  background: #96be96;
+  background: #A50034;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -196,63 +196,14 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 }
 
 /* ════════════════════════════════════════════
-   MAIN INVITATION — section container
+   MAIN INVITATION — fade-in
 ════════════════════════════════════════════ */
 .invitation {
-  position: relative;
-  height: 100dvh;
-  height: 100vh;
-  overflow: hidden;
+  animation: fadeIn 1.5s ease both;
 }
-
-/* Each section stacks absolutely; only .is-active is visible */
-.invitation .screen {
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  overflow-y: auto;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.40s ease;
-  z-index: 0;
-}
-.invitation .screen.is-active {
-  opacity: 1;
-  pointer-events: auto;
-  z-index: 1;
-}
-
-/* ── Side navigation dots ── */
-.section-dots {
-  position: fixed;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 300;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-.section-dots.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-.section-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(200, 149, 42, 0.25);
-  border: 1.5px solid rgba(200, 149, 42, 0.45);
-  padding: 0;
-  transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
-}
-.section-dot.is-active {
-  background: var(--gold);
-  border-color: var(--gold);
-  transform: scale(1.4);
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* ════════════════════════════════════════════
@@ -582,9 +533,10 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 }
 
 /* ════════════════════════════════════════════
-   SECTION 4 — DETAILS
+   SECTION 4 — DETAILS / SECTION 5 — WEDDING
 ════════════════════════════════════════════ */
-.screen--details {
+.screen--details,
+.screen--wedding {
   background: var(--cream);
   padding: 2rem 1.5rem 1.5rem;
   justify-content: flex-start;
