@@ -81,17 +81,17 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
    SECTION 1 — LANDING / CREAM COVER
 ════════════════════════════════════════════ */
 .screen--landing {
-  background: #faf5ef;
+  background: #2d4880;   /* blue envelope — fallback if SVG hasn't painted yet */
   padding: 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ── Full-screen cream cover — one large tap target ── */
+/* ── Full-screen envelope cover — one large tap target ── */
 .cream-cover {
   position: absolute;
   inset: 0;
-  background: #faf5ef;   /* repeated here so it wins even if section bg is overridden */
+  background: #2d4880;   /* blue envelope background */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,26 +111,28 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   pointer-events: none;
 }
 
-/* Envelope fold crease lines — corner-to-center, like a real letter */
+/* Envelope back art — fills the screen, sits behind seal and hint */
 .cover__folds {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 0;
 }
 
-/* ── Wax seal — dead center, 3D raised look ── */
+/* ── Frosted blue seal — dead center, 3D raised look ── */
 .wax-center {
   position: relative;
   width: clamp(200px, 55vw, 300px);   /* larger: dominant on both mobile and desktop */
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;  /* kill the blue flash on mobile */
-  /* Layered drop-shadows create the raised/floating 3D illusion */
+  z-index: 1;                                /* sits above the envelope-back SVG */
+  /* Layered blue drop-shadows create the raised/floating 3D illusion */
   filter:
-    drop-shadow(0 2px 4px rgba(92, 8, 8, 0.20))
-    drop-shadow(0 10px 24px rgba(92, 8, 8, 0.34))
-    drop-shadow(0 22px 44px rgba(70, 6, 6, 0.18));
+    drop-shadow(0 2px 5px rgba(10, 20, 70, 0.30))
+    drop-shadow(0 10px 26px rgba(10, 20, 70, 0.46))
+    drop-shadow(0 22px 44px rgba(8,  16, 55, 0.22));
   animation: sealFloat 6s ease-in-out infinite;
   transition: filter 0.15s ease, transform 0.15s ease;
 }
@@ -150,7 +152,8 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   border-radius: 50%;
 }
 
-.wax-center .seal-img {
+.wax-center .seal-img,
+.wax-center .seal-svg {
   width: 100%;
   height: auto;
   display: block;
@@ -161,15 +164,17 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   50%       { transform: translateY(-10px); }
 }
 
-/* ── Tap hint — minimal uppercase text, very faint ── */
+/* ── Tap hint — minimal uppercase text, very faint; sits above envelope SVG ── */
 .cover__hint {
   font-family: var(--font-sans);
   font-size: 0.60rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: rgba(150, 110, 75, 0.42);
+  color: rgba(200, 220, 255, 0.45);
   animation: hintBreath 3.2s ease-in-out infinite;
   pointer-events: none;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes hintBreath {
