@@ -85,30 +85,44 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   padding: 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  transition: opacity 1.25s ease;
+}
+
+/* Dissolve: fade the whole landing section so the green background goes with it */
+.screen--landing.dissolve {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ── Full-screen envelope cover — one large tap target ── */
 .cream-cover {
   position: absolute;
   inset: 0;
-  background: #96be96;   /* mint-green envelope background */
+  background: #96be96;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 2.8rem;
-  transform: translateY(0);
-  will-change: transform, opacity;
-  /* slide upward first, then fade — envelope opening feel */
-  transition: transform 0.54s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity   0.30s ease 0.26s;
 }
 
-/* Open state — cover slides up off screen like lifting a flap */
-.cream-cover.dissolve {
-  transform: translateY(-100%);
-  opacity: 0;
-  pointer-events: none;
+/* ── SVG envelope lines — smooth gold glow on tap ── */
+.flap-line {
+  transition: stroke 0.45s ease, stroke-width 0.45s ease, stroke-opacity 0.45s ease;
+}
+
+/* Top V-edge lines pulse to gold */
+.cream-cover.tapped .flap-line--top {
+  stroke: rgba(224, 184, 64, 0.95);
+  stroke-width: 1.4;
+  filter: url(#ef-glow);
+}
+
+/* Lower fold lines — subtle warm glow */
+.cream-cover.tapped .flap-line--side {
+  stroke: rgba(200, 160, 42, 0.55);
+  stroke-width: 0.55;
+  filter: url(#ef-glow);
 }
 
 /* Envelope back art — fills the screen, sits behind seal and hint */
@@ -128,20 +142,38 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   z-index: 1;
-  filter:
-    drop-shadow(0 2px 4px rgba(92, 8, 8, 0.20))
-    drop-shadow(0 10px 24px rgba(92, 8, 8, 0.34))
-    drop-shadow(0 22px 44px rgba(70, 6, 6, 0.18));
+  /* filter moved to .seal-img so the ::before glow is unaffected */
   transition: opacity 0.18s ease, transform 0.15s ease;
 }
 
-/* Fade on press — no blue flash, no glow */
+/* ── Golden radial glow that lives behind the seal ── */
+.wax-center::before {
+  content: '';
+  position: absolute;
+  inset: -32%;                /* extends well beyond the seal edge */
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center,
+    rgba(224, 184, 64, 0.44) 0%,
+    rgba(200, 149, 42, 0.22) 36%,
+    rgba(160, 112, 20, 0.08) 60%,
+    transparent 70%);
+  animation: sealGlow 3.6s ease-in-out infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes sealGlow {
+  0%, 100% { opacity: 0.72; transform: scale(0.90); }
+  50%       { opacity: 1.00; transform: scale(1.08); }
+}
+
+/* Fade on press */
 .wax-center:active {
   opacity: 0.68;
   transform: scale(0.97);
 }
 
-/* Kill browser focus ring entirely (tap devices don't need it) */
+/* Kill browser focus ring */
 .wax-center:focus,
 .wax-center:focus-visible {
   outline: none;
@@ -152,7 +184,13 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   width: 100%;
   height: auto;
   display: block;
-  /* Prevent the image itself from showing a native tap highlight */
+  position: relative;
+  z-index: 1;          /* sits above the ::before glow layer */
+  /* Drop-shadows live here, separate from the glow pseudo-element */
+  filter:
+    drop-shadow(0 2px 4px rgba(92, 8, 8, 0.20))
+    drop-shadow(0 10px 24px rgba(92, 8, 8, 0.34))
+    drop-shadow(0 22px 44px rgba(70, 6, 6, 0.18));
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   -webkit-user-drag: none;
@@ -180,7 +218,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
    MAIN INVITATION — fade-in
 ════════════════════════════════════════════ */
 .invitation {
-  animation: fadeIn 0.8s ease both;
+  animation: fadeIn 1.5s ease both;
 }
 @keyframes fadeIn {
   from { opacity: 0; }
