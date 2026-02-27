@@ -44,21 +44,22 @@
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
-          <!-- Golden spread-glow filter applied to lines on tap -->
-          <!-- Two-pass blur: wide outer halo + tight inner glow merged together -->
-          <filter id="ef-glow" x="-120%" y="-120%" width="340%" height="340%">
-            <!-- Outer halo: wide soft spread -->
-            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur-outer"/>
-            <feColorMatrix in="blur-outer" type="matrix"
-              values="1 0 0 0 0.12
-                      0 1 0 0 0.04
-                      0 0 1 0 0
-                      0 0 0 2.2 0" result="halo"/>
-            <!-- Inner glow: tighter, brighter -->
-            <feGaussianBlur in="SourceGraphic" stdDeviation="2.2" result="blur-inner"/>
+          <!-- Golden light filter — replaces the dark fold shadow on tap -->
+          <!-- Two layers: tight amber edge + wide soft outer glow -->
+          <filter id="ef-golden-shadow" x="-5%" y="-5%" width="110%" height="145%">
+            <!-- Tight bright edge at the V-crease -->
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur-tight"/>
+            <feOffset in="blur-tight" dx="0" dy="4" result="shifted-tight"/>
+            <feFlood flood-color="#e8b830" flood-opacity="0.88" result="gold1"/>
+            <feComposite in="gold1" in2="shifted-tight" operator="in" result="golden-edge"/>
+            <!-- Wide soft outer spread -->
+            <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blur-wide"/>
+            <feOffset in="blur-wide" dx="0" dy="6" result="shifted-wide"/>
+            <feFlood flood-color="#f5d060" flood-opacity="0.42" result="gold2"/>
+            <feComposite in="gold2" in2="shifted-wide" operator="in" result="golden-glow"/>
             <feMerge>
-              <feMergeNode in="halo"/>
-              <feMergeNode in="blur-inner"/>
+              <feMergeNode in="golden-glow"/>
+              <feMergeNode in="golden-edge"/>
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
@@ -69,6 +70,8 @@
 
         <!-- ── Top V-flap: triangle with drop-shadow casting onto the body below ── -->
         <polygon points="0,0 100,0 50,52" fill="url(#ef-flap)" filter="url(#ef-fshadow)"/>
+        <!-- Golden-light ghost — same shape, fades in on tap to replace dark shadow with warm glow -->
+        <polygon class="flap-top-glow" points="0,0 100,0 50,52" fill="url(#ef-flap)" filter="url(#ef-golden-shadow)"/>
 
         <!-- ── Bright highlight along each V-edge: paper edge catching light ── -->
         <line class="flap-line flap-line--top" x1="0"   y1="0" x2="50" y2="52" stroke="rgba(255,255,255,0.80)" stroke-width="0.65" stroke-linecap="round"/>
