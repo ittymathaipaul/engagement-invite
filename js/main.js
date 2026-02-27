@@ -158,6 +158,11 @@ function goTo(idx) {
   screens[idx].scrollTop = 0;
   triggerFadeUp(screens[idx]);
 
+  /* Re-centre the wedding carousel when navigating to that section */
+  if (screens[idx].id === 'wedding') {
+    setTimeout(() => window._wgReposition?.(), 40);
+  }
+
   // Sync dots
   document.querySelectorAll('.section-dot').forEach((dot, i) => {
     dot.classList.toggle('is-active', i === idx);
@@ -290,63 +295,79 @@ function downloadICS() {
 */
 
 /* ════════════════════════════════════════════
-   FILMSTRIP GALLERY (inside wedding section)
-   All 6 thumbnails always visible.
-   Active one: scale(1.18) + shadow.
-   Others: scale(0.84) + dimmed.
+   WEDDING SECTION — 3-UP PHOTO CAROUSEL
+   3 slides visible (centre + 2 peeking sides).
+   Centre slide: scale(1) + full opacity.
+   Side slides:  scale(0.80) + dimmed.
    Auto-advances every 2 s; pauses on hover.
+   No dot indicators.
 ════════════════════════════════════════════ */
 (function () {
-  const strip = document.getElementById('filmstrip');
-  if (!strip) return;
+  const stage = document.getElementById('wgStage');
+  const track = document.getElementById('wgTrack');
+  if (!stage || !track) return;
 
-  const items = Array.from(strip.querySelectorAll('.filmstrip__item'));
-  const dots  = Array.from(document.querySelectorAll('#filmstripDots .filmstrip__dot'));
-  const n     = items.length;
+  const slides = Array.from(track.querySelectorAll('.wg__slide'));
+  const n      = slides.length;
   let   active = 0;
   let   timer  = null;
 
-  function setActive(i) {
-    active = i;
-    items.forEach((el, j) => el.classList.toggle('is-active', j === i));
-    dots.forEach((d, j) => {
-      d.classList.toggle('is-active', j === i);
-      d.setAttribute('aria-selected', String(j === i));
-    });
+  /* Centre the active slide inside the stage.
+     Each slide: flex-basis 72% of stageW, margin 5% each side.
+     step (layout width per slide) = 72% + 10% = 82% of stageW.
+     offset = stageW/2 − margin − slideW/2 − active × step          */
+  function position(instant) {
+    const stageW = stage.offsetWidth;
+    const slideW = stageW * 0.72;
+    const margin = stageW * 0.05;
+    const step   = slideW + 2 * margin;
+    const offset = stageW / 2 - margin - slideW / 2 - active * step;
+
+    if (instant) {
+      track.style.transition = 'none';
+      track.style.transform  = `translateX(${offset}px)`;
+      void track.offsetWidth;
+      track.style.transition = '';
+    } else {
+      track.style.transform = `translateX(${offset}px)`;
+    }
+
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === active));
   }
 
-  function advance() { setActive((active + 1) % n); }
+  function advance() { active = (active + 1) % n; position(); }
   function startTimer() { timer = setInterval(advance, 2000); }
   function stopTimer()  { clearInterval(timer); }
 
-  /* Dot clicks */
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => { setActive(i); stopTimer(); startTimer(); });
-  });
-
-  /* Clicking a non-active thumbnail jumps to it */
-  items.forEach((item, i) => {
-    item.addEventListener('click', () => {
-      if (i !== active) { setActive(i); stopTimer(); startTimer(); }
+  /* Click a side slide to jump to it */
+  slides.forEach((slide, i) => {
+    slide.addEventListener('click', () => {
+      if (i !== active) { active = i; position(); stopTimer(); startTimer(); }
     });
   });
 
   /* Pause on hover (desktop) */
-  strip.addEventListener('mouseenter', stopTimer);
-  strip.addEventListener('mouseleave', startTimer);
+  stage.addEventListener('mouseenter', stopTimer);
+  stage.addEventListener('mouseleave', startTimer);
 
-  /* Horizontal swipe */
-  let tx = 0;
-  strip.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
-  strip.addEventListener('touchend', e => {
-    const dx = tx - e.changedTouches[0].clientX;
-    if (Math.abs(dx) > 35) {
-      setActive((active + (dx > 0 ? 1 : -1) + n) % n);
-      stopTimer(); startTimer();
+  /* Horizontal swipe (touch) */
+  let tx0 = 0;
+  stage.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend',   e => {
+    const dx = tx0 - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) {
+      active = (active + (dx > 0 ? 1 : -1) + n) % n;
+      position(); stopTimer(); startTimer();
     }
   }, { passive: true });
 
+  /* Reposition on resize without transition */
+  window.addEventListener('resize', () => position(true));
+
+  /* Re-centre when this section slides into view */
+  window._wgReposition = () => position(true);
+
   /* Init */
-  setActive(0);
+  position(true);
   startTimer();
 }());

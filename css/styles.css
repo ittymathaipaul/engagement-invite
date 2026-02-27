@@ -631,11 +631,25 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   align-items: center;
   background: var(--cream);
 }
+/* Wedding section: 60 % heading+card / 40 % carousel, no side padding
+   (each zone handles its own padding) */
 .screen--wedding {
-  padding: 2rem 1.5rem;
-  justify-content: center;
+  padding: 0;
+  justify-content: flex-start;
   align-items: center;
+  gap: 0;
   background: linear-gradient(170deg, #ffe8e6 0%, #fff0ee 60%, #fff8f7 100%);
+}
+
+/* 60 % zone: heading + venue card, vertically centred */
+.screen--wedding .details__inner {
+  flex: 0 0 60%;
+  min-height: 220px;
+  width: 100%;
+  max-width: 440px;
+  justify-content: center;
+  padding: 1.6rem 1.5rem 0.8rem;
+  overflow-y: auto;
 }
 
 .details__inner {
@@ -796,90 +810,83 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .btn--secondary:hover { background: var(--blush); }
 
 /* ════════════════════════════════════════════
-   WEDDING SECTION — FILMSTRIP GALLERY
-   All 6 images always visible; active one zooms up.
+   WEDDING SECTION — 3-UP PHOTO CAROUSEL
+   40 % of section height, no dots.
+   Centre slide: full scale + maroon shadow.
+   Side slides: scale(0.80) + dimmed, peek in.
+   Clicking a side slide advances to it.
 ════════════════════════════════════════════ */
 
-/* Widen the wedding section's content column on desktop
-   so images are ~100 px each instead of ~60 px */
+/* 40 % zone: carousel wrapper, full width */
+.wedding-gallery {
+  flex: 0 0 40%;
+  min-height: 180px;
+  align-self: stretch;      /* full viewport width */
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Stage — clips the peeking neighbours */
+.wg__stage {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Capped width on larger screens so slides don't become huge */
 @media (min-width: 640px) {
-  .screen--wedding .details__inner {
-    max-width: 680px;
+  .wg__stage {
+    max-width: 700px;
+    margin: 0 auto;
   }
 }
 
-/* Filmstrip row */
-.filmstrip {
+/* Track: horizontal row that JS translates to centre the active slide */
+.wg__track {
   display: flex;
   align-items: center;
-  gap: 5px;
-  width: 100%;
-  /* Extra vertical room so the scaled-up image doesn't get clipped */
-  padding: 18px 0 10px;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
-@media (min-width: 640px) {
-  .filmstrip { gap: 8px; }
-}
-
-/* Each thumbnail — equal flex share */
-.filmstrip__item {
-  flex: 1;
-  border-radius: 10px;
+/* Each slide — 72 % of stage width, 5 % margin each side = 82 % step */
+.wg__slide {
+  flex: 0 0 72%;
+  margin: 0 5%;
+  border-radius: 18px;
   overflow: hidden;
-  transform: scale(0.84);
-  opacity: 0.58;
+  transform: scale(0.80);
+  opacity: 0.45;
   transition:
-    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity   0.45s ease,
+    transform 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity   0.55s ease,
     box-shadow 0.45s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
   cursor: pointer;
-  position: relative;
-  z-index: 1;
 }
 
-/* Active (zoomed) thumbnail */
-.filmstrip__item.is-active {
-  transform: scale(1.18);
+/* Active (centre) slide */
+.wg__slide.is-active {
+  transform: scale(1);
   opacity: 1;
-  z-index: 2;
-  cursor: default;
   box-shadow:
-    0 6px 22px rgba(150, 0, 24, 0.30),
-    0 2px 8px  rgba(0, 0, 0, 0.20);
-  border-radius: 12px;
+    0 10px 36px rgba(150, 0, 24, 0.28),
+    0 3px  12px rgba(0,   0, 0,  0.18);
+  cursor: default;
 }
 
-.filmstrip__item img {
+.wg__slide img {
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
   display: block;
   user-select: none;
   -webkit-user-drag: none;
-}
-
-/* Dot indicators */
-.filmstrip__dots {
-  display: flex;
-  gap: 7px;
-  justify-content: center;
-}
-
-.filmstrip__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  border: none;
-  padding: 0;
-  background: rgba(150, 0, 24, 0.22);
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-}
-
-.filmstrip__dot.is-active {
-  background: var(--c3);
-  transform: scale(1.45);
 }
 
 /* ════════════════════════════════════════════
