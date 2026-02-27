@@ -200,16 +200,18 @@ function initSections() {
     dot.addEventListener('click', () => goTo(+dot.dataset.section));
   });
 
-  // Allow scroll-by-touch directly over the map embed area
-  document.querySelectorAll('.map-section').forEach(mapSection => {
+  // Transparent overlay on each map iframe — receives touch events
+  // that would otherwise be swallowed by the cross-origin iframe,
+  // and manually scrolls the parent screen in response.
+  document.querySelectorAll('.map-overlay').forEach(overlay => {
     let mapTY = 0;
-    mapSection.addEventListener('touchstart', e => {
+    overlay.addEventListener('touchstart', e => {
       mapTY = e.touches[0].clientY;
     }, { passive: true });
-    mapSection.addEventListener('touchmove', e => {
+    overlay.addEventListener('touchmove', e => {
       const dy = mapTY - e.touches[0].clientY;
       mapTY = e.touches[0].clientY;
-      const screen = mapSection.closest('.screen');
+      const screen = overlay.closest('.screen');
       if (screen) screen.scrollTop += dy;
     }, { passive: true });
   });

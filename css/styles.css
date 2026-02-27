@@ -693,6 +693,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .map-section__icon { width: 16px; height: 16px; color: var(--c3); flex-shrink: 0; }
 
 .map-embed {
+  position: relative;
   width: 100%;
   border-radius: var(--radius);
   overflow: hidden;
@@ -700,7 +701,16 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   box-shadow: 0 3px 14px rgba(60,0,0,0.08);
   background: #eee;
 }
-.map-embed iframe { display: block; pointer-events: none; }
+.map-embed iframe { display: block; }
+
+/* Transparent overlay sits on top of the iframe so touch events
+   always land on a DOM element we own — lets us scroll the screen */
+.map-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: transparent;
+}
 
 /* Buttons */
 .map-actions {
