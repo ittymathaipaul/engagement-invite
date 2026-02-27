@@ -124,32 +124,27 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 /* ── Wax seal — dead center, 3D raised look ── */
 .wax-center {
   position: relative;
-  width: clamp(200px, 55vw, 300px);   /* larger: dominant on both mobile and desktop */
+  width: clamp(200px, 55vw, 300px);
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;  /* kill the blue flash on mobile */
-  z-index: 1;                                /* sits above the envelope-back SVG */
-  /* Layered drop-shadows create the raised/floating 3D illusion */
+  -webkit-tap-highlight-color: transparent;
+  z-index: 1;
   filter:
     drop-shadow(0 2px 4px rgba(92, 8, 8, 0.20))
     drop-shadow(0 10px 24px rgba(92, 8, 8, 0.34))
     drop-shadow(0 22px 44px rgba(70, 6, 6, 0.18));
-  animation: sealFloat 6s ease-in-out infinite;
-  transition: filter 0.15s ease, transform 0.15s ease;
+  transition: opacity 0.18s ease, transform 0.15s ease;
 }
 
-/* Golden press glow — replaces the blue tap highlight */
+/* Fade on press — no blue flash, no glow */
 .wax-center:active {
+  opacity: 0.68;
   transform: scale(0.97);
-  filter:
-    drop-shadow(0 0px 18px rgba(224, 184, 64, 0.70))
-    drop-shadow(0 0px 40px rgba(200, 149, 42, 0.45))
-    drop-shadow(0 8px 20px rgba(92, 8, 8, 0.30));
 }
 
+/* Kill browser focus ring entirely (tap devices don't need it) */
+.wax-center:focus,
 .wax-center:focus-visible {
-  outline: 2px solid rgba(200, 149, 42, 0.55);
-  outline-offset: 8px;
-  border-radius: 50%;
+  outline: none;
 }
 
 .wax-center .seal-img,
@@ -157,11 +152,10 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   width: 100%;
   height: auto;
   display: block;
-}
-
-@keyframes sealFloat {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-10px); }
+  /* Prevent the image itself from showing a native tap highlight */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 /* ── Tap hint — minimal uppercase text, very faint; sits above envelope SVG ── */
