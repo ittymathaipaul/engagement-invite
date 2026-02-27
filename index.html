@@ -64,31 +64,21 @@
             </feMerge>
           </filter>
 
-          <!-- ── Embossed diamond lattice — body decoration ──
-               Each 12×12 tile: a diamond outline drawn twice.
-               Light edge (top-left catch) drawn first at origin.
-               Shadow edge (bottom-right) drawn second, shifted +0.6,+0.6.
-               Together they read as a raised embossed surface.          -->
-          <pattern id="ef-bp" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
-            <!-- Highlight edge — light salmon (#ff8478 palette), unshifted -->
-            <path d="M6,0 L12,6 L6,12 L0,6 Z" fill="none"
-                  stroke="rgba(255,132,120,0.16)" stroke-width="0.45"/>
-            <!-- Shadow edge — darkest palette, shifted offset -->
-            <path d="M6,0 L12,6 L6,12 L0,6 Z" fill="none"
-                  stroke="rgba(30,0,0,0.14)" stroke-width="0.45"
-                  transform="translate(0.6,0.6)"/>
-            <!-- Tiny embossed dot at each diamond centre -->
-            <circle cx="6" cy="6" r="0.55" fill="rgba(255,132,120,0.10)"/>
-            <circle cx="6" cy="6" r="0.55" fill="rgba(30,0,0,0.09)"
-                    transform="translate(0.4,0.4)"/>
-          </pattern>
+          <!-- ── Rough paper texture filter ── -->
+          <filter id="ef-texture-blend" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feColorMatrix type="saturate" values="0" result="gray"/>
+            <feBlend in="SourceGraphic" in2="gray" mode="multiply"/>
+          </filter>
         </defs>
 
         <!-- ── Envelope body ── -->
         <rect width="100" height="100" fill="url(#ef-body)"/>
 
-        <!-- ── Embossed diamond lattice — covers the full body, flap is painted on top ── -->
-        <rect width="100" height="100" fill="url(#ef-bp)"/>
+        <!-- ── Rough paper texture — covers the full body, flap is painted on top ── -->
+        <image href="assets/images/rough-texture.svg"
+               x="0" y="0" width="100" height="100"
+               preserveAspectRatio="xMidYMid slice"
+               opacity="0.13"/>
 
         <!-- ── Formal double-line border frame — embossed look, light then shadow ── -->
         <!-- Outer frame highlight — salmon -->
