@@ -154,9 +154,8 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   50%       { opacity: 1.00; transform: scale(1.08); }
 }
 
-/* Fade on press */
+/* Scale slightly on press — no opacity fade */
 .wax-center:active {
-  opacity: 0.68;
   transform: scale(0.97);
 }
 
