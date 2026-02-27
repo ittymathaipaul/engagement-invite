@@ -810,35 +810,35 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .btn--secondary:hover { background: var(--blush); }
 
 /* ════════════════════════════════════════════
-   WEDDING SECTION — 3-UP PHOTO CAROUSEL
-   40 % of section height, no dots.
-   Centre slide: full scale + maroon shadow.
-   Side slides: scale(0.80) + dimmed, peek in.
-   Clicking a side slide advances to it.
+   WEDDING SECTION — PORTRAIT CAROUSEL
+   Inspired by MDJAmin/PwPeVeK on CodePen.
+
+   40 % of section height. All slides are TALL
+   (portrait cards). Inactive = narrow dark slivers.
+   Active = wide, overlay removed, image zooms in.
+   Width animates via flex-basis transition.
+   No dots. Swipeable.
 ════════════════════════════════════════════ */
 
-/* 40 % zone: carousel wrapper, full width */
+/* 40 % zone: full viewport width, overflow clips side cards */
 .wedding-gallery {
   flex: 0 0 40%;
   min-height: 180px;
-  align-self: stretch;      /* full viewport width */
+  align-self: stretch;
   overflow: hidden;
   position: relative;
-  display: flex;
-  align-items: center;
 }
 
-/* Stage — clips the peeking neighbours */
+/* Stage — same height as .wedding-gallery */
 .wg__stage {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  position: relative;
   display: flex;
-  align-items: center;
+  align-items: center;   /* vertically centre the track */
 }
 
-/* Capped width on larger screens so slides don't become huge */
+/* Cap stage width on wide screens so slides don't bloat */
 @media (min-width: 640px) {
   .wg__stage {
     max-width: 700px;
@@ -846,47 +846,72 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   }
 }
 
-/* Track: horizontal row that JS translates to centre the active slide */
+/* Track — flex row, 88 % of stage height, centred vertically */
 .wg__track {
   display: flex;
-  align-items: center;
-  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  align-items: stretch;  /* slides fill track height */
+  height: 88%;
+  gap: 8px;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
 
-/* Each slide — 72 % of stage width, 5 % margin each side = 82 % step */
+/* ── Inactive slide — narrow portrait sliver ── */
 .wg__slide {
-  flex: 0 0 72%;
-  margin: 0 5%;
-  border-radius: 18px;
+  flex: 0 0 clamp(40px, 13%, 100px);
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 14px;
   overflow: hidden;
-  transform: scale(0.80);
-  opacity: 0.45;
-  transition:
-    transform 0.55s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity   0.55s ease,
-    box-shadow 0.45s ease;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
   cursor: pointer;
+  /* width animates when active class is toggled */
+  transition: flex-basis 0.65s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Active (centre) slide */
+/* Dark maroon gradient overlay on inactive slides */
+.wg__slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    150deg,
+    rgba(150, 0, 24, 0.78) 0%,
+    rgba(50,  0,  0, 0.82) 100%
+  );
+  transition: opacity 0.65s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── Active slide — wide portrait card ── */
 .wg__slide.is-active {
-  transform: scale(1);
-  opacity: 1;
-  box-shadow:
-    0 10px 36px rgba(150, 0, 24, 0.28),
-    0 3px  12px rgba(0,   0, 0,  0.18);
+  flex-basis: clamp(150px, 44%, 260px);
   cursor: default;
+  box-shadow:
+    0 12px 40px rgba(150, 0, 24, 0.30),
+    0 4px  14px rgba(0,   0,  0, 0.22);
 }
 
+/* Remove overlay on active so the full photo shows */
+.wg__slide.is-active::after {
+  opacity: 0;
+}
+
+/* Image fills the entire slide (portrait fill) */
 .wg__slide img {
   width: 100%;
-  aspect-ratio: 3 / 2;
+  height: 100%;
   object-fit: cover;
+  object-position: center top;
   display: block;
   user-select: none;
   -webkit-user-drag: none;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Subtle zoom-in on the active photo */
+.wg__slide.is-active img {
+  transform: scale(1.08);
 }
 
 /* ════════════════════════════════════════════
