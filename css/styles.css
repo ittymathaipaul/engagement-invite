@@ -211,8 +211,8 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 ════════════════════════════════════════════ */
 .screen--announcement {
   background: linear-gradient(175deg, #fce8e4 0%, #fdf0ea 60%, #fdf6ee 100%);
-  padding: 2rem 1.5rem;
-  justify-content: center;   /* vertically centered inside 100dvh */
+  padding: 5rem 1.5rem 2.5rem;
+  justify-content: flex-start;
 }
 
 .announcement__inner {
@@ -393,9 +393,9 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
    SECTION 3 — COUNTDOWN
 ════════════════════════════════════════════ */
 .screen--countdown {
-  background: linear-gradient(145deg, #2a1508 0%, #4a2510 50%, #3a1c0a 100%);
+  background: linear-gradient(145deg, #3d0015 0%, #6b0025 50%, #A50034 100%);
   padding: var(--section-pad);
-  overflow: hidden;          /* petals stay clipped inside their section */
+  overflow: hidden;
   position: relative;
 }
 
@@ -537,10 +537,15 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 ════════════════════════════════════════════ */
 .screen--details,
 .screen--wedding {
-  background: var(--cream);
   padding: 2rem 1.5rem 1.5rem;
   justify-content: flex-start;
   align-items: center;
+}
+.screen--details {
+  background: var(--cream);
+}
+.screen--wedding {
+  background: linear-gradient(170deg, #FDE8ED 0%, #FFF0F4 60%, #fff5f7 100%);
 }
 
 .details__inner {
@@ -742,7 +747,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   color: var(--gold-pale);
 }
 .closing__bride {
-  color: #f4b8c0;
+  color: var(--gold-pale);
 }
 .closing__heart-svg {
   width: 30px;
