@@ -700,7 +700,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   box-shadow: 0 3px 14px rgba(60,0,0,0.08);
   background: #eee;
 }
-.map-embed iframe { display: block; }
+.map-embed iframe { display: block; pointer-events: none; }
 
 /* Buttons */
 .map-actions {
