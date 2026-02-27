@@ -796,74 +796,61 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .btn--secondary:hover { background: var(--blush); }
 
 /* ════════════════════════════════════════════
-   SECTION 5 — GALLERY
+   WEDDING SECTION — FILMSTRIP GALLERY
+   All 6 images always visible; active one zooms up.
 ════════════════════════════════════════════ */
-.screen--gallery {
-  background: linear-gradient(160deg, #0d0005 0%, #1e0008 55%, #0d0005 100%);
-  justify-content: center;
-  align-items: center;
-  padding: 2.5rem 0 2.2rem;
-  overflow: hidden;
+
+/* Widen the wedding section's content column on desktop
+   so images are ~100 px each instead of ~60 px */
+@media (min-width: 640px) {
+  .screen--wedding .details__inner {
+    max-width: 680px;
+  }
 }
 
-.gallery__inner {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.4rem;
-}
-
-.screen--gallery .section__pre {
-  color: rgba(255, 208, 170, 0.72);
-  letter-spacing: 0.2em;
-}
-.screen--gallery .section__title {
-  color: rgba(255, 245, 240, 0.95);
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
-}
-
-/* Clips the peeking side slides */
-.gallery__stage {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  /* Extra vertical padding so scaled-down slides don't clip their shadow */
-  padding: 0.8rem 0;
-}
-
-/* Slides laid out in a horizontal row; JS translates to center the active */
-.gallery__track {
+/* Filmstrip row */
+.filmstrip {
   display: flex;
   align-items: center;
-  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
+  gap: 5px;
+  width: 100%;
+  /* Extra vertical room so the scaled-up image doesn't get clipped */
+  padding: 18px 0 10px;
 }
 
-/* Each slide — 72% of stage width, 5% margin each side */
-.gallery__slide {
-  flex: 0 0 72%;
-  margin: 0 5%;
-  border-radius: 18px;
+@media (min-width: 640px) {
+  .filmstrip { gap: 8px; }
+}
+
+/* Each thumbnail — equal flex share */
+.filmstrip__item {
+  flex: 1;
+  border-radius: 10px;
   overflow: hidden;
-  transform: scale(0.78);
-  opacity: 0.42;
+  transform: scale(0.84);
+  opacity: 0.58;
   transition:
-    transform 0.55s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity   0.55s ease;
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.55);
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity   0.45s ease,
+    box-shadow 0.45s ease;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
 
-/* Active (center) slide is full-size and fully opaque */
-.gallery__slide.is-active {
-  transform: scale(1);
+/* Active (zoomed) thumbnail */
+.filmstrip__item.is-active {
+  transform: scale(1.18);
   opacity: 1;
-  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.72);
+  z-index: 2;
   cursor: default;
+  box-shadow:
+    0 6px 22px rgba(150, 0, 24, 0.30),
+    0 2px 8px  rgba(0, 0, 0, 0.20);
+  border-radius: 12px;
 }
 
-.gallery__slide img {
+.filmstrip__item img {
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
@@ -873,28 +860,30 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 }
 
 /* Dot indicators */
-.gallery__dots {
+.filmstrip__dots {
   display: flex;
-  gap: 8px;
+  gap: 7px;
   justify-content: center;
 }
-.gallery__dot {
-  width: 7px;
-  height: 7px;
+
+.filmstrip__dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   border: none;
   padding: 0;
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(150, 0, 24, 0.22);
   cursor: pointer;
   transition: background 0.3s, transform 0.3s;
 }
-.gallery__dot.is-active {
-  background: rgba(255, 255, 255, 0.9);
-  transform: scale(1.4);
+
+.filmstrip__dot.is-active {
+  background: var(--c3);
+  transform: scale(1.45);
 }
 
 /* ════════════════════════════════════════════
-   SECTION 6 — CLOSING (renumbered)
+   SECTION 6 — CLOSING
 ════════════════════════════════════════════ */
 .screen--closing {
   background: linear-gradient(160deg, #3c0000 0%, #670010 60%, #3c0000 100%);
