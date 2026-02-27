@@ -44,11 +44,21 @@
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
-          <!-- Golden glow filter applied to lines on tap -->
-          <filter id="ef-glow" x="-80%" y="-80%" width="260%" height="260%">
-            <feGaussianBlur stdDeviation="1.8" result="blur"/>
+          <!-- Golden spread-glow filter applied to lines on tap -->
+          <!-- Two-pass blur: wide outer halo + tight inner glow merged together -->
+          <filter id="ef-glow" x="-120%" y="-120%" width="340%" height="340%">
+            <!-- Outer halo: wide soft spread -->
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur-outer"/>
+            <feColorMatrix in="blur-outer" type="matrix"
+              values="1 0 0 0 0.12
+                      0 1 0 0 0.04
+                      0 0 1 0 0
+                      0 0 0 2.2 0" result="halo"/>
+            <!-- Inner glow: tighter, brighter -->
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2.2" result="blur-inner"/>
             <feMerge>
-              <feMergeNode in="blur"/>
+              <feMergeNode in="halo"/>
+              <feMergeNode in="blur-inner"/>
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>

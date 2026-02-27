@@ -113,17 +113,17 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   transition: stroke 0.45s ease, stroke-width 0.45s ease, stroke-opacity 0.45s ease;
 }
 
-/* Top V-edge lines pulse to gold */
+/* Top V-edge lines — wide golden gradient spread on tap */
 .cream-cover.tapped .flap-line--top {
-  stroke: rgba(224, 184, 64, 0.95);
-  stroke-width: 1.4;
+  stroke: rgba(255, 220, 90, 1);
+  stroke-width: 2.8;         /* thicker stroke = more source for the blur to spread */
   filter: url(#ef-glow);
 }
 
-/* Lower fold lines — subtle warm glow */
+/* Lower fold lines — softer warm glow */
 .cream-cover.tapped .flap-line--side {
-  stroke: rgba(200, 160, 42, 0.55);
-  stroke-width: 0.55;
+  stroke: rgba(224, 184, 64, 0.70);
+  stroke-width: 1.2;
   filter: url(#ef-glow);
 }
 
