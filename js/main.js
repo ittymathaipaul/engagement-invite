@@ -45,8 +45,9 @@ function revealInvitation() {
     landing.style.display = 'none';
     invitation.classList.remove('hidden');
     invitation.removeAttribute('aria-hidden');
+    window.scrollTo({ top: 0, behavior: 'instant' });
     startCountdown();
-    initInvitation();
+    initScrollAnimations();
   }, 1400);
 }
 
@@ -117,86 +118,38 @@ function startCountdown() {
 }
 
 /* ════════════════════════════════════════════
-   SECTION NAVIGATION
+   SCROLL ANIMATIONS (IntersectionObserver)
 ════════════════════════════════════════════ */
-const SECTION_IDS = ['announcement', 'countdown-section', 'details', 'closing'];
-let currentIdx = 0;
-
-function activateSection(idx) {
-  const screens = SECTION_IDS.map(id => document.getElementById(id));
-  if (idx < 0 || idx >= screens.length) return;
-
-  screens[currentIdx].classList.remove('is-active');
-  currentIdx = idx;
-
-  const sec = screens[idx];
-  sec.classList.add('is-active');
-  sec.scrollTop = 0;
-
-  // Trigger fade-up animations for newly visible section
-  sec.querySelectorAll('.anim-fadeup:not(.visible)').forEach((el, i) => {
-    setTimeout(() => el.classList.add('visible'), i * 80);
-  });
-
-  // Sync dots
-  document.querySelectorAll('.section-dot').forEach((dot, i) => {
-    dot.classList.toggle('is-active', i === idx);
-  });
-}
-
-function initInvitation() {
-  // Mark elements for staggered fade-up animation
-  [
+function initScrollAnimations() {
+  const targets = [
     '.announce__pre', '.announce__headline', '.rings-art',
     '.announce__names', '.announce__date-badge',
     '.announce__families', '.announce__shared',
     '.event-card', '.map-section',
     '.timeline__item', '.closing__verse',
     '.closing__message', '.closing__couple',
-  ].forEach(sel => {
+  ];
+
+  targets.forEach(sel => {
     document.querySelectorAll(sel).forEach((el, i) => {
       el.classList.add('anim-fadeup');
       el.style.transitionDelay = `${i * 0.08}s`;
     });
   });
 
-  // Show nav dots
-  const dots = document.getElementById('sectionDots');
-  dots.removeAttribute('aria-hidden');
-  dots.classList.add('visible');
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
 
-  // Activate first section
-  activateSection(0);
-
-  // Dot click
-  document.querySelectorAll('.section-dot').forEach(dot => {
-    dot.addEventListener('click', () => activateSection(+dot.dataset.section));
-  });
-
-  // Swipe — navigate only when the section is scrolled to its boundary
-  const inv = document.getElementById('invitation');
-  let tY = 0;
-
-  inv.addEventListener('touchstart', e => {
-    tY = e.touches[0].clientY;
-  }, { passive: true });
-
-  inv.addEventListener('touchend', e => {
-    const dy  = tY - e.changedTouches[0].clientY;
-    if (Math.abs(dy) < 50) return;
-    const scr    = e.target.closest('.screen');
-    const atBot  = !scr || scr.scrollTop + scr.clientHeight >= scr.scrollHeight - 4;
-    const atTop  = !scr || scr.scrollTop <= 4;
-    if (dy > 0 && atBot) activateSection(currentIdx + 1);
-    if (dy < 0 && atTop) activateSection(currentIdx - 1);
-  }, { passive: true });
-
-  // Keyboard
-  document.addEventListener('keydown', e => {
-    if (document.getElementById('invitation').classList.contains('hidden')) return;
-    if (e.key === 'ArrowDown') activateSection(currentIdx + 1);
-    if (e.key === 'ArrowUp')   activateSection(currentIdx - 1);
-  });
+  document.querySelectorAll('.anim-fadeup').forEach(el => observer.observe(el));
 }
 
 /* ════════════════════════════════════════════

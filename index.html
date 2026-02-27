@@ -23,21 +23,21 @@
       <!-- Envelope back: V-flap, highlights, drop shadow, layered paper depth -->
       <svg class="cover__folds" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
-          <!-- Envelope body gradient — mint green, slightly deeper at bottom -->
+          <!-- Envelope body gradient — dark crimson, deeper at bottom -->
           <linearGradient id="ef-body" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stop-color="#b0d4b0"/>
-            <stop offset="100%" stop-color="#74a474"/>
+            <stop offset="0%"   stop-color="#B22234"/>
+            <stop offset="100%" stop-color="#7d0020"/>
           </linearGradient>
-          <!-- Top V-flap — the requested #C1E1C1, lighter to read as raised paper -->
+          <!-- Top V-flap — slightly brighter red to read as raised paper -->
           <linearGradient id="ef-flap" x1="0" y1="0" x2="0" y2="52" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stop-color="#c1e1c1"/>
-            <stop offset="100%" stop-color="#92be92"/>
+            <stop offset="0%"   stop-color="#D44060"/>
+            <stop offset="100%" stop-color="#B22234"/>
           </linearGradient>
           <!-- Drop-shadow for the top flap edge (casts onto the body below) -->
           <filter id="ef-fshadow" x="-5%" y="-5%" width="110%" height="130%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="2.8" result="blur"/>
             <feOffset in="blur" dx="0" dy="3.5" result="shifted"/>
-            <feFlood flood-color="#1e4a1e" flood-opacity="0.45" result="color"/>
+            <feFlood flood-color="#3d0010" flood-opacity="0.55" result="color"/>
             <feComposite in="color" in2="shifted" operator="in" result="shadow"/>
             <feMerge>
               <feMergeNode in="shadow"/>
@@ -70,16 +70,16 @@
                Shadow edge (bottom-right) drawn second, shifted +0.6,+0.6.
                Together they read as a raised embossed surface.          -->
           <pattern id="ef-bp" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
-            <!-- Highlight edge — light, unshifted -->
+            <!-- Highlight edge — light pink, unshifted -->
             <path d="M6,0 L12,6 L6,12 L0,6 Z" fill="none"
-                  stroke="rgba(210,245,210,0.13)" stroke-width="0.45"/>
-            <!-- Shadow edge — dark, shifted light-direction offset -->
+                  stroke="rgba(255,190,195,0.14)" stroke-width="0.45"/>
+            <!-- Shadow edge — dark maroon, shifted light-direction offset -->
             <path d="M6,0 L12,6 L6,12 L0,6 Z" fill="none"
-                  stroke="rgba(18,52,18,0.10)" stroke-width="0.45"
+                  stroke="rgba(60,0,15,0.12)" stroke-width="0.45"
                   transform="translate(0.6,0.6)"/>
             <!-- Tiny embossed dot at each diamond centre -->
-            <circle cx="6" cy="6" r="0.55" fill="rgba(215,248,215,0.09)"/>
-            <circle cx="6" cy="6" r="0.55" fill="rgba(18,52,18,0.07)"
+            <circle cx="6" cy="6" r="0.55" fill="rgba(255,190,195,0.10)"/>
+            <circle cx="6" cy="6" r="0.55" fill="rgba(60,0,15,0.08)"
                     transform="translate(0.4,0.4)"/>
           </pattern>
         </defs>
@@ -92,13 +92,13 @@
 
         <!-- ── Formal double-line border frame — embossed look, light then shadow ── -->
         <!-- Outer frame highlight -->
-        <rect x="3"   y="3"   width="94" height="94" fill="none" stroke="rgba(215,248,215,0.13)" stroke-width="0.40"/>
+        <rect x="3"   y="3"   width="94" height="94" fill="none" stroke="rgba(255,190,195,0.16)" stroke-width="0.40"/>
         <!-- Outer frame shadow -->
-        <rect x="3.6" y="3.6" width="94" height="94" fill="none" stroke="rgba(18,52,18,0.09)"    stroke-width="0.40"/>
+        <rect x="3.6" y="3.6" width="94" height="94" fill="none" stroke="rgba(60,0,15,0.12)"     stroke-width="0.40"/>
         <!-- Inner frame highlight -->
-        <rect x="5"   y="5"   width="90" height="90" fill="none" stroke="rgba(215,248,215,0.09)" stroke-width="0.25"/>
+        <rect x="5"   y="5"   width="90" height="90" fill="none" stroke="rgba(255,190,195,0.10)" stroke-width="0.25"/>
         <!-- Inner frame shadow -->
-        <rect x="5.4" y="5.4" width="90" height="90" fill="none" stroke="rgba(18,52,18,0.07)"    stroke-width="0.25"/>
+        <rect x="5.4" y="5.4" width="90" height="90" fill="none" stroke="rgba(60,0,15,0.08)"     stroke-width="0.25"/>
 
         <!-- ── Top V-flap: triangle with drop-shadow casting onto the body below ── -->
         <polygon points="0,0 100,0 50,52" fill="url(#ef-flap)" filter="url(#ef-fshadow)"/>
@@ -108,8 +108,8 @@
         <line class="flap-line flap-line--top" x1="100" y1="0" x2="50" y2="52" stroke="rgba(255,255,255,0.80)" stroke-width="0.65" stroke-linecap="round"/>
 
         <!-- ── Subtle lower fold hints (bottom flap seam, very faint) ── -->
-        <line class="flap-line flap-line--side" x1="0"   y1="100" x2="50" y2="52" stroke="rgba(80,140,80,0.18)" stroke-width="0.3"/>
-        <line class="flap-line flap-line--side" x1="100" y1="100" x2="50" y2="52" stroke="rgba(80,140,80,0.18)" stroke-width="0.3"/>
+        <line class="flap-line flap-line--side" x1="0"   y1="100" x2="50" y2="52" stroke="rgba(255,255,255,0.18)" stroke-width="0.3"/>
+        <line class="flap-line flap-line--side" x1="100" y1="100" x2="50" y2="52" stroke="rgba(255,255,255,0.18)" stroke-width="0.3"/>
       </svg>
 
       <!-- Wax seal — dead center, using PNG asset -->
@@ -281,24 +281,6 @@
           </div>
         </div>
 
-        <!-- Wedding -->
-        <div class="event-card" data-event="wedding">
-          <div class="event-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-              <path d="M12 21.7C5.4 15.5 2 11.4 2 8a6 6 0 0 1 10-4.5A6 6 0 0 1 22 8c0 3.4-3.4 7.5-10 13.7z"/>
-            </svg>
-          </div>
-          <div class="event-card__body">
-            <h3 class="event-card__title">Holy Matrimony</h3>
-            <p class="event-card__venue">Marth Mariam Cathedral Church</p>
-            <p class="event-card__location">Thrissur, Kerala</p>
-            <p class="event-card__time">
-              <span class="event-card__time-icon" aria-hidden="true">🕐</span>
-              Sunday, April 19, 2026 — 10:10 AM
-            </p>
-          </div>
-        </div>
-
         <!-- Map for Engagement venue -->
         <div class="map-section">
           <h3 class="map-section__title">
@@ -358,6 +340,72 @@
       </div>
     </section>
 
+    <!-- ─── SECTION 5 — Wedding / Holy Matrimony ─── -->
+    <section id="wedding" class="screen screen--wedding" aria-label="Wedding ceremony details">
+      <div class="details__inner">
+        <p class="section__pre">Save the Date</p>
+        <h2 class="section__title">Holy Matrimony</h2>
+
+        <div class="event-card" data-event="wedding">
+          <div class="event-card__icon" aria-hidden="true">
+            <!-- Interlocking rings / cross -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v1M12 20v1M3 12h1M20 12h1"/>
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M9 9l-4-4M15 9l4-4M9 15l-4 4M15 15l4 4"/>
+            </svg>
+          </div>
+          <div class="event-card__body">
+            <h3 class="event-card__title">Wedding Ceremony</h3>
+            <p class="event-card__venue">Marth Mariam Cathedral Church</p>
+            <p class="event-card__location">Thrissur, Kerala</p>
+            <p class="event-card__time">
+              <span class="event-card__time-icon" aria-hidden="true">🕐</span>
+              Sunday, April 19, 2026 — 10:10 AM
+            </p>
+          </div>
+        </div>
+
+        <div class="map-section">
+          <h3 class="map-section__title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="map-section__icon" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5" fill="currentColor" stroke="none"/>
+            </svg>
+            Marth Mariam Cathedral Church, Thrissur
+          </h3>
+          <div class="map-embed">
+            <iframe
+              title="Marth Mariam Cathedral Church, Thrissur location"
+              src="https://maps.google.com/maps?q=Marth+Mariam+Cathedral+Church+Thrissur+Kerala&output=embed"
+              width="100%"
+              height="180"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+          <div class="map-actions">
+            <a
+              href="https://maps.google.com/?q=Marth+Mariam+Cathedral+Church+Thrissur+Kerala"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--primary"
+              aria-label="Open wedding venue in Google Maps"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn__icon" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15,3 21,3 21,9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              Open in Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ─── SECTION 6 — Closing / RSVP ─── -->
     <section id="closing" class="screen screen--closing" aria-label="Closing message">
       <div class="closing__inner">
@@ -394,14 +442,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Side navigation dots — one per section, shown after envelope opens -->
-    <nav id="sectionDots" class="section-dots" aria-label="Section navigation" aria-hidden="true">
-      <button class="section-dot" data-section="0" aria-label="Announcement"></button>
-      <button class="section-dot" data-section="1" aria-label="Countdown"></button>
-      <button class="section-dot" data-section="2" aria-label="Event details"></button>
-      <button class="section-dot" data-section="3" aria-label="Closing"></button>
-    </nav>
 
   </main>
 
