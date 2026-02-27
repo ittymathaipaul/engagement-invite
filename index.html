@@ -64,22 +64,10 @@
             </feMerge>
           </filter>
 
-          <!-- ── Rough paper texture filter ── -->
-          <filter id="ef-texture-blend" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
-            <feColorMatrix type="saturate" values="0" result="gray"/>
-            <feBlend in="SourceGraphic" in2="gray" mode="multiply"/>
-          </filter>
         </defs>
 
         <!-- ── Envelope body ── -->
         <rect width="100" height="100" fill="url(#ef-body)"/>
-
-        <!-- ── Rough paper texture — multiply blend makes white areas transparent ── -->
-        <image href="assets/images/rough-texture.svg"
-               x="0" y="0" width="100" height="100"
-               preserveAspectRatio="xMidYMid slice"
-               opacity="1"
-               style="mix-blend-mode:multiply"/>
 
         <!-- ── Formal double-line border frame — embossed look, light then shadow ── -->
         <!-- Outer frame highlight — salmon -->
@@ -102,6 +90,9 @@
         <line class="flap-line flap-line--side" x1="0"   y1="100" x2="50" y2="52" stroke="rgba(255,255,255,0.18)" stroke-width="0.3"/>
         <line class="flap-line flap-line--side" x1="100" y1="100" x2="50" y2="52" stroke="rgba(255,255,255,0.18)" stroke-width="0.3"/>
       </svg>
+
+      <!-- Full-screen rough paper texture overlay -->
+      <img src="assets/images/rough-texture.svg" class="cover__texture" aria-hidden="true" draggable="false" />
 
       <!-- Wax seal — dead center, using PNG asset -->
       <div class="wax-center" id="sealWrap" tabindex="0" role="button" aria-label="Open invitation">
