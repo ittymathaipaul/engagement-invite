@@ -295,12 +295,13 @@ function downloadICS() {
 */
 
 /* ════════════════════════════════════════════
-   WEDDING SECTION — 3-UP PHOTO CAROUSEL
-   3 slides visible (centre + 2 peeking sides).
-   Centre slide: scale(1) + full opacity.
-   Side slides:  scale(0.80) + dimmed.
-   Auto-advances every 2 s; pauses on hover.
-   No dot indicators.
+   WEDDING SECTION — PORTRAIT CAROUSEL
+   Inspired by MDJAmin/PwPeVeK CodePen.
+   Inactive slides: narrow slivers (clamp 13%).
+   Active slide:    wide portrait card (clamp 44%).
+   Width animates via CSS flex-basis transition.
+   Track translateX re-centres active slide.
+   Auto-advances every 2.5 s; pauses on hover.
 ════════════════════════════════════════════ */
 (function () {
   const stage = document.getElementById('wgStage');
@@ -312,21 +313,33 @@ function downloadICS() {
   let   active = 0;
   let   timer  = null;
 
-  /* Centre the active slide inside the stage.
-     Each slide: flex-basis 72% of stageW, margin 5% each side.
-     step (layout width per slide) = 72% + 10% = 82% of stageW.
-     offset = stageW/2 − margin − slideW/2 − active × step          */
+  /* Must match the CSS clamp() values exactly so the offset maths is right.
+     narrowW = clamp(40px, 13% of stageW, 100px)
+     wideW   = clamp(150px, 44% of stageW, 260px)
+     gap     = 8px  (CSS gap: 8px on .wg__track)                        */
+  function resolveWidths() {
+    const w = stage.offsetWidth;
+    return {
+      narrowW : Math.min(Math.max(w * 0.13, 40), 100),
+      wideW   : Math.min(Math.max(w * 0.44, 150), 260),
+      gap     : 8,
+    };
+  }
+
+  /* Place the active slide's centre at stage centre.
+     All slides before `active` are narrow; slide `active` is wide.
+     distToCenter = active × (narrowW + gap) + wideW / 2
+     offset = stageW / 2 − distToCenter                              */
   function position(instant) {
     const stageW = stage.offsetWidth;
-    const slideW = stageW * 0.72;
-    const margin = stageW * 0.05;
-    const step   = slideW + 2 * margin;
-    const offset = stageW / 2 - margin - slideW / 2 - active * step;
+    const { narrowW, wideW, gap } = resolveWidths();
+    const dist   = active * (narrowW + gap) + wideW / 2;
+    const offset = stageW / 2 - dist;
 
     if (instant) {
       track.style.transition = 'none';
       track.style.transform  = `translateX(${offset}px)`;
-      void track.offsetWidth;
+      void track.offsetWidth; /* flush reflow */
       track.style.transition = '';
     } else {
       track.style.transform = `translateX(${offset}px)`;
@@ -336,21 +349,21 @@ function downloadICS() {
   }
 
   function advance() { active = (active + 1) % n; position(); }
-  function startTimer() { timer = setInterval(advance, 2000); }
+  function startTimer() { timer = setInterval(advance, 2500); }
   function stopTimer()  { clearInterval(timer); }
 
-  /* Click a side slide to jump to it */
+  /* Click a non-active slide to jump to it */
   slides.forEach((slide, i) => {
     slide.addEventListener('click', () => {
       if (i !== active) { active = i; position(); stopTimer(); startTimer(); }
     });
   });
 
-  /* Pause on hover (desktop) */
+  /* Pause auto-advance on hover (desktop) */
   stage.addEventListener('mouseenter', stopTimer);
   stage.addEventListener('mouseleave', startTimer);
 
-  /* Horizontal swipe (touch) */
+  /* Swipe left / right */
   let tx0 = 0;
   stage.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, { passive: true });
   stage.addEventListener('touchend',   e => {
@@ -361,10 +374,10 @@ function downloadICS() {
     }
   }, { passive: true });
 
-  /* Reposition on resize without transition */
+  /* Reposition without animation on resize */
   window.addEventListener('resize', () => position(true));
 
-  /* Re-centre when this section slides into view */
+  /* Re-centre when section slides into view */
   window._wgReposition = () => position(true);
 
   /* Init */
