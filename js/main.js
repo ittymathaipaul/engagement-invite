@@ -119,7 +119,7 @@ function startCountdown() {
 /* ════════════════════════════════════════════
    SECTION-BY-SECTION SLIDE NAVIGATION
 ════════════════════════════════════════════ */
-const SECTION_IDS = ['announcement', 'countdown-section', 'details', 'wedding', 'closing'];
+const SECTION_IDS = ['announcement', 'countdown-section', 'details', 'gallery', 'wedding', 'closing'];
 let currentIdx  = 0;
 let isAnimating = false;
 
@@ -157,6 +157,11 @@ function goTo(idx) {
   screens[idx].classList.add('is-active');
   screens[idx].scrollTop = 0;
   triggerFadeUp(screens[idx]);
+
+  /* If landing on the gallery section, reposition the slider track */
+  if (screens[idx].id === 'gallery') {
+    setTimeout(() => window._galleryReposition?.(), 40);
+  }
 
   // Sync dots
   document.querySelectorAll('.section-dot').forEach((dot, i) => {
@@ -288,3 +293,104 @@ function downloadICS() {
   URL.revokeObjectURL(url);
 }
 */
+
+/* ════════════════════════════════════════════
+   PHOTO GALLERY SLIDER
+   Center slide: scale(1) + full opacity
+   Adjacent slides: scale(0.78) + dim
+   Auto-advances every 2 s; pauses on hover
+════════════════════════════════════════════ */
+(function () {
+  const stage  = document.getElementById('galleryStage');
+  const track  = document.getElementById('galleryTrack');
+  if (!stage || !track) return;
+
+  const slides = Array.from(track.querySelectorAll('.gallery__slide'));
+  const dots   = Array.from(document.querySelectorAll('#galleryDots .gallery__dot'));
+  const n      = slides.length;
+  let   active = 0;
+  let   timer  = null;
+
+  /* Center the active slide inside the stage.
+     Each slide is flex: 0 0 72%, margin: 0 5% => occupies 82% of stageW in layout.
+     Formula: offset = stageW/2 - margin - slideW/2 - active * step            */
+  function position(instant) {
+    const stageW  = stage.offsetWidth;
+    const slideW  = slides[0].offsetWidth;        // 72% of stageW
+    const margin  = stageW * 0.05;                // 5% each side
+    const step    = slideW + 2 * margin;          // layout width per slide
+    const offset  = stageW / 2 - margin - slideW / 2 - active * step;
+
+    if (instant) {
+      track.style.transition = 'none';
+      track.style.transform  = `translateX(${offset}px)`;
+      void track.offsetWidth; // flush layout
+      track.style.transition = '';
+    } else {
+      track.style.transform  = `translateX(${offset}px)`;
+    }
+
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === active));
+    dots.forEach((d, i) => {
+      d.classList.toggle('is-active', i === active);
+      d.setAttribute('aria-selected', String(i === active));
+    });
+  }
+
+  function advance() {
+    active = (active + 1) % n;
+    position();
+  }
+
+  function startTimer() { timer = setInterval(advance, 2000); }
+  function stopTimer()  { clearInterval(timer); }
+
+  /* Dot clicks */
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      active = i;
+      position();
+      stopTimer();
+      startTimer();
+    });
+  });
+
+  /* Clicking a side slide jumps to it */
+  slides.forEach((slide, i) => {
+    slide.addEventListener('click', () => {
+      if (i !== active) {
+        active = i;
+        position();
+        stopTimer();
+        startTimer();
+      }
+    });
+  });
+
+  /* Pause auto-advance while hovering (desktop) */
+  stage.addEventListener('mouseenter', stopTimer);
+  stage.addEventListener('mouseleave', startTimer);
+
+  /* Horizontal swipe within gallery */
+  let touchX0 = 0;
+  stage.addEventListener('touchstart', e => { touchX0 = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', e => {
+    const dx = touchX0 - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) {
+      active = (active + (dx > 0 ? 1 : -1) + n) % n;
+      position();
+      stopTimer();
+      startTimer();
+    }
+  }, { passive: true });
+
+  /* Reposition on window resize without transition */
+  window.addEventListener('resize', () => position(true));
+
+  /* Expose so goTo() can nudge position when the section slides into view */
+  window._galleryReposition = () => position(true);
+
+  /* Init */
+  position(true);
+  startTimer();
+}());
