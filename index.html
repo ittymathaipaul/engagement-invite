@@ -44,6 +44,14 @@
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
+          <!-- Golden glow filter applied to lines on tap -->
+          <filter id="ef-glow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="1.8" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
         </defs>
 
         <!-- ── Envelope body ── -->
@@ -53,12 +61,12 @@
         <polygon points="0,0 100,0 50,52" fill="url(#ef-flap)" filter="url(#ef-fshadow)"/>
 
         <!-- ── Bright highlight along each V-edge: paper edge catching light ── -->
-        <line x1="0"   y1="0" x2="50" y2="52" stroke="rgba(255,255,255,0.80)" stroke-width="0.65" stroke-linecap="round"/>
-        <line x1="100" y1="0" x2="50" y2="52" stroke="rgba(255,255,255,0.80)" stroke-width="0.65" stroke-linecap="round"/>
+        <line class="flap-line flap-line--top" x1="0"   y1="0" x2="50" y2="52" stroke="rgba(255,255,255,0.80)" stroke-width="0.65" stroke-linecap="round"/>
+        <line class="flap-line flap-line--top" x1="100" y1="0" x2="50" y2="52" stroke="rgba(255,255,255,0.80)" stroke-width="0.65" stroke-linecap="round"/>
 
         <!-- ── Subtle lower fold hints (bottom flap seam, very faint) ── -->
-        <line x1="0"   y1="100" x2="50" y2="52" stroke="rgba(80,140,80,0.18)" stroke-width="0.3"/>
-        <line x1="100" y1="100" x2="50" y2="52" stroke="rgba(80,140,80,0.18)" stroke-width="0.3"/>
+        <line class="flap-line flap-line--side" x1="0"   y1="100" x2="50" y2="52" stroke="rgba(80,140,80,0.18)" stroke-width="0.3"/>
+        <line class="flap-line flap-line--side" x1="100" y1="100" x2="50" y2="52" stroke="rgba(80,140,80,0.18)" stroke-width="0.3"/>
       </svg>
 
       <!-- Wax seal — dead center, using PNG asset -->

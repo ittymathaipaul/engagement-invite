@@ -19,10 +19,13 @@ function revealInvitation() {
   const landing    = document.getElementById('landing');
   const invitation = document.getElementById('invitation');
 
-  // Dissolve: the entire cream screen (cover + seal) fades to nothing
-  creamCover.classList.add('dissolve');
+  // 1. Immediately flash the envelope lines golden on tap
+  creamCover.classList.add('tapped');
 
-  // After the CSS transition completes, swap to the invitation
+  // 2. A brief moment later, fade the entire landing section (green bg goes with it)
+  setTimeout(() => landing.classList.add('dissolve'), 90);
+
+  // 3. After the 1.25s fade-out completes, swap to the invitation
   setTimeout(() => {
     landing.style.display = 'none';
     invitation.classList.remove('hidden');
@@ -30,7 +33,7 @@ function revealInvitation() {
     window.scrollTo({ top: 0, behavior: 'instant' });
     startCountdown();
     initScrollAnimations();
-  }, 580);
+  }, 1400);
 }
 
 // Tapping anywhere on the landing screen triggers the dissolve
