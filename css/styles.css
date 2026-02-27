@@ -590,16 +590,16 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 /* ════════════════════════════════════════════
    SECTION 4 — DETAILS / SECTION 5 — WEDDING
 ════════════════════════════════════════════ */
-.screen--details,
-.screen--wedding {
+.screen--details {
   padding: 2rem 1.5rem 1.5rem;
   justify-content: flex-start;
   align-items: center;
-}
-.screen--details {
   background: var(--cream);
 }
 .screen--wedding {
+  padding: 2rem 1.5rem;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(170deg, #ffe8e6 0%, #fff0ee 60%, #fff8f7 100%);
 }
 
