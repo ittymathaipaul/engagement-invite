@@ -23,21 +23,21 @@
       <!-- Envelope back: V-flap, highlights, drop shadow, layered paper depth -->
       <svg class="cover__folds" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
-          <!-- Envelope body gradient — dark crimson, deeper at bottom -->
+          <!-- Envelope body — darkest to dark palette -->
           <linearGradient id="ef-body" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stop-color="#B22234"/>
-            <stop offset="100%" stop-color="#7d0020"/>
+            <stop offset="0%"   stop-color="#670010"/>
+            <stop offset="100%" stop-color="#3c0000"/>
           </linearGradient>
-          <!-- Top V-flap — slightly brighter red to read as raised paper -->
+          <!-- Top V-flap — medium red, reads as raised paper against darker body -->
           <linearGradient id="ef-flap" x1="0" y1="0" x2="0" y2="52" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stop-color="#D44060"/>
-            <stop offset="100%" stop-color="#B22234"/>
+            <stop offset="0%"   stop-color="#cb4c46"/>
+            <stop offset="100%" stop-color="#960018"/>
           </linearGradient>
-          <!-- Drop-shadow for the top flap edge (casts onto the body below) -->
+          <!-- Drop-shadow for the top flap edge -->
           <filter id="ef-fshadow" x="-5%" y="-5%" width="110%" height="130%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="2.8" result="blur"/>
             <feOffset in="blur" dx="0" dy="3.5" result="shifted"/>
-            <feFlood flood-color="#3d0010" flood-opacity="0.55" result="color"/>
+            <feFlood flood-color="#1e0000" flood-opacity="0.60" result="color"/>
             <feComposite in="color" in2="shifted" operator="in" result="shadow"/>
             <feMerge>
               <feMergeNode in="shadow"/>
@@ -70,16 +70,16 @@
                Shadow edge (bottom-right) drawn second, shifted +0.6,+0.6.
                Together they read as a raised embossed surface.          -->
           <pattern id="ef-bp" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
-            <!-- Highlight edge — light pink, unshifted -->
+            <!-- Highlight edge — light salmon (#ff8478 palette), unshifted -->
             <path d="M6,0 L12,6 L6,12 L0,6 Z" fill="none"
-                  stroke="rgba(255,190,195,0.14)" stroke-width="0.45"/>
-            <!-- Shadow edge — dark maroon, shifted light-direction offset -->
+                  stroke="rgba(255,132,120,0.16)" stroke-width="0.45"/>
+            <!-- Shadow edge — darkest palette, shifted offset -->
             <path d="M6,0 L12,6 L6,12 L0,6 Z" fill="none"
-                  stroke="rgba(60,0,15,0.12)" stroke-width="0.45"
+                  stroke="rgba(30,0,0,0.14)" stroke-width="0.45"
                   transform="translate(0.6,0.6)"/>
             <!-- Tiny embossed dot at each diamond centre -->
-            <circle cx="6" cy="6" r="0.55" fill="rgba(255,190,195,0.10)"/>
-            <circle cx="6" cy="6" r="0.55" fill="rgba(60,0,15,0.08)"
+            <circle cx="6" cy="6" r="0.55" fill="rgba(255,132,120,0.10)"/>
+            <circle cx="6" cy="6" r="0.55" fill="rgba(30,0,0,0.09)"
                     transform="translate(0.4,0.4)"/>
           </pattern>
         </defs>
@@ -91,14 +91,14 @@
         <rect width="100" height="100" fill="url(#ef-bp)"/>
 
         <!-- ── Formal double-line border frame — embossed look, light then shadow ── -->
-        <!-- Outer frame highlight -->
-        <rect x="3"   y="3"   width="94" height="94" fill="none" stroke="rgba(255,190,195,0.16)" stroke-width="0.40"/>
-        <!-- Outer frame shadow -->
-        <rect x="3.6" y="3.6" width="94" height="94" fill="none" stroke="rgba(60,0,15,0.12)"     stroke-width="0.40"/>
+        <!-- Outer frame highlight — salmon -->
+        <rect x="3"   y="3"   width="94" height="94" fill="none" stroke="rgba(255,132,120,0.18)" stroke-width="0.40"/>
+        <!-- Outer frame shadow — darkest -->
+        <rect x="3.6" y="3.6" width="94" height="94" fill="none" stroke="rgba(30,0,0,0.14)"      stroke-width="0.40"/>
         <!-- Inner frame highlight -->
-        <rect x="5"   y="5"   width="90" height="90" fill="none" stroke="rgba(255,190,195,0.10)" stroke-width="0.25"/>
+        <rect x="5"   y="5"   width="90" height="90" fill="none" stroke="rgba(255,132,120,0.11)" stroke-width="0.25"/>
         <!-- Inner frame shadow -->
-        <rect x="5.4" y="5.4" width="90" height="90" fill="none" stroke="rgba(60,0,15,0.08)"     stroke-width="0.25"/>
+        <rect x="5.4" y="5.4" width="90" height="90" fill="none" stroke="rgba(30,0,0,0.09)"      stroke-width="0.25"/>
 
         <!-- ── Top V-flap: triangle with drop-shadow casting onto the body below ── -->
         <polygon points="0,0 100,0 50,52" fill="url(#ef-flap)" filter="url(#ef-fshadow)"/>
