@@ -90,6 +90,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   opacity: 0;   /* invisible until JS adds .ready — prevents blank flash */
+  overflow: visible; /* prevent WebKit from clipping the seal glow */
 }
 
 /* Fade in once all resources (including seal PNG) are loaded */
@@ -109,7 +110,22 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2.8rem;
+  gap: 1.4rem;
+}
+
+/* "You Are Invited" script text above the seal */
+.cover__invited {
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 8.5vw, 2.8rem);
+  color: rgba(255, 195, 185, 0.88);
+  text-shadow:
+    0 2px 18px rgba(60, 0, 0, 0.75),
+    0 1px 3px rgba(60, 0, 0, 0.55);
+  letter-spacing: 0.06em;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
 }
 
 
@@ -716,13 +732,37 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 }
 .map-embed iframe { display: block; }
 
-/* Transparent overlay sits on top of the iframe so touch events
-   always land on a DOM element we own — lets us scroll the screen */
+/* Tap-to-unlock map overlay — blocks accidental iframe touch-capture while scrolling.
+   Shows a hint; on tap it fades out and the iframe becomes fully interactive. */
 .map-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: transparent;
+  background: rgba(60, 0, 0, 0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.25s ease;
+}
+.map-overlay.unlocked {
+  opacity: 0;
+  pointer-events: none;
+}
+.map-overlay__hint {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(150, 0, 24, 0.90);
+  padding: 0.45rem 1.1rem;
+  border-radius: 50px;
+  pointer-events: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
 
 /* Buttons */
@@ -895,9 +935,14 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 }
 
 /* ── Short/landscape screens ── */
-@media (max-height: 620px) {
-  .wax-center { width: clamp(120px, 30vw, 170px); }
-  .cream-cover { gap: 1.8rem; }
+@media (max-height: 700px) {
+  .wax-center { width: clamp(140px, 38vw, 200px); }
+  .cream-cover { gap: 0.9rem; }
+  .cover__invited { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+}
+@media (max-height: 580px) {
+  .wax-center { width: clamp(110px, 28vw, 160px); }
+  .cream-cover { gap: 0.6rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
