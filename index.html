@@ -94,6 +94,9 @@
       <!-- Full-screen rough paper texture overlay -->
       <img src="assets/images/rough-texture.svg" class="cover__texture" aria-hidden="true" draggable="false" />
 
+      <!-- "You Are Invited" script text -->
+      <p class="cover__invited" aria-hidden="true">You Are Invited</p>
+
       <!-- Wax seal — dead center, using PNG asset -->
       <div class="wax-center" id="sealWrap" tabindex="0" role="button" aria-label="Open invitation">
         <img
@@ -274,7 +277,9 @@
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
             ></iframe>
-            <div class="map-overlay" aria-hidden="true"></div>
+            <div class="map-overlay" aria-label="Tap to interact with map">
+              <span class="map-overlay__hint">Tap to use map</span>
+            </div>
           </div>
 
           <div class="map-actions">
@@ -358,7 +363,9 @@
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
             ></iframe>
-            <div class="map-overlay" aria-hidden="true"></div>
+            <div class="map-overlay" aria-label="Tap to interact with map">
+              <span class="map-overlay__hint">Tap to use map</span>
+            </div>
           </div>
           <div class="map-actions">
             <a
