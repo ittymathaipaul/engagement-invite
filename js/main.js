@@ -171,7 +171,7 @@ function initSections() {
   [
     '.announce__pre', '.announce__headline', '.rings-art',
     '.announce__names', '.announce__date-badge', '.announce__families',
-    '.event-card', '.map-section',
+    '.venue-card',
     '.closing__verse', '.closing__message', '.closing__couple',
   ].forEach(sel => {
     document.querySelectorAll(sel).forEach((el, i) => {
@@ -205,8 +205,6 @@ function initSections() {
   let tY = 0;
   inv.addEventListener('touchstart', e => { tY = e.touches[0].clientY; }, { passive: true });
   inv.addEventListener('touchend', e => {
-    // Don't hijack touches on the map — let the iframe/map handle them
-    if (e.target.closest('.map-embed, .map-section')) return;
     const dy  = tY - e.changedTouches[0].clientY;
     const scr = e.target.closest('.screen');
     if (Math.abs(dy) < 50) return;
@@ -219,7 +217,6 @@ function initSections() {
   // Mouse wheel (desktop)
   let lastWheel = 0;
   inv.addEventListener('wheel', e => {
-    if (e.target.closest('.map-embed, .map-section')) return;
     const now = Date.now();
     if (now - lastWheel < 800) return;
     lastWheel = now;
