@@ -41,7 +41,7 @@ body {
   font-family: var(--font-sans);
   font-size: 15px;
   color: var(--ink);
-  background: var(--cream);
+  background: #A50034;   /* matches landing — prevents white flash during transition */
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -579,7 +579,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   flex-shrink: 0;
   width: 38px;
   height: 38px;
-  background: linear-gradient(135deg, var(--gold) 0%, #a87020 100%);
+  background: linear-gradient(135deg, #D50032 0%, #A50034 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -670,19 +670,19 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .btn__icon { width: 15px; height: 15px; flex-shrink: 0; }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--gold) 0%, #a87020 100%);
+  background: linear-gradient(135deg, #D50032 0%, #A50034 100%);
   color: var(--white);
-  box-shadow: 0 4px 14px rgba(168,112,32,0.35);
+  box-shadow: 0 4px 14px rgba(165,0,52,0.35);
 }
-.btn--primary:hover { box-shadow: 0 6px 20px rgba(168,112,32,0.45); }
+.btn--primary:hover { box-shadow: 0 6px 20px rgba(165,0,52,0.45); }
 
 .btn--secondary {
   background: var(--white);
-  color: var(--gold);
-  border: 1.5px solid var(--gold);
-  box-shadow: 0 2px 8px rgba(168,112,32,0.12);
+  color: var(--rose);
+  border: 1.5px solid var(--rose);
+  box-shadow: 0 2px 8px rgba(165,0,52,0.12);
 }
-.btn--secondary:hover { background: var(--gold-pale); }
+.btn--secondary:hover { background: var(--blush); }
 
 /* ════════════════════════════════════════════
    SECTION 6 — CLOSING
