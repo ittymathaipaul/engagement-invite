@@ -108,14 +108,6 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   gap: 2.8rem;
 }
 
-/* ── Ghost polygon — golden-light version of the flap shadow, fades in on tap ── */
-.flap-top-glow {
-  opacity: 0;
-  transition: opacity 0.55s ease;
-}
-.cream-cover.tapped .flap-top-glow {
-  opacity: 1;
-}
 
 /* Envelope back art — fills the screen, sits behind seal and hint */
 .cover__folds {
