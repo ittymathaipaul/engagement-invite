@@ -23,21 +23,21 @@
       <!-- Envelope back: V-flap, highlights, drop shadow, layered paper depth -->
       <svg class="cover__folds" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
-          <!-- Envelope body gradient — deep blue, light at top, darker at bottom -->
+          <!-- Envelope body gradient — mint green, slightly deeper at bottom -->
           <linearGradient id="ef-body" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stop-color="#4d6aac"/>
-            <stop offset="100%" stop-color="#263d7a"/>
+            <stop offset="0%"   stop-color="#b0d4b0"/>
+            <stop offset="100%" stop-color="#74a474"/>
           </linearGradient>
-          <!-- Top V-flap — subtly lighter for the 3-D overlapping paper illusion -->
+          <!-- Top V-flap — the requested #C1E1C1, lighter to read as raised paper -->
           <linearGradient id="ef-flap" x1="0" y1="0" x2="0" y2="52" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stop-color="#5c7cc0"/>
-            <stop offset="100%" stop-color="#364e90"/>
+            <stop offset="0%"   stop-color="#c1e1c1"/>
+            <stop offset="100%" stop-color="#92be92"/>
           </linearGradient>
           <!-- Drop-shadow for the top flap edge (casts onto the body below) -->
           <filter id="ef-fshadow" x="-5%" y="-5%" width="110%" height="130%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="2.8" result="blur"/>
             <feOffset in="blur" dx="0" dy="3.5" result="shifted"/>
-            <feFlood flood-color="#18296a" flood-opacity="0.55" result="color"/>
+            <feFlood flood-color="#1e4a1e" flood-opacity="0.45" result="color"/>
             <feComposite in="color" in2="shifted" operator="in" result="shadow"/>
             <feMerge>
               <feMergeNode in="shadow"/>
@@ -53,63 +53,22 @@
         <polygon points="0,0 100,0 50,52" fill="url(#ef-flap)" filter="url(#ef-fshadow)"/>
 
         <!-- ── Bright highlight along each V-edge: paper edge catching light ── -->
-        <line x1="0"   y1="0" x2="50" y2="52" stroke="rgba(195,220,255,0.88)" stroke-width="0.65" stroke-linecap="round"/>
-        <line x1="100" y1="0" x2="50" y2="52" stroke="rgba(195,220,255,0.88)" stroke-width="0.65" stroke-linecap="round"/>
+        <line x1="0"   y1="0" x2="50" y2="52" stroke="rgba(255,255,255,0.80)" stroke-width="0.65" stroke-linecap="round"/>
+        <line x1="100" y1="0" x2="50" y2="52" stroke="rgba(255,255,255,0.80)" stroke-width="0.65" stroke-linecap="round"/>
 
         <!-- ── Subtle lower fold hints (bottom flap seam, very faint) ── -->
-        <line x1="0"   y1="100" x2="50" y2="52" stroke="rgba(150,178,230,0.14)" stroke-width="0.3"/>
-        <line x1="100" y1="100" x2="50" y2="52" stroke="rgba(150,178,230,0.14)" stroke-width="0.3"/>
+        <line x1="0"   y1="100" x2="50" y2="52" stroke="rgba(80,140,80,0.18)" stroke-width="0.3"/>
+        <line x1="100" y1="100" x2="50" y2="52" stroke="rgba(80,140,80,0.18)" stroke-width="0.3"/>
       </svg>
 
-      <!-- Frosted metallic blue seal — pins the V-flap closed, 3-D raised look -->
+      <!-- Wax seal — dead center, using PNG asset -->
       <div class="wax-center" id="sealWrap" tabindex="0" role="button" aria-label="Open invitation">
-        <svg viewBox="0 0 100 100" class="seal-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <!-- Frosted / metallic blue radial gradient -->
-            <radialGradient id="ef-seal" cx="38%" cy="33%" r="62%">
-              <stop offset="0%"   stop-color="#c8dcf8"/>
-              <stop offset="38%"  stop-color="#6d90d8"/>
-              <stop offset="100%" stop-color="#1e3878"/>
-            </radialGradient>
-            <!-- Frosted-glass gloss overlay -->
-            <radialGradient id="ef-gloss" cx="33%" cy="24%" r="56%">
-              <stop offset="0%"   stop-color="rgba(255,255,255,0.52)"/>
-              <stop offset="65%"  stop-color="rgba(255,255,255,0.06)"/>
-              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-            </radialGradient>
-          </defs>
-
-          <!-- Rounded bottom shadow — pops seal off the flap surface -->
-          <ellipse cx="50" cy="57" rx="40" ry="5.5" fill="rgba(10,20,65,0.48)"/>
-
-          <!-- Main seal disc -->
-          <circle cx="50" cy="49" r="41" fill="url(#ef-seal)"/>
-
-          <!-- Outer decorative ring -->
-          <circle cx="50" cy="49" r="37.5" fill="none" stroke="rgba(175,210,255,0.52)" stroke-width="1.2"/>
-
-          <!-- Inner decorative ring -->
-          <circle cx="50" cy="49" r="32"   fill="none" stroke="rgba(175,210,255,0.28)" stroke-width="0.7"/>
-
-          <!-- Frosted gloss overlay -->
-          <circle cx="50" cy="49" r="41" fill="url(#ef-gloss)"/>
-
-          <!-- Embossed "M" -->
-          <text x="50" y="44" text-anchor="middle" dominant-baseline="middle"
-            font-family="Cormorant Garamond, Georgia, serif"
-            font-size="20" font-weight="600" letter-spacing="1"
-            fill="rgba(228,242,255,0.95)">M</text>
-
-          <!-- Embossed "& J" -->
-          <text x="50" y="57" text-anchor="middle" dominant-baseline="middle"
-            font-family="Cormorant Garamond, Georgia, serif"
-            font-size="11" font-weight="400" letter-spacing="2.5"
-            fill="rgba(200,222,255,0.82)">&amp; J</text>
-
-          <!-- Top highlight arc — seal edge catching light -->
-          <path d="M 16,42 A 34,34 0 0 1 84,42"
-            fill="none" stroke="rgba(255,255,255,0.30)" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
+        <img
+          src="assets/images/wax-seal.png"
+          alt="Wax seal"
+          class="seal-img"
+          draggable="false"
+        />
       </div>
 
       <!-- Subtle tap hint — minimal text only -->
