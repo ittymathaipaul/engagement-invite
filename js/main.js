@@ -45,9 +45,8 @@ function revealInvitation() {
     landing.style.display = 'none';
     invitation.classList.remove('hidden');
     invitation.removeAttribute('aria-hidden');
-    window.scrollTo({ top: 0, behavior: 'instant' });
     startCountdown();
-    initScrollAnimations();
+    initSections();
   }, 1400);
 }
 
@@ -118,38 +117,119 @@ function startCountdown() {
 }
 
 /* ════════════════════════════════════════════
-   SCROLL ANIMATIONS (IntersectionObserver)
+   SECTION-BY-SECTION SLIDE NAVIGATION
 ════════════════════════════════════════════ */
-function initScrollAnimations() {
-  const targets = [
-    '.announce__pre', '.announce__headline', '.rings-art',
-    '.announce__names', '.announce__date-badge',
-    '.announce__families', '.announce__shared',
-    '.event-card', '.map-section',
-    '.timeline__item', '.closing__verse',
-    '.closing__message', '.closing__couple',
-  ];
+const SECTION_IDS = ['announcement', 'countdown-section', 'details', 'wedding', 'closing'];
+let currentIdx  = 0;
+let isAnimating = false;
 
-  targets.forEach(sel => {
+function getScreens() {
+  return SECTION_IDS.map(id => document.getElementById(id));
+}
+
+function triggerFadeUp(sec) {
+  sec.querySelectorAll('.anim-fadeup:not(.visible)').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), i * 80);
+  });
+}
+
+function goTo(idx) {
+  if (isAnimating) return;
+  const screens = getScreens();
+  if (idx < 0 || idx >= screens.length || !screens[idx]) return;
+
+  isAnimating = true;
+  const prev = currentIdx;
+  currentIdx  = idx;
+
+  screens[prev].classList.remove('is-active');
+
+  if (idx > prev) {
+    // Going forward: previous slides up off screen
+    screens[prev].classList.add('is-above');
+    // next was below (no class) — slides up into view
+  } else {
+    // Going backward: previous slides down off screen (back to default below)
+    // nothing to add — removing is-active puts it back to translateY(100%)
+  }
+
+  screens[idx].classList.remove('is-above');
+  screens[idx].classList.add('is-active');
+  screens[idx].scrollTop = 0;
+  triggerFadeUp(screens[idx]);
+
+  // Sync dots
+  document.querySelectorAll('.section-dot').forEach((dot, i) => {
+    dot.classList.toggle('is-active', i === idx);
+  });
+
+  setTimeout(() => { isAnimating = false; }, 660);
+}
+
+function initSections() {
+  // Mark elements for staggered fade-up animations
+  [
+    '.announce__pre', '.announce__headline', '.rings-art',
+    '.announce__names', '.announce__date-badge', '.announce__families',
+    '.event-card', '.map-section',
+    '.closing__verse', '.closing__message', '.closing__couple',
+  ].forEach(sel => {
     document.querySelectorAll(sel).forEach((el, i) => {
       el.classList.add('anim-fadeup');
       el.style.transitionDelay = `${i * 0.08}s`;
     });
   });
 
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-  );
+  // Position all screens correctly for starting at index 0
+  const screens = getScreens();
+  screens.forEach((s, i) => {
+    s.classList.remove('is-active', 'is-above');
+    // i > 0 stays at translateY(100%) — below (default via CSS)
+  });
+  screens[0].classList.add('is-active');
+  triggerFadeUp(screens[0]);
 
-  document.querySelectorAll('.anim-fadeup').forEach(el => observer.observe(el));
+  // Show dots
+  const dotsNav = document.getElementById('sectionDots');
+  dotsNav.removeAttribute('aria-hidden');
+  dotsNav.classList.add('visible');
+  document.querySelectorAll('.section-dot')[0].classList.add('is-active');
+
+  // Dot click
+  document.querySelectorAll('.section-dot').forEach(dot => {
+    dot.addEventListener('click', () => goTo(+dot.dataset.section));
+  });
+
+  // Swipe
+  const inv = document.getElementById('invitation');
+  let tY = 0;
+  inv.addEventListener('touchstart', e => { tY = e.touches[0].clientY; }, { passive: true });
+  inv.addEventListener('touchend', e => {
+    const dy  = tY - e.changedTouches[0].clientY;
+    const scr = e.target.closest('.screen');
+    if (Math.abs(dy) < 50) return;
+    const atBot = !scr || scr.scrollTop + scr.clientHeight >= scr.scrollHeight - 4;
+    const atTop = !scr || scr.scrollTop <= 4;
+    if (dy > 0 && atBot) goTo(currentIdx + 1);
+    if (dy < 0 && atTop) goTo(currentIdx - 1);
+  }, { passive: true });
+
+  // Mouse wheel (desktop)
+  let lastWheel = 0;
+  inv.addEventListener('wheel', e => {
+    const now = Date.now();
+    if (now - lastWheel < 800) return;
+    lastWheel = now;
+    if (e.deltaY > 30)  goTo(currentIdx + 1);
+    if (e.deltaY < -30) goTo(currentIdx - 1);
+  }, { passive: true });
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (document.getElementById('invitation').classList.contains('hidden')) return;
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') goTo(currentIdx + 1);
+    if (e.key === 'ArrowUp'   || e.key === 'PageUp')   goTo(currentIdx - 1);
+  });
 }
 
 /* ════════════════════════════════════════════

@@ -39,18 +39,18 @@
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
+  height: 100%;
 }
 
 body {
   font-family: var(--font-sans);
   font-size: 15px;
   color: var(--ink);
-  background: #3c0000;   /* matches landing — prevents flash during transition */
-  overflow-x: hidden;
+  background: #3c0000;
+  overflow: hidden;
+  height: 100%;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -133,16 +133,16 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   transition: opacity 0.18s ease, transform 0.15s ease;
 }
 
-/* ── Radial glow behind the seal — palette coral/salmon tones ── */
+/* ── Amber/gold glow behind the seal — warm to match the gold wax seal ── */
 .wax-center::before {
   content: '';
   position: absolute;
   inset: -32%;
   border-radius: 50%;
   background: radial-gradient(ellipse at center,
-    rgba(255,132,120, 0.38) 0%,
-    rgba(203, 76, 70, 0.18) 36%,
-    rgba(150,  0, 24, 0.07) 60%,
+    rgba(224, 184, 64, 0.48) 0%,
+    rgba(200, 149, 42, 0.24) 36%,
+    rgba(160, 112, 20, 0.09) 60%,
     transparent 70%);
   animation: sealGlow 3.6s ease-in-out infinite;
   z-index: -1;
@@ -202,14 +202,64 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 }
 
 /* ════════════════════════════════════════════
-   MAIN INVITATION — fade-in
+   MAIN INVITATION — fixed fullscreen container
 ════════════════════════════════════════════ */
 .invitation {
-  animation: fadeIn 1.5s ease both;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
 }
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+
+/* Each section fills the container; slides in/out vertically */
+.invitation .screen {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  overflow-y: auto;
+  transform: translateY(100%);           /* default: below viewport */
+  transition: transform 0.60s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
+}
+.invitation .screen.is-active {
+  transform: translateY(0);             /* in view */
+  z-index: 1;
+}
+.invitation .screen.is-above {
+  transform: translateY(-100%);         /* above viewport (already passed) */
+}
+
+/* ── Navigation dots ── */
+.section-dots {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 300;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.section-dots.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.section-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,132,120, 0.28);
+  border: 1.5px solid rgba(255,132,120, 0.55);
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+.section-dot.is-active {
+  background: var(--c5);
+  border-color: var(--c5);
+  transform: scale(1.4);
 }
 
 /* ════════════════════════════════════════════

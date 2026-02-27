@@ -28,10 +28,10 @@
             <stop offset="0%"   stop-color="#670010"/>
             <stop offset="100%" stop-color="#3c0000"/>
           </linearGradient>
-          <!-- Top V-flap — medium red, reads as raised paper against darker body -->
+          <!-- Top V-flap — medium red, darker than before to sit closer to body -->
           <linearGradient id="ef-flap" x1="0" y1="0" x2="0" y2="52" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stop-color="#cb4c46"/>
-            <stop offset="100%" stop-color="#960018"/>
+            <stop offset="0%"   stop-color="#960018"/>
+            <stop offset="100%" stop-color="#5a000e"/>
           </linearGradient>
           <!-- Drop-shadow for the top flap edge -->
           <filter id="ef-fshadow" x="-5%" y="-5%" width="110%" height="130%">
@@ -437,6 +437,15 @@
         </div>
       </div>
     </section>
+
+    <!-- Side navigation dots -->
+    <nav id="sectionDots" class="section-dots" aria-label="Section navigation" aria-hidden="true">
+      <button class="section-dot" data-section="0" aria-label="Announcement"></button>
+      <button class="section-dot" data-section="1" aria-label="Countdown"></button>
+      <button class="section-dot" data-section="2" aria-label="Details"></button>
+      <button class="section-dot" data-section="3" aria-label="Wedding"></button>
+      <button class="section-dot" data-section="4" aria-label="Closing"></button>
+    </nav>
 
   </main>
 
