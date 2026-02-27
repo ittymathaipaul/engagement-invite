@@ -158,9 +158,6 @@ function goTo(idx) {
   screens[idx].scrollTop = 0;
   triggerFadeUp(screens[idx]);
 
-  // Re-lock map overlays so scroll-over-map works on the new section too
-  document.querySelectorAll('.map-overlay').forEach(o => o.classList.remove('unlocked'));
-
   // Sync dots
   document.querySelectorAll('.section-dot').forEach((dot, i) => {
     dot.classList.toggle('is-active', i === idx);
@@ -201,15 +198,6 @@ function initSections() {
   // Dot click
   document.querySelectorAll('.section-dot').forEach(dot => {
     dot.addEventListener('click', () => goTo(+dot.dataset.section));
-  });
-
-  // Tap-to-unlock map overlays.
-  // The overlay blocks the iframe from swallowing touch events while scrolling.
-  // One tap unlocks it so the user can pan/zoom the map freely.
-  document.querySelectorAll('.map-overlay').forEach(overlay => {
-    overlay.addEventListener('click', () => {
-      overlay.classList.add('unlocked');
-    });
   });
 
   // Swipe
