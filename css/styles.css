@@ -109,20 +109,26 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* justify from 52% (the V-tip) downward — seal sits right at the fold */
   justify-content: center;
-  gap: 1.4rem;
+  padding-top: 10vh;
+  gap: 1.2rem;
 }
 
-/* "You Are Invited" script text above the seal */
+/* "You Are Invited" — floats in the upper flap area, not in the flex flow */
 .cover__invited {
+  position: absolute;
+  top: 17%;
+  left: 0;
+  right: 0;
+  text-align: center;
   font-family: var(--font-script);
   font-size: clamp(2rem, 8.5vw, 2.8rem);
-  color: rgba(255, 195, 185, 0.88);
+  color: rgba(255, 210, 200, 0.92);
   text-shadow:
-    0 2px 18px rgba(60, 0, 0, 0.75),
-    0 1px 3px rgba(60, 0, 0, 0.55);
+    0 2px 20px rgba(60, 0, 0, 0.80),
+    0 1px 3px rgba(60, 0, 0, 0.50);
   letter-spacing: 0.06em;
-  position: relative;
   z-index: 2;
   pointer-events: none;
   user-select: none;
@@ -732,37 +738,10 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 }
 .map-embed iframe { display: block; }
 
-/* Tap-to-unlock map overlay — blocks accidental iframe touch-capture while scrolling.
-   Shows a hint; on tap it fades out and the iframe becomes fully interactive. */
-.map-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: rgba(60, 0, 0, 0.32);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.25s ease;
-}
-.map-overlay.unlocked {
-  opacity: 0;
+/* Maps are visual only — pointer-events off so the iframe never swallows
+   touch events. Users tap "Open in Maps" to navigate. */
+.map-embed iframe {
   pointer-events: none;
-}
-.map-overlay__hint {
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #fff;
-  background: rgba(150, 0, 24, 0.90);
-  padding: 0.45rem 1.1rem;
-  border-radius: 50px;
-  pointer-events: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
 
 /* Buttons */
@@ -937,12 +916,13 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 /* ── Short/landscape screens ── */
 @media (max-height: 700px) {
   .wax-center { width: clamp(140px, 38vw, 200px); }
-  .cream-cover { gap: 0.9rem; }
-  .cover__invited { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+  .cream-cover { gap: 0.9rem; padding-top: 6vh; }
+  .cover__invited { font-size: clamp(1.5rem, 6.5vw, 2rem); top: 13%; }
 }
 @media (max-height: 580px) {
   .wax-center { width: clamp(110px, 28vw, 160px); }
-  .cream-cover { gap: 0.6rem; }
+  .cream-cover { gap: 0.5rem; padding-top: 4vh; }
+  .cover__invited { font-size: clamp(1.2rem, 5.5vw, 1.6rem); top: 10%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
