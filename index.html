@@ -72,14 +72,14 @@
           <pattern id="ef-bp" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
             <!-- Highlight edge — light, unshifted -->
             <path d="M6,0 L12,6 L6,12 L0,6 Z" fill="none"
-                  stroke="rgba(210,245,210,0.26)" stroke-width="0.45"/>
+                  stroke="rgba(210,245,210,0.13)" stroke-width="0.45"/>
             <!-- Shadow edge — dark, shifted light-direction offset -->
             <path d="M6,0 L12,6 L6,12 L0,6 Z" fill="none"
-                  stroke="rgba(18,52,18,0.22)" stroke-width="0.45"
+                  stroke="rgba(18,52,18,0.10)" stroke-width="0.45"
                   transform="translate(0.6,0.6)"/>
             <!-- Tiny embossed dot at each diamond centre -->
-            <circle cx="6" cy="6" r="0.55" fill="rgba(215,248,215,0.20)"/>
-            <circle cx="6" cy="6" r="0.55" fill="rgba(18,52,18,0.16)"
+            <circle cx="6" cy="6" r="0.55" fill="rgba(215,248,215,0.09)"/>
+            <circle cx="6" cy="6" r="0.55" fill="rgba(18,52,18,0.07)"
                     transform="translate(0.4,0.4)"/>
           </pattern>
         </defs>
@@ -92,13 +92,13 @@
 
         <!-- ── Formal double-line border frame — embossed look, light then shadow ── -->
         <!-- Outer frame highlight -->
-        <rect x="3"   y="3"   width="94" height="94" fill="none" stroke="rgba(215,248,215,0.24)" stroke-width="0.45"/>
+        <rect x="3"   y="3"   width="94" height="94" fill="none" stroke="rgba(215,248,215,0.13)" stroke-width="0.40"/>
         <!-- Outer frame shadow -->
-        <rect x="3.6" y="3.6" width="94" height="94" fill="none" stroke="rgba(18,52,18,0.18)"    stroke-width="0.45"/>
+        <rect x="3.6" y="3.6" width="94" height="94" fill="none" stroke="rgba(18,52,18,0.09)"    stroke-width="0.40"/>
         <!-- Inner frame highlight -->
-        <rect x="5"   y="5"   width="90" height="90" fill="none" stroke="rgba(215,248,215,0.17)" stroke-width="0.28"/>
+        <rect x="5"   y="5"   width="90" height="90" fill="none" stroke="rgba(215,248,215,0.09)" stroke-width="0.25"/>
         <!-- Inner frame shadow -->
-        <rect x="5.4" y="5.4" width="90" height="90" fill="none" stroke="rgba(18,52,18,0.12)"    stroke-width="0.28"/>
+        <rect x="5.4" y="5.4" width="90" height="90" fill="none" stroke="rgba(18,52,18,0.07)"    stroke-width="0.25"/>
 
         <!-- ── Top V-flap: triangle with drop-shadow casting onto the body below ── -->
         <polygon points="0,0 100,0 50,52" fill="url(#ef-flap)" filter="url(#ef-fshadow)"/>

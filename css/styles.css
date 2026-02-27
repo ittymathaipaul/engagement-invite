@@ -180,13 +180,14 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   -webkit-user-drag: none;
 }
 
-/* ── Tap hint — minimal uppercase text, very faint; sits above envelope SVG ── */
+/* ── Tap hint — white with dark shadow so it reads clearly on green envelope ── */
 .cover__hint {
   font-family: var(--font-sans);
-  font-size: 0.60rem;
-  letter-spacing: 0.24em;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(30, 80, 30, 0.52);
+  color: rgba(255, 255, 255, 0.90);
+  text-shadow: 0 1px 4px rgba(10, 40, 10, 0.55);
   animation: hintBreath 3.2s ease-in-out infinite;
   pointer-events: none;
   position: relative;
@@ -194,7 +195,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 }
 
 @keyframes hintBreath {
-  0%, 100% { opacity: 0.55; }
+  0%, 100% { opacity: 0.65; }
   50%       { opacity: 1; }
 }
 
