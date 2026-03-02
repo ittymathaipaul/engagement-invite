@@ -396,4 +396,30 @@ function downloadICS() {
 
   /* Initial layout */
   stack();
+
+  /* ── Inactivity vibrate: shake scroll arrows every 6 s of no interaction ── */
+  const scrollArrows = document.getElementById('scrollArrows');
+  let inactivityTimer = null;
+
+  function triggerVibrate() {
+    if (!scrollArrows) return;
+    scrollArrows.classList.remove('is-vibrating');
+    void scrollArrows.offsetWidth;            // force reflow to restart animation
+    scrollArrows.classList.add('is-vibrating');
+    scrollArrows.addEventListener('animationend', function () {
+      scrollArrows.classList.remove('is-vibrating');
+      inactivityTimer = setTimeout(triggerVibrate, 6000);
+    }, { once: true });
+  }
+
+  function resetInactivity() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(triggerVibrate, 6000);
+  }
+
+  ['click', 'touchstart', 'scroll', 'mousemove', 'keydown'].forEach(function (evt) {
+    document.addEventListener(evt, resetInactivity, { passive: true });
+  });
+
+  resetInactivity();
 }());
