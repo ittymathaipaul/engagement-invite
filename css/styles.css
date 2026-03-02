@@ -301,8 +301,8 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 ════════════════════════════════════════════ */
 .screen--announcement {
   background: linear-gradient(175deg, #fff0ee 0%, #fff5f4 60%, #fff8f7 100%);
-  padding: 5rem 1.5rem 2.5rem;
-  justify-content: flex-start;
+  padding: 2.5rem 1.5rem;
+  justify-content: center;
 }
 
 .announcement__inner {
@@ -626,13 +626,12 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
    SECTION 4 — DETAILS / SECTION 5 — WEDDING
 ════════════════════════════════════════════ */
 .screen--details {
-  padding: 2rem 1.5rem 2rem;
-  justify-content: flex-start;
+  padding: 2rem 1.5rem;
+  justify-content: center;
   align-items: center;
   background: var(--cream);
 }
-/* Wedding section: 60 % heading+card / 40 % carousel, no side padding
-   (each zone handles its own padding) */
+/* Wedding section: 50% heading+card / 50% photo stack */
 .screen--wedding {
   padding: 0;
   justify-content: flex-start;
@@ -641,9 +640,9 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   background: linear-gradient(170deg, #ffe8e6 0%, #fff0ee 60%, #fff8f7 100%);
 }
 
-/* 60 % zone: heading + venue card, vertically centred */
+/* 50 % zone: heading + venue card, vertically centred */
 .screen--wedding .details__inner {
-  flex: 0 0 60%;
+  flex: 0 0 50%;
   min-height: 220px;
   width: 100%;
   max-width: 440px;
@@ -815,9 +814,9 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
    revealing the next photo in the pile.
 ════════════════════════════════════════════ */
 
-/* 40 % zone: centred column, room for the card pile */
+/* 50 % zone: centred column, room for the card pile */
 .photo-stack {
-  flex: 0 0 40%;
+  flex: 0 0 50%;
   min-height: 190px;
   align-self: stretch;
   display: flex;
