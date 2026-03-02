@@ -361,9 +361,19 @@ function downloadICS() {
     busy = false;
   }
 
-  /* Tap / click anywhere on the deck */
-  deck.addEventListener('click', dismiss);
-  deck.addEventListener('touchstart', e => { e.preventDefault(); dismiss(); }, { passive: false });
+  /* Auto-advance every 2.8 s, alternating left/right */
+  let timer = setInterval(dismiss, 2800);
+
+  /* Tap resets the timer so it doesn't double-fire */
+  function onTap(e) {
+    e.preventDefault();
+    clearInterval(timer);
+    dismiss();
+    timer = setInterval(dismiss, 2800);
+  }
+
+  deck.addEventListener('click',      onTap);
+  deck.addEventListener('touchstart', onTap, { passive: false });
 
   /* Initial layout */
   stack();
