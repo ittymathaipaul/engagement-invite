@@ -638,6 +638,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   align-items: center;
   gap: 0;
   background: linear-gradient(170deg, #ffe8e6 0%, #fff0ee 60%, #fff8f7 100%);
+  overflow: hidden;   /* stop animated cards from extending scroll height */
 }
 
 /* 50 % zone: heading + venue card, vertically centred */
@@ -832,7 +833,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  overflow: visible;
+  overflow: hidden;   /* clip side-flying cards so they don't bleed into scroll */
 }
 
 /* Fixed-size box — all cards are abs-positioned inside it */
@@ -863,8 +864,8 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .photo-card img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center center;
   display: block;
   pointer-events: none;
   user-select: none;
