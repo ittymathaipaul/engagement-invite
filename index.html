@@ -321,6 +321,27 @@
 
     <!-- ─── SECTION 5 — Wedding / Holy Matrimony ─── -->
     <section id="wedding" class="screen screen--wedding" aria-label="Wedding ceremony details">
+
+      <!-- Photo gallery at TOP -->
+      <div class="photo-stack" id="photoStack">
+        <div class="photo-stack__deck" id="photoDeck" aria-label="Photo gallery">
+          <div class="photo-card"><img src="Photos/1.jpg" alt="Rosemary and Ittymathew" draggable="false" loading="lazy"></div>
+          <div class="photo-card"><img src="Photos/2.jpg" alt="" draggable="false" loading="lazy"></div>
+          <div class="photo-card"><img src="Photos/3.jpg" alt="" draggable="false" loading="lazy"></div>
+          <div class="photo-card"><img src="Photos/4.jpg" alt="" draggable="false" loading="lazy"></div>
+          <div class="photo-card"><img src="Photos/5.jpg" alt="" draggable="false" loading="lazy"></div>
+          <div class="photo-card"><img src="Photos/6.jpg" alt="" draggable="false" loading="lazy"></div>
+          <div class="photo-card"><img src="Photos/7.jpg" alt="" draggable="false" loading="lazy"></div>
+        </div>
+        <!-- Three scroll-down arrows — vibrate on inactivity -->
+        <div class="scroll-arrows" id="scrollArrows" aria-hidden="true">
+          <svg viewBox="0 0 24 12" class="scroll-arrow scroll-arrow--1"><path d="M2 2 L12 10 L22 2" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 12" class="scroll-arrow scroll-arrow--2"><path d="M2 2 L12 10 L22 2" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 12" class="scroll-arrow scroll-arrow--3"><path d="M2 2 L12 10 L22 2" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <!-- Venue / calendar details below -->
       <div class="details__inner">
         <p class="section__pre">Save the Date</p>
         <h2 class="section__title">Wedding</h2>
@@ -356,20 +377,6 @@
         </div><!-- /.venue-card -->
 
       </div><!-- /.details__inner -->
-
-      <!-- 40% height: interactive photo card stack -->
-      <div class="photo-stack" id="photoStack">
-        <div class="photo-stack__deck" id="photoDeck" aria-label="Photo gallery — tap to flip through">
-          <div class="photo-card"><img src="Photos/1.jpg" alt="Rosemary and Ittymathew" draggable="false" loading="lazy"></div>
-          <div class="photo-card"><img src="Photos/2.jpg" alt="" draggable="false" loading="lazy"></div>
-          <div class="photo-card"><img src="Photos/3.jpg" alt="" draggable="false" loading="lazy"></div>
-          <div class="photo-card"><img src="Photos/4.jpg" alt="" draggable="false" loading="lazy"></div>
-          <div class="photo-card"><img src="Photos/5.jpg" alt="" draggable="false" loading="lazy"></div>
-          <div class="photo-card"><img src="Photos/6.jpg" alt="" draggable="false" loading="lazy"></div>
-          <div class="photo-card"><img src="Photos/7.jpg" alt="" draggable="false" loading="lazy"></div>
-        </div>
-        <p class="photo-stack__hint" aria-hidden="true">tap to flip through</p>
-      </div>
 
     </section>
 

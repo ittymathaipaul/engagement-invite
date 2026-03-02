@@ -648,7 +648,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   align-items: center;
   background: var(--cream);
 }
-/* Wedding section: 50% heading+card / 50% photo stack */
+/* Wedding section: photo gallery on top, venue details below */
 .screen--wedding {
   padding: 0;
   justify-content: flex-start;
@@ -658,14 +658,14 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   overflow: hidden;   /* stop animated cards from extending scroll height */
 }
 
-/* 50 % zone: heading + venue card, vertically centred */
+/* Venue / calendar details zone — lower half */
 .screen--wedding .details__inner {
-  flex: 0 0 50%;
-  min-height: 220px;
+  flex: 1 1 auto;
+  min-height: 200px;
   width: 100%;
   max-width: 440px;
   justify-content: center;
-  padding: 1.6rem 1.5rem 0.8rem;
+  padding: 0.8rem 1.5rem 1.2rem;
   overflow-y: auto;
 }
 
@@ -840,37 +840,39 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
    revealing the next photo in the pile.
 ════════════════════════════════════════════ */
 
-/* 50 % zone: centred column, room for the card pile */
+/* Photo gallery zone — upper portion, clips horizontal card fly-off */
 .photo-stack {
-  flex: 0 0 50%;
-  min-height: 190px;
+  flex: 0 0 54%;
+  min-height: 200px;
   align-self: stretch;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  overflow: hidden;   /* clip side-flying cards so they don't bleed into scroll */
+  padding-bottom: 0.5rem;
+  overflow: hidden;   /* clip side-flying cards so they don't bleed */
 }
 
 /* Fixed-size box — all cards are abs-positioned inside it */
 .photo-stack__deck {
   position: relative;
-  width: min(56vw, 210px);
-  height: min(74vw, 278px);
+  width: min(60vw, 220px);
+  height: min(66vw, 245px);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   user-select: none;
 }
 
-/* Polaroid-style card — white frame, thick bottom for the label area */
+/* Card with border frame instead of solid white polaroid */
 .photo-card {
   position: absolute;
   inset: 0;
-  background: #fff;
-  border-radius: 2px;
-  padding: 7px 7px 26px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(150, 0, 24, 0.28);
+  border-radius: 4px;
+  padding: 5px;
   box-shadow:
     0 6px 22px rgba(0, 0, 0, 0.32),
     0 1px  5px rgba(0, 0, 0, 0.16);
@@ -882,23 +884,48 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: center top;
   display: block;
+  border-radius: 2px;
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
 }
 
-/* "tap to flip through" label below the pile */
-.photo-stack__hint {
-  font-family: var(--font-sans);
-  font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
+/* ── Scroll arrows — three cascading chevrons ── */
+.scroll-arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
   color: var(--c3);
-  opacity: 0.65;
-  user-select: none;
+  flex-shrink: 0;
+}
+.scroll-arrows.is-vibrating {
+  animation: vibrate-shake 0.55s ease-in-out;
+}
+
+.scroll-arrow {
+  width: 28px;
+  height: 14px;
+  animation: arrow-cascade 1.6s ease-in-out infinite;
+}
+.scroll-arrow--1 { opacity: 0.85; animation-delay: 0s;    }
+.scroll-arrow--2 { opacity: 0.52; animation-delay: 0.22s; }
+.scroll-arrow--3 { opacity: 0.28; animation-delay: 0.44s; }
+
+@keyframes arrow-cascade {
+  0%, 100% { transform: translateY(0);   }
+  50%       { transform: translateY(5px); }
+}
+
+@keyframes vibrate-shake {
+  0%, 100% { transform: translateX(0);    }
+  12%       { transform: translateX(-6px); }
+  32%       { transform: translateX(6px);  }
+  52%       { transform: translateX(-4px); }
+  72%       { transform: translateX(4px);  }
+  88%       { transform: translateX(-2px); }
 }
 
 /* ════════════════════════════════════════════
