@@ -754,10 +754,9 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   gap: 0.32rem;
 }
 .venue-icon {
-  width: 13px;
-  height: 13px;
+  font-size: 13px;
+  line-height: 1;
   flex-shrink: 0;
-  stroke: var(--c3);
 }
 .venue-card__name {
   font-family: var(--font-serif);
