@@ -262,6 +262,23 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   transform: translateY(-100%);         /* above viewport (already passed) */
 }
 
+/* ─── Scroll-hint nudge — brief vibration to reveal more content ─── */
+@keyframes pageNudge {
+  0%   { transform: translateY(0);   }
+  18%  { transform: translateY(-7px); }
+  36%  { transform: translateY(5px);  }
+  54%  { transform: translateY(-4px); }
+  72%  { transform: translateY(3px);  }
+  86%  { transform: translateY(-1px); }
+  100% { transform: translateY(0);   }
+}
+.invitation.page-nudge {
+  animation: pageNudge 0.65s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .invitation.page-nudge { animation: none; }
+}
+
 /* ── Navigation dots ── */
 .section-dots {
   position: fixed;
@@ -864,7 +881,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .photo-card img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center center;
   display: block;
   pointer-events: none;
