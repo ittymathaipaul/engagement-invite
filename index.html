@@ -128,17 +128,35 @@
         <!-- Decorative heart art -->
         <div class="rings-art" aria-hidden="true">
           <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" class="rings-svg">
-            <g fill="none" stroke="#c8a04a" stroke-linecap="round" stroke-linejoin="round">
-              <!-- Outer heart -->
-              <path d="M60,90 C30,72 8,55 8,34 C8,18 20,10 35,17 C46,22 57,32 60,22 C63,32 74,22 85,17 C100,10 112,18 112,34 C112,55 90,72 60,90Z"
-                    stroke-width="2.2" fill="rgba(200,160,74,0.10)"/>
-              <!-- Inner heart (decorative echo) -->
-              <path d="M60,75 C38,60 24,48 24,34 C24,22 32,16 44,21 C52,25 58,33 60,27 C62,33 68,25 76,21 C88,16 96,22 96,34 C96,48 82,60 60,75Z"
-                    stroke-width="1.2" opacity="0.45"/>
-              <!-- Diamond at left bump -->
-              <polygon points="35,12 39,17 35,22 31,17" fill="#c8a04a" stroke="none" opacity="0.9"/>
-              <!-- Diamond at right bump -->
-              <polygon points="85,12 89,17 85,22 81,17" fill="#c8a04a" stroke="none" opacity="0.9"/>
+            <defs>
+              <linearGradient id="hFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#ff8478" stop-opacity="0.22"/>
+                <stop offset="100%" stop-color="#960018" stop-opacity="0.06"/>
+              </linearGradient>
+            </defs>
+            <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Outer heart — two cubic beziers per lobe for a smooth, correct shape -->
+              <path d="M60,85
+                       C30,70 8,54 8,32
+                       C8,12 22,5 40,12
+                       C50,17 57,25 60,18
+                       C63,25 70,17 80,12
+                       C98,5 112,12 112,32
+                       C112,54 90,70 60,85Z"
+                    stroke="#960018" stroke-width="2.2" fill="url(#hFill)"/>
+              <!-- Inner echo -->
+              <path d="M60,72
+                       C38,59 24,47 24,32
+                       C24,19 32,14 44,19
+                       C52,23 58,31 60,25
+                       C62,31 68,23 76,19
+                       C88,14 96,19 96,32
+                       C96,47 82,59 60,72Z"
+                    stroke="#cb4c46" stroke-width="1.2" opacity="0.38"/>
+              <!-- Diamond gem at left bump -->
+              <polygon points="37,5 43,11 37,17 31,11" fill="#960018" stroke="none" opacity="0.82"/>
+              <!-- Diamond gem at right bump -->
+              <polygon points="83,5 89,11 83,17 77,11" fill="#960018" stroke="none" opacity="0.82"/>
             </g>
           </svg>
         </div>
@@ -335,6 +353,8 @@
             <p class="venue-card__time">Sun, Apr 19 · 10:10 AM</p>
           </div>
 
+        </div><!-- /.venue-card -->
+
       </div><!-- /.details__inner -->
 
       <!-- 40% height: interactive photo card stack -->
@@ -376,7 +396,7 @@
         <div class="closing__couple">
           <span class="closing__bride">Rosemary</span>
           <svg viewBox="0 0 30 14" class="closing__heart-svg" aria-hidden="true">
-            <path d="M15,12.5 C8,8.5 3,6 3,3.5 C3,1 5.5,0 8,1.5 C10,3 12,3 15,1 C18,3 20,3 22,1.5 C24.5,0 27,1 27,3.5 C27,6 22,8.5 15,12.5Z" fill="#c8a04a"/>
+            <path d="M15,12.5 C8,8.5 3,6 3,3.5 C3,1 5.5,0 8,1.5 C10,3 12,3 15,1 C18,3 20,3 22,1.5 C24.5,0 27,1 27,3.5 C27,6 22,8.5 15,12.5Z" fill="#960018"/>
           </svg>
           <span>Ittymathew</span>
         </div>

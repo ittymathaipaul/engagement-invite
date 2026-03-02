@@ -164,6 +164,24 @@ function goTo(idx) {
   });
 
   setTimeout(() => { isAnimating = false; }, 660);
+
+  // Schedule a scroll-hint nudge after 3 s if there's more content below
+  scheduleNudge(idx);
+}
+
+let nudgeTimer = null;
+function scheduleNudge(idx) {
+  clearTimeout(nudgeTimer);
+  const SECTION_COUNT = SECTION_IDS.length;
+  if (idx >= SECTION_COUNT - 1) return;          // already on last section
+  nudgeTimer = setTimeout(() => {
+    const inv = document.getElementById('invitation');
+    inv.classList.remove('page-nudge');
+    // Force reflow so re-adding the class re-triggers the animation
+    void inv.offsetWidth;
+    inv.classList.add('page-nudge');
+    inv.addEventListener('animationend', () => inv.classList.remove('page-nudge'), { once: true });
+  }, 3000);
 }
 
 function initSections() {
@@ -188,6 +206,7 @@ function initSections() {
   });
   screens[0].classList.add('is-active');
   triggerFadeUp(screens[0]);
+  scheduleNudge(0);
 
   // Show dots
   const dotsNav = document.getElementById('sectionDots');
