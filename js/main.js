@@ -158,11 +158,6 @@ function goTo(idx) {
   screens[idx].scrollTop = 0;
   triggerFadeUp(screens[idx]);
 
-  /* Re-centre the wedding carousel when navigating to that section */
-  if (screens[idx].id === 'wedding') {
-    setTimeout(() => window._wgReposition?.(), 40);
-  }
-
   // Sync dots
   document.querySelectorAll('.section-dot').forEach((dot, i) => {
     dot.classList.toggle('is-active', i === idx);
@@ -295,92 +290,74 @@ function downloadICS() {
 */
 
 /* ════════════════════════════════════════════
-   WEDDING SECTION — PORTRAIT CAROUSEL
-   Inspired by MDJAmin/PwPeVeK CodePen.
-   Inactive slides: narrow slivers (clamp 13%).
-   Active slide:    wide portrait card (clamp 44%).
-   Width animates via CSS flex-basis transition.
-   Track translateX re-centres active slide.
-   Auto-advances every 2.5 s; pauses on hover.
+   WEDDING SECTION — PHOTO CARD STACK
+   Tap the top card → it lifts and arcs off to
+   the side, landing at the back of the pile.
+   Cards cycle infinitely through all 7 photos.
 ════════════════════════════════════════════ */
 (function () {
-  const stage = document.getElementById('wgStage');
-  const track = document.getElementById('wgTrack');
-  if (!stage || !track) return;
+  const deck = document.getElementById('photoDeck');
+  if (!deck) return;
 
-  const slides = Array.from(track.querySelectorAll('.wg__slide'));
-  const n      = slides.length;
-  let   active = 0;
-  let   timer  = null;
+  const cards = Array.from(deck.querySelectorAll('.photo-card'));
+  const n     = cards.length;
+  let   topIdx = 0;  // index of the card currently on top
+  let   busy   = false;
 
-  /* Must match the CSS clamp() values exactly so the offset maths is right.
-     narrowW = clamp(40px, 13% of stageW, 100px)
-     wideW   = clamp(150px, 44% of stageW, 260px)
-     gap     = 8px  (CSS gap: 8px on .wg__track)                        */
-  function resolveWidths() {
-    const w = stage.offsetWidth;
-    return {
-      narrowW : Math.min(Math.max(w * 0.13, 40), 100),
-      wideW   : Math.min(Math.max(w * 0.44, 150), 260),
-      gap     : 8,
-    };
-  }
+  /* A unique "natural" tilt for each photo — gives the casual dump feel */
+  const tilts = [2, -3, 4, -2, 5, -1, 3];
 
-  /* Place the active slide's centre at stage centre.
-     All slides before `active` are narrow; slide `active` is wide.
-     distToCenter = active × (narrowW + gap) + wideW / 2
-     offset = stageW / 2 − distToCenter                              */
-  function position(instant) {
-    const stageW = stage.offsetWidth;
-    const { narrowW, wideW, gap } = resolveWidths();
-    const dist   = active * (narrowW + gap) + wideW / 2;
-    const offset = stageW / 2 - dist;
+  /* depth(i) = how far card i is from the top (0 = top, n-1 = bottom) */
+  function depth(i) { return (i - topIdx + n) % n; }
 
-    if (instant) {
-      track.style.transition = 'none';
-      track.style.transform  = `translateX(${offset}px)`;
-      void track.offsetWidth; /* flush reflow */
-      track.style.transition = '';
-    } else {
-      track.style.transform = `translateX(${offset}px)`;
-    }
+  /* Lay out all cards according to their current depth */
+  function stack(skipIdx) {
+    cards.forEach((card, i) => {
+      if (i === skipIdx) return;   // mid-animation — leave it alone
+      const d     = depth(i);
+      const rot   = tilts[i] * (1 - d * 0.25);  // flatten deeper cards
+      const yOff  = d * 2.5;
+      const scale = 1 - d * 0.016;
+      const dim   = Math.max(1 - d * 0.09, 0.45);
 
-    slides.forEach((s, i) => s.classList.toggle('is-active', i === active));
-  }
-
-  function advance() { active = (active + 1) % n; position(); }
-  function startTimer() { timer = setInterval(advance, 2500); }
-  function stopTimer()  { clearInterval(timer); }
-
-  /* Click a non-active slide to jump to it */
-  slides.forEach((slide, i) => {
-    slide.addEventListener('click', () => {
-      if (i !== active) { active = i; position(); stopTimer(); startTimer(); }
+      card.style.transition = 'transform 0.32s ease, filter 0.32s ease';
+      card.style.zIndex     = n - d;
+      card.style.transform  = `rotate(${rot}deg) translateY(${yOff}px) scale(${scale})`;
+      card.style.filter     = d === 0 ? 'none' : `brightness(${dim})`;
     });
-  });
+  }
 
-  /* Pause auto-advance on hover (desktop) */
-  stage.addEventListener('mouseenter', stopTimer);
-  stage.addEventListener('mouseleave', startTimer);
+  /* Dismiss the top card: lift → arc off to the side → land at back */
+  async function dismiss() {
+    if (busy) return;
+    busy = true;
 
-  /* Swipe left / right */
-  let tx0 = 0;
-  stage.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, { passive: true });
-  stage.addEventListener('touchend',   e => {
-    const dx = tx0 - e.changedTouches[0].clientX;
-    if (Math.abs(dx) > 40) {
-      active = (active + (dx > 0 ? 1 : -1) + n) % n;
-      position(); stopTimer(); startTimer();
-    }
-  }, { passive: true });
+    const card = cards[topIdx];
+    const rot  = tilts[topIdx];
 
-  /* Reposition without animation on resize */
-  window.addEventListener('resize', () => position(true));
+    /* Three-keyframe arc: rest → lift → fly off right */
+    const anim = card.animate([
+      { transform: `rotate(${rot}deg) scale(1)`,                                         filter: 'none',              offset: 0   },
+      { transform: `rotate(${rot}deg) translateY(-20px) scale(1.05)`,                   filter: 'none',              offset: 0.2 },
+      { transform: `rotate(${rot + 14}deg) translateX(145%) translateY(-14px) scale(0.9)`, filter: 'brightness(0.8)', offset: 1   },
+    ], { duration: 500, easing: 'cubic-bezier(0.4, 0, 0.55, 1)', fill: 'forwards' });
 
-  /* Re-centre when section slides into view */
-  window._wgReposition = () => position(true);
+    await anim.finished;
 
-  /* Init */
-  position(true);
-  startTimer();
+    /* Cancel fill:forwards so our inline styles can take over cleanly */
+    anim.cancel();
+
+    /* Advance the deck pointer — card is now at the bottom */
+    topIdx = (topIdx + 1) % n;
+    stack();           /* re-positions everything, including the old top card */
+
+    busy = false;
+  }
+
+  /* Tap / click anywhere on the deck */
+  deck.addEventListener('click', dismiss);
+  deck.addEventListener('touchstart', e => { e.preventDefault(); dismiss(); }, { passive: false });
+
+  /* Initial layout */
+  stack();
 }());

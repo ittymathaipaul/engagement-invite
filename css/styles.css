@@ -810,108 +810,70 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .btn--secondary:hover { background: var(--blush); }
 
 /* ════════════════════════════════════════════
-   WEDDING SECTION — PORTRAIT CAROUSEL
-   Inspired by MDJAmin/PwPeVeK on CodePen.
-
-   40 % of section height. All slides are TALL
-   (portrait cards). Inactive = narrow dark slivers.
-   Active = wide, overlay removed, image zooms in.
-   Width animates via flex-basis transition.
-   No dots. Swipeable.
+   WEDDING SECTION — PHOTO CARD STACK
+   Tap the top card → it arcs off to the side,
+   revealing the next photo in the pile.
 ════════════════════════════════════════════ */
 
-/* 40 % zone: full viewport width, overflow clips side cards */
-.wedding-gallery {
+/* 40 % zone: centred column, room for the card pile */
+.photo-stack {
   flex: 0 0 40%;
-  min-height: 180px;
+  min-height: 190px;
   align-self: stretch;
-  overflow: hidden;
-  position: relative;
-}
-
-/* Stage — same height as .wedding-gallery */
-.wg__stage {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
   display: flex;
-  align-items: center;   /* vertically centre the track */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  overflow: visible;
 }
 
-/* Cap stage width on wide screens so slides don't bloat */
-@media (min-width: 640px) {
-  .wg__stage {
-    max-width: 700px;
-    margin: 0 auto;
-  }
-}
-
-/* Track — flex row, 88 % of stage height, centred vertically */
-.wg__track {
-  display: flex;
-  align-items: stretch;  /* slides fill track height */
-  height: 88%;
-  gap: 8px;
-  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-
-/* ── Inactive slide — narrow portrait sliver ── */
-.wg__slide {
-  flex: 0 0 clamp(40px, 13%, 100px);
-  flex-shrink: 0;
+/* Fixed-size box — all cards are abs-positioned inside it */
+.photo-stack__deck {
   position: relative;
-  border-radius: 14px;
-  overflow: hidden;
+  width: min(56vw, 210px);
+  height: min(74vw, 278px);
   cursor: pointer;
-  /* width animates when active class is toggled */
-  transition: flex-basis 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
 }
 
-/* Dark maroon gradient overlay on inactive slides */
-.wg__slide::after {
-  content: '';
+/* Polaroid-style card — white frame, thick bottom for the label area */
+.photo-card {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    150deg,
-    rgba(150, 0, 24, 0.78) 0%,
-    rgba(50,  0,  0, 0.82) 100%
-  );
-  transition: opacity 0.65s ease;
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* ── Active slide — wide portrait card ── */
-.wg__slide.is-active {
-  flex-basis: clamp(150px, 44%, 260px);
-  cursor: default;
+  background: #fff;
+  border-radius: 2px;
+  padding: 7px 7px 26px;
   box-shadow:
-    0 12px 40px rgba(150, 0, 24, 0.30),
-    0 4px  14px rgba(0,   0,  0, 0.22);
+    0 6px 22px rgba(0, 0, 0, 0.32),
+    0 1px  5px rgba(0, 0, 0, 0.16);
+  will-change: transform, filter;
+  transform-origin: center 85%;
 }
 
-/* Remove overlay on active so the full photo shows */
-.wg__slide.is-active::after {
-  opacity: 0;
-}
-
-/* Image fills the entire slide (portrait fill) */
-.wg__slide img {
+.photo-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center top;
   display: block;
+  pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
-  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Subtle zoom-in on the active photo */
-.wg__slide.is-active img {
-  transform: scale(1.08);
+/* "tap to flip through" label below the pile */
+.photo-stack__hint {
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--c3);
+  opacity: 0.65;
+  user-select: none;
 }
 
 /* ════════════════════════════════════════════
