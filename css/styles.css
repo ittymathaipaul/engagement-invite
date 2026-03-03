@@ -666,15 +666,20 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   overflow: hidden;   /* stop animated cards from extending scroll height */
 }
 
-/* Venue / calendar details zone — lower half */
+/* Venue / calendar details zone — upper 45 % */
 .screen--wedding .details__inner {
-  flex: 1 1 auto;
-  min-height: 200px;
+  flex: 0 0 45%;
+  min-height: 0;
   width: 100%;
   max-width: 440px;
   justify-content: center;
-  padding: 0.8rem 1.5rem 1.2rem;
+  padding: 0.8rem 1.5rem 0.5rem;
   overflow-y: auto;
+}
+
+/* Photo gallery zone — lower 55 % */
+.screen--wedding .photo-stack {
+  flex: 0 0 55%;
 }
 
 .details__inner {
@@ -857,7 +862,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   align-items: center;
   justify-content: flex-start;
   gap: 0.75rem;
-  padding: 20px 32px 1rem;  /* horizontal padding gives shadow room */
+  padding: 6px 32px 0.75rem;  /* horizontal padding gives shadow room */
   overflow: visible;
 }
 
