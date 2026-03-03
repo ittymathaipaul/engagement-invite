@@ -315,6 +315,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   object-fit: cover;
   pointer-events: none;
   user-select: none;
+  border-radius: 5px;
 }
 
 .announcement__inner {
@@ -347,8 +348,6 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 /* Cover photo */
 .rings-art {
   width: clamp(100px, 32vw, 180px);
-  height: clamp(100px, 32vw, 210px);
-  overflow: hidden;
 }
 
 /* Names */
@@ -420,7 +419,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   background: rgba(255,255,255,0.70);
   border: 1px solid rgba(150,0,24,0.18);
   border-radius: var(--radius);
-  padding: 1.2rem 1rem;
+  padding: 0.7rem 0.6rem;
 }
 .family { text-align: center; }
 .family__label {
@@ -436,7 +435,6 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--c1);
-  line-height: 1.4;
 }
 .family__home {
   font-size: 0.72rem;
