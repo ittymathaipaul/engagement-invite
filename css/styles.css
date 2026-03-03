@@ -850,7 +850,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 2rem;
   overflow: hidden;   /* clip side-flying cards so they don't bleed */
 }
 
@@ -865,14 +865,14 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   user-select: none;
 }
 
-/* Card with border frame instead of solid white polaroid */
+/* Polaroid-style photo card: thin white sides, wider white bottom */
 .photo-card {
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.06);
-  border: 2px solid rgba(150, 0, 24, 0.28);
-  border-radius: 4px;
-  padding: 5px;
+  background: #ffffff;
+  border: none;
+  border-radius: 2px;
+  padding: 7px 7px 22px 7px;
   box-shadow:
     0 6px 22px rgba(0, 0, 0, 0.32),
     0 1px  5px rgba(0, 0, 0, 0.16);
@@ -892,27 +892,35 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   -webkit-user-drag: none;
 }
 
-/* ── Scroll arrows — three cascading chevrons ── */
+/* ── Scroll arrows — three cascading chevrons (on all sections) ── */
 .scroll-arrows {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 1px;
   color: var(--c3);
-  flex-shrink: 0;
 }
 .scroll-arrows.is-vibrating {
   animation: vibrate-shake 0.55s ease-in-out;
 }
 
 .scroll-arrow {
-  width: 28px;
-  height: 14px;
+  width: 18px;
+  height: 9px;
   animation: arrow-cascade 1.6s ease-in-out infinite;
 }
 .scroll-arrow--1 { opacity: 0.85; animation-delay: 0s;    }
 .scroll-arrow--2 { opacity: 0.52; animation-delay: 0.22s; }
 .scroll-arrow--3 { opacity: 0.28; animation-delay: 0.44s; }
+
+/* Light arrows on dark countdown background */
+.screen--countdown .scroll-arrows {
+  color: var(--c5);
+}
 
 @keyframes arrow-cascade {
   0%, 100% { transform: translateY(0);   }
