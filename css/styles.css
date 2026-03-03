@@ -665,7 +665,11 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   align-items: center;
   gap: 0;
   background: linear-gradient(170deg, #ffe8e6 0%, #fff0ee 60%, #fff8f7 100%);
-  overflow: hidden;   /* stop animated cards from extending scroll height */
+}
+
+/* Must override .invitation .screen { overflow-y: auto } (specificity 0,2,0) */
+.invitation .screen--wedding {
+  overflow: hidden;
 }
 
 /* Venue / calendar details zone — upper 45 % */
