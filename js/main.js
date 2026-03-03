@@ -201,6 +201,12 @@ function initSections() {
     dot.addEventListener('click', () => goTo(+dot.dataset.section));
   });
 
+  // Scroll arrows → advance to next section
+  document.querySelectorAll('.scroll-arrows').forEach(el => {
+    el.addEventListener('click', e => { e.stopPropagation(); goTo(currentIdx + 1); });
+    el.addEventListener('touchstart', e => { e.stopPropagation(); goTo(currentIdx + 1); }, { passive: true });
+  });
+
   // Swipe
   const inv = document.getElementById('invitation');
   let tY = 0;
