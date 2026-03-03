@@ -1072,9 +1072,8 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 /* ── Mobile: stack names in 3 lines (Rosemary / & / Ittymathew) ── */
 @media (max-width: 600px) {
   .announce__names {
-    flex-direction: column;
     align-items: center;
-    gap: 0.15rem;
+    gap: 0.7rem;
   }
   .announce__name {
     font-size: clamp(2rem, 9vw, 2.8rem);
