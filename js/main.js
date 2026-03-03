@@ -323,16 +323,6 @@ function downloadICS() {
   let   topIdx   = 0;     // index of the card currently on top
   let   busy     = false;
 
-  /* Mark landscape images so CSS can use object-fit:contain for them */
-  cards.forEach(card => {
-    const img = card.querySelector('img');
-    if (!img) return;
-    const check = () => {
-      if (img.naturalWidth > img.naturalHeight) card.classList.add('is-landscape');
-    };
-    if (img.complete) check(); else img.addEventListener('load', check);
-  });
-
   /* A unique "natural" tilt for each photo — gives the casual dump feel */
   const tilts = [2, -3, 4, -2, 5, -1, 3];
 
