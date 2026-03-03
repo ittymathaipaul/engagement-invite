@@ -322,6 +322,7 @@ function downloadICS() {
   const n     = cards.length;
   let   topIdx   = 0;     // index of the card currently on top
   let   busy     = false;
+  let   flipDir  = 1;     // alternates: +1 = right, -1 = left
 
   /* A unique "natural" tilt for each photo — gives the casual dump feel */
   const tilts = [2, -3, 4, -2, 5, -1, 3];
@@ -346,19 +347,22 @@ function downloadICS() {
     });
   }
 
-  /* Dismiss the top card: dissolve out, then land at back of pile */
+  /* Dismiss the top card: arc left or right, then fade as it exits */
   async function dismiss() {
     if (busy) return;
     busy = true;
 
     const card = cards[topIdx];
     const rot  = tilts[topIdx];
+    const dir  = flipDir;
+    flipDir   *= -1;
 
-    /* Dissolve: gently fade + very slight scale-down */
+    /* Slide to the side with increasing tilt, fade starts mid-flight */
     const anim = card.animate([
-      { opacity: 1, transform: `rotate(${rot}deg) scale(1)`,    offset: 0 },
-      { opacity: 0, transform: `rotate(${rot}deg) scale(0.96)`, offset: 1 },
-    ], { duration: 700, easing: 'ease-in-out', fill: 'forwards' });
+      { opacity: 1,   transform: `rotate(${rot}deg) translateX(0)`,                                        offset: 0    },
+      { opacity: 0.8, transform: `rotate(${rot + dir * 12}deg) translateX(${dir * 55}%)`,                  offset: 0.35 },
+      { opacity: 0,   transform: `rotate(${rot + dir * 24}deg) translateX(${dir * 145}%) scale(0.92)`,     offset: 1    },
+    ], { duration: 520, easing: 'ease-in', fill: 'forwards' });
 
     await anim.finished;
 

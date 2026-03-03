@@ -848,7 +848,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
    revealing the next photo in the pile.
 ════════════════════════════════════════════ */
 
-/* Photo gallery zone — upper portion, clips horizontal card fly-off */
+/* Photo gallery zone — section handles card fly-off clipping */
 .photo-stack {
   flex: 0 0 auto;
   align-self: center;
@@ -857,10 +857,8 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   align-items: center;
   justify-content: flex-start;
   gap: 0.75rem;
-  padding-top: 20px;
-  padding-bottom: 1rem;
-  overflow-x: hidden;   /* clip side-flying cards so they don't bleed */
-  overflow-y: visible;
+  padding: 20px 32px 1rem;  /* horizontal padding gives shadow room */
+  overflow: visible;
 }
 
 /* Fixed-width box, height flows from aspect-ratio — all cards are abs-positioned inside it */
@@ -892,7 +890,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .photo-card img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center center;
   display: block;
   border-radius: 2px;
