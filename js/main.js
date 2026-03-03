@@ -340,7 +340,7 @@ function downloadICS() {
       const scale = 1 - d * 0.016;
       const dim   = Math.max(1 - d * 0.09, 0.45);
 
-      card.style.transition = 'transform 0.32s ease, filter 0.32s ease';
+      card.style.transition = 'transform 0.50s cubic-bezier(0.22, 1, 0.36, 1), filter 0.50s ease';
       card.style.zIndex     = n - d;
       card.style.transform  = `rotate(${rot}deg) translateY(${yOff}px) scale(${scale})`;
       card.style.filter     = d === 0 ? 'none' : `brightness(${dim})`;
@@ -365,7 +365,7 @@ function downloadICS() {
       { transform: `rotate(${rot}deg) scale(1)`,                                  filter: 'none',              offset: 0   },
       { transform: `rotate(${rot}deg) translateY(-20px) scale(1.05)`,             filter: 'none',              offset: 0.2 },
       { transform: `rotate(${rx}deg) translateX(${tx}) translateY(-14px) scale(0.9)`, filter: 'brightness(0.8)', offset: 1   },
-    ], { duration: 500, easing: 'cubic-bezier(0.4, 0, 0.55, 1)', fill: 'forwards' });
+    ], { duration: 650, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' });
 
     await anim.finished;
 
@@ -381,14 +381,14 @@ function downloadICS() {
   }
 
   /* Auto-advance every 2.8 s, alternating left/right */
-  let timer = setInterval(dismiss, 2800);
+  let timer = setInterval(dismiss, 2000);
 
   /* Tap resets the timer so it doesn't double-fire */
   function onTap(e) {
     e.preventDefault();
     clearInterval(timer);
     dismiss();
-    timer = setInterval(dismiss, 2800);
+    timer = setInterval(dismiss, 2000);
   }
 
   deck.addEventListener('click',      onTap);

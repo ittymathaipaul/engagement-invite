@@ -251,7 +251,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   transform: translateY(100%);           /* default: below viewport */
-  transition: transform 0.60s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: transform 0.70s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 .invitation .screen.is-active {
@@ -320,6 +320,18 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   background: linear-gradient(175deg, #fff0ee 0%, #fff5f4 60%, #fff8f7 100%);
   padding: 2.5rem 1.5rem;
   justify-content: center;
+}
+
+.announcement__ornament {
+  position: absolute;
+  width: 90%;
+  max-width: 480px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
 }
 
 .announcement__inner {
@@ -872,7 +884,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   background: #ffffff;
   border: none;
   border-radius: 2px;
-  padding: 7px 7px 22px 7px;
+  padding: 4px 4px 10px 4px;
   box-shadow:
     0 6px 22px rgba(0, 0, 0, 0.32),
     0 1px  5px rgba(0, 0, 0, 0.16);
@@ -895,7 +907,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 /* ── Scroll arrows — three cascading chevrons (on all sections) ── */
 .scroll-arrows {
   position: absolute;
-  bottom: 14px;
+  bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
