@@ -1069,6 +1069,8 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.65s ease, transform 0.65s ease;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
 }
 .anim-fadeup.visible {
   opacity: 1;
