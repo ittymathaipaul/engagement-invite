@@ -175,12 +175,12 @@ function scheduleNudge(idx) {
   const SECTION_COUNT = SECTION_IDS.length;
   if (idx >= SECTION_COUNT - 1) return;          // already on last section
   nudgeTimer = setTimeout(() => {
-    const inv = document.getElementById('invitation');
-    inv.classList.remove('page-nudge');
-    // Force reflow so re-adding the class re-triggers the animation
-    void inv.offsetWidth;
-    inv.classList.add('page-nudge');
-    inv.addEventListener('animationend', () => inv.classList.remove('page-nudge'), { once: true });
+    const arrows = document.getElementById('scrollArrows');
+    if (!arrows) return;
+    arrows.classList.remove('is-vibrating');
+    void arrows.offsetWidth;
+    arrows.classList.add('is-vibrating');
+    arrows.addEventListener('animationend', () => arrows.classList.remove('is-vibrating'), { once: true });
   }, 3000);
 }
 

@@ -326,8 +326,9 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 
 .announcement__ornament {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: cover;
   pointer-events: none;
   user-select: none;
 }
@@ -362,7 +363,9 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 /* Rings art */
 .rings-art {
   width: clamp(100px, 32vw, 150px);
+  height: clamp(100px, 32vw, 150px);
   overflow: hidden;
+  border-radius: 50%;
 }
 
 /* Names */
