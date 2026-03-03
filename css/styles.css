@@ -323,11 +323,11 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 }
 
 .announcement__ornament {
-  width: clamp(90px, 28vw, 130px);
-  opacity: 0.72;
+  width: 100%;
+  height: auto;
+  display: block;
   pointer-events: none;
   user-select: none;
-  display: block;
 }
 
 .announcement__inner {
@@ -359,8 +359,8 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 
 /* Rings art */
 .rings-art {
-  display: flex;
-  justify-content: center;
+  width: clamp(100px, 32vw, 150px);
+  overflow: hidden;
 }
 
 /* Names */
