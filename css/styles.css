@@ -850,38 +850,38 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 
 /* Photo gallery zone — upper portion, clips horizontal card fly-off */
 .photo-stack {
-  flex: 0 0 54%;
-  min-height: 200px;
-  align-self: stretch;
+  flex: 0 0 auto;
+  align-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 0.55rem;
+  gap: 0.75rem;
   padding-top: 20px;
-  padding-bottom: 2rem;
-  overflow: hidden;   /* clip side-flying cards so they don't bleed */
+  padding-bottom: 1rem;
+  overflow-x: hidden;   /* clip side-flying cards so they don't bleed */
+  overflow-y: visible;
 }
 
-/* Fixed-size box — all cards are abs-positioned inside it */
+/* Fixed-width box, height flows from aspect-ratio — all cards are abs-positioned inside it */
 .photo-stack__deck {
   position: relative;
-  width: min(60vw, 220px);
-  height: min(66vw, 245px);
+  width: min(58vw, 210px);
+  aspect-ratio: 2 / 3;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   user-select: none;
 }
 
-/* Polaroid-style photo card: thin white sides, wider white bottom */
+/* Polaroid-style photo card: thin white sides/top, thick white bottom tab */
 .photo-card {
   position: absolute;
   inset: 0;
   background: #ffffff;
   border: none;
   border-radius: 2px;
-  padding: 4px 4px 10px 4px;
+  padding: 10px 10px 40px 10px;
   box-shadow:
     0 6px 22px rgba(0, 0, 0, 0.32),
     0 1px  5px rgba(0, 0, 0, 0.16);
@@ -892,19 +892,13 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .photo-card img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center center;
   display: block;
   border-radius: 2px;
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
-}
-
-/* Landscape photos: show full image, white polaroid border acts as letterbox */
-.photo-card.is-landscape img {
-  object-fit: contain;
-  object-position: center center;
 }
 
 /* ── Scroll arrows — three cascading chevrons (on all sections) ── */
@@ -931,6 +925,12 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 .scroll-arrow--1 { opacity: 0.85; animation-delay: 0s;    }
 .scroll-arrow--2 { opacity: 0.52; animation-delay: 0.22s; }
 .scroll-arrow--3 { opacity: 0.28; animation-delay: 0.44s; }
+
+/* Arrows inside the photo-stack flow below the deck, not absolute */
+.photo-stack .scroll-arrows {
+  position: static;
+  transform: none;
+}
 
 /* Light arrows on dark countdown background */
 .screen--countdown .scroll-arrows {
