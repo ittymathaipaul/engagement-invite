@@ -901,6 +901,12 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   -webkit-user-drag: none;
 }
 
+/* Landscape photos: show full image, white polaroid border acts as letterbox */
+.photo-card.is-landscape img {
+  object-fit: contain;
+  object-position: center center;
+}
+
 /* ── Scroll arrows — three cascading chevrons (on all sections) ── */
 .scroll-arrows {
   position: absolute;
