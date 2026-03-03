@@ -325,7 +325,7 @@ function downloadICS() {
   let   flipDir  = 1;     // alternates: +1 = right, -1 = left
 
   /* A unique "natural" tilt for each photo — gives the casual dump feel */
-  const tilts = [2, -3, 4, -2, 5, -1, 3];
+  const tilts = [2, -3, 4, -2, 5, -1, 3, -4, 2, -2];
 
   /* depth(i) = how far card i is from the top (0 = top, n-1 = bottom) */
   function depth(i) { return (i - topIdx + n) % n; }
