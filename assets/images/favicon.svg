@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Envelope body -->
+  <rect x="2" y="8" width="28" height="18" rx="2" ry="2" fill="#7a0015"/>
+  <!-- V-flap (open) -->
+  <path d="M2 10 L16 20 L30 10" fill="none" stroke="#f5e6c8" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Envelope sides (subtle shading) -->
+  <path d="M2 26 L11 17" fill="none" stroke="#f5e6c8" stroke-width="1" stroke-opacity="0.5"/>
+  <path d="M30 26 L21 17" fill="none" stroke="#f5e6c8" stroke-width="1" stroke-opacity="0.5"/>
+</svg>
