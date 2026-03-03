@@ -324,7 +324,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 
 .announcement__ornament {
   width: clamp(90px, 28vw, 130px);
-  opacity: 0.72;
+  opacity: 1;
   pointer-events: none;
   user-select: none;
   display: block;
