@@ -856,8 +856,9 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.55rem;
+  padding-top: 20px;
   padding-bottom: 2rem;
   overflow: hidden;   /* clip side-flying cards so they don't bleed */
 }
@@ -903,7 +904,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 /* ── Scroll arrows — three cascading chevrons (on all sections) ── */
 .scroll-arrows {
   position: absolute;
-  bottom: 32px;
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -1005,8 +1006,10 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   color: var(--gold-pale);
 }
 .closing__heart-svg {
-  width: 30px;
+  width: 22px;
+  height: auto;
   flex-shrink: 0;
+  opacity: 0.75;
 }
 
 .closing__date {

@@ -322,7 +322,6 @@ function downloadICS() {
   const n     = cards.length;
   let   topIdx   = 0;     // index of the card currently on top
   let   busy     = false;
-  let   flipCount = 0;   // tracks total flips so direction alternates L/R
 
   /* A unique "natural" tilt for each photo — gives the casual dump feel */
   const tilts = [2, -3, 4, -2, 5, -1, 3];
@@ -347,7 +346,7 @@ function downloadICS() {
     });
   }
 
-  /* Dismiss the top card: lift → arc off to the side → land at back */
+  /* Dismiss the top card: dissolve out, then land at back of pile */
   async function dismiss() {
     if (busy) return;
     busy = true;
@@ -355,17 +354,11 @@ function downloadICS() {
     const card = cards[topIdx];
     const rot  = tilts[topIdx];
 
-    /* Alternate direction: odd flips go left, even go right */
-    const dir = (flipCount % 2 === 0) ? 1 : -1;
-    const tx  = `${dir * 145}%`;
-    const rx  = rot + dir * 14;
-
-    /* Three-keyframe arc: rest → lift → fly off (left or right) */
+    /* Dissolve: gently fade + very slight scale-down */
     const anim = card.animate([
-      { transform: `rotate(${rot}deg) scale(1)`,                                  filter: 'none',              offset: 0   },
-      { transform: `rotate(${rot}deg) translateY(-20px) scale(1.05)`,             filter: 'none',              offset: 0.2 },
-      { transform: `rotate(${rx}deg) translateX(${tx}) translateY(-14px) scale(0.9)`, filter: 'brightness(0.8)', offset: 1   },
-    ], { duration: 650, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' });
+      { opacity: 1, transform: `rotate(${rot}deg) scale(1)`,    offset: 0 },
+      { opacity: 0, transform: `rotate(${rot}deg) scale(0.96)`, offset: 1 },
+    ], { duration: 700, easing: 'ease-in-out', fill: 'forwards' });
 
     await anim.finished;
 
@@ -374,7 +367,6 @@ function downloadICS() {
 
     /* Advance the deck pointer — card is now at the bottom */
     topIdx = (topIdx + 1) % n;
-    flipCount++;
     stack();           /* re-positions everything, including the old top card */
 
     busy = false;
