@@ -165,23 +165,6 @@ function goTo(idx) {
 
   setTimeout(() => { isAnimating = false; }, 660);
 
-  // Schedule a scroll-hint nudge after 3 s if there's more content below
-  scheduleNudge(idx);
-}
-
-let nudgeTimer = null;
-function scheduleNudge(idx) {
-  clearTimeout(nudgeTimer);
-  const SECTION_COUNT = SECTION_IDS.length;
-  if (idx >= SECTION_COUNT - 1) return;          // already on last section
-  nudgeTimer = setTimeout(() => {
-    const arrows = document.getElementById('scrollArrows');
-    if (!arrows) return;
-    arrows.classList.remove('is-vibrating');
-    void arrows.offsetWidth;
-    arrows.classList.add('is-vibrating');
-    arrows.addEventListener('animationend', () => arrows.classList.remove('is-vibrating'), { once: true });
-  }, 3000);
 }
 
 function initSections() {
@@ -206,7 +189,6 @@ function initSections() {
   });
   screens[0].classList.add('is-active');
   triggerFadeUp(screens[0]);
-  scheduleNudge(0);
 
   // Show dots
   const dotsNav = document.getElementById('sectionDots');
