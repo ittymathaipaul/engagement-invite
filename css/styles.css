@@ -315,6 +315,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   object-fit: cover;
   pointer-events: none;
   user-select: none;
+  border-radius: 4px;
 }
 
 .announcement__inner {
@@ -344,12 +345,9 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
   text-align: center;
 }
 
-/* Rings art */
+/* Cover photo */
 .rings-art {
-  width: clamp(100px, 32vw, 150px);
-  height: clamp(100px, 32vw, 150px);
-  overflow: hidden;
-  border-radius: 50%;
+  width: clamp(180px, 60vw, 260px);
 }
 
 /* Names */
