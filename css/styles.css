@@ -348,6 +348,7 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 /* Cover photo */
 .rings-art {
   width: clamp(100px, 32vw, 180px);
+  filter: drop-shadow(0 10px 18px rgba(150, 0, 24, 0.45));
 }
 
 /* Names */
