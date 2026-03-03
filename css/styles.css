@@ -323,15 +323,11 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 }
 
 .announcement__ornament {
-  position: absolute;
-  width: 90%;
-  max-width: 480px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.05;
+  width: clamp(90px, 28vw, 130px);
+  opacity: 0.72;
   pointer-events: none;
   user-select: none;
+  display: block;
 }
 
 .announcement__inner {
@@ -363,9 +359,9 @@ button { cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: tra
 
 /* Rings art */
 .rings-art {
-  width: clamp(130px, 40vw, 180px);
+  display: flex;
+  justify-content: center;
 }
-.rings-svg { width: 100%; }
 
 /* Names */
 .announce__names {
